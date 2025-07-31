@@ -1,6 +1,44 @@
 {
-  "lastUpdated": "2025-07-31T22:58:48.524Z",
-  "members": [],
+  "lastUpdated": "2025-07-31T23:27:47.780Z",
+  "members": [
+    {
+      "id": 1754004467779,
+      "username": "Falowyn",
+      "carPower": 60000000,
+      "towerLevel": 30,
+      "timezone": "UTC-12",
+      "availability": {
+        "monday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot7"
+        ],
+        "wednesday": [
+          "slot7"
+        ],
+        "thursday": [
+          "slot7"
+        ],
+        "friday": [
+          "slot7"
+        ],
+        "saturday": [
+          "slot7"
+        ],
+        "sunday": [
+          "slot7",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-07-31T23:27:47.779Z"
+    }
+  ],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "Your Alliance Name",
@@ -49,5 +87,5 @@
       }
     }
   },
-  "sha": "20da507c96e9d563b08d1bb6d66f688102f58954"
+  "sha": "773595024f4223c6046b06126a8f6b43ada8e38f"
 }
