@@ -539,12 +539,17 @@
         <div id="pendingList"></div>
       </div>
 
-             <div class="timeline">
-         <h2>Alliance Timeline (UTC)</h2>
-         <div id="timelineView"></div>
-       </div>
+      <div class="timeline">
+        <h2>Alliance Timeline (UTC)</h2>
+        <div id="timelineView"></div>
+      </div>
 
-       <div class="members-grid" id="membersGrid"></div>
+      <div style="margin: 40px 0 20px">
+        <h2 style="color: #4a9eff; text-align: center; margin-bottom: 20px">
+          Alliance Members
+        </h2>
+        <div class="members-grid" id="membersGrid"></div>
+      </div>
     </div>
 
     <script>
@@ -555,6 +560,8 @@
       let authToken = localStorage.getItem("githubToken");
       let isR4 = false;
       let currentData = null;
+      let userSelections =
+        JSON.parse(localStorage.getItem("timeSlotSelections")) || {};
 
       // Time slot definitions - 2 hour blocks
       const TIME_SLOTS = [
@@ -772,6 +779,10 @@
         document.querySelectorAll(".time-slot-btn.active").forEach((btn) => {
           btn.classList.remove("active");
         });
+
+        // Clear localStorage selections
+        userSelections = {};
+        localStorage.removeItem("timeSlotSelections");
       }
 
       function toggleTimeSlot(day, slotId) {
@@ -779,6 +790,22 @@
           `[data-day="${day}"][data-slot="${slotId}"]`
         );
         btn.classList.toggle("active");
+
+        // Save to localStorage
+        if (!userSelections[day]) userSelections[day] = [];
+        const index = userSelections[day].indexOf(slotId);
+        if (index > -1) {
+          userSelections[day].splice(index, 1);
+          if (userSelections[day].length === 0) {
+            delete userSelections[day];
+          }
+        } else {
+          userSelections[day].push(slotId);
+        }
+        localStorage.setItem(
+          "timeSlotSelections",
+          JSON.stringify(userSelections)
+        );
       }
 
       function approvePending(id) {
@@ -829,116 +856,73 @@
 
         // Headers
         if (isMobile) {
-          // Mobile: Show time slots in groups
+          // Mobile: Show time slots as individual cards
           document.getElementById("timeSlotHeaders").innerHTML = `
                     <div style="margin-bottom: 20px;">
-                        ${MOBILE_SLOT_GROUPS.map(
-                          (group) => `
-                            <div style="margin-bottom: 15px;">
-                                <h4 style="color: #4a9eff; margin-bottom: 10px;">${
-                                  group.label
-                                }</h4>
-                                <div class="time-slot-grid">
-                                    <div></div>
-                                    ${group.slots
-                                      .map((slotId) => {
-                                        const slot = TIME_SLOTS.find(
-                                          (s) => s.id === slotId
-                                        );
-                                        return `<div class="time-slot-header">${slot.name}</div>`;
-                                      })
-                                      .join("")}
-                                </div>
-                                ${days
-                                  .map(
-                                    (day) => `
-                                    <div class="time-slot-grid">
-                                        <div class="time-slot-day">${day.slice(
-                                          0,
-                                          3
-                                        )}</div>
-                                        ${group.slots
-                                          .map(
-                                            (slotId) => `
-                                            <div class="time-slot-btn" 
+                        ${days
+                          .map(
+                            (day) => `
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #4a9eff; margin-bottom: 15px; text-align: center; font-size: 1.1em;">${day}</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                    ${TIME_SLOTS.map((slot) => {
+                                      const isActive =
+                                        userSelections[day.toLowerCase()] &&
+                                        userSelections[
+                                          day.toLowerCase()
+                                        ].includes(slot.id);
+                                      return `
+                                            <div class="time-slot-btn ${
+                                              isActive ? "active" : ""
+                                            }" 
                                                  data-day="${day.toLowerCase()}" 
-                                                 data-slot="${slotId}"
-                                                 onclick="toggleTimeSlot('${day.toLowerCase()}', '${slotId}')">
-                                                ✓
+                                                 data-slot="${slot.id}"
+                                                 onclick="toggleTimeSlot('${day.toLowerCase()}', '${
+                                        slot.id
+                                      }')"
+                                                 style="padding: 15px 10px; min-height: 60px; font-size: 13px; font-weight: 600;">
+                                                ${slot.name}
                                             </div>
-                                        `
-                                          )
-                                          .join("")}
-                                    </div>
-                                `
-                                  )
-                                  .join("")}
+                                        `;
+                                    }).join("")}
+                                </div>
                             </div>
                         `
-                        ).join("")}
+                          )
+                          .join("")}
                     </div>
                 `;
           document.getElementById("timeSlotInputs").innerHTML = "";
         } else {
-          // Desktop: Show all slots in one grid
-          document.getElementById("timeSlotHeaders").innerHTML = `
-                    <div class="time-slot-grid">
-                        <div></div>
-                        ${TIME_SLOTS.slice(0, 6)
-                          .map(
-                            (slot) =>
-                              `<div class="time-slot-header">${slot.name}</div>`
-                          )
-                          .join("")}
-                    </div>
-                    <div class="time-slot-grid">
-                        <div></div>
-                        ${TIME_SLOTS.slice(6)
-                          .map(
-                            (slot) =>
-                              `<div class="time-slot-header">${slot.name}</div>`
-                          )
-                          .join("")}
-                    </div>
-                `;
+          // Desktop: Show all slots in a clean grid with times visible
+          document.getElementById("timeSlotHeaders").innerHTML = "";
 
           document.getElementById("timeSlotInputs").innerHTML = days
             .map(
               (day) => `
-                    <div>
-                        <div class="time-slot-grid">
-                            <div class="time-slot-day">${day}</div>
-                            ${TIME_SLOTS.slice(0, 6)
-                              .map(
-                                (slot) => `
-                                <div class="time-slot-btn" 
-                                     data-day="${day.toLowerCase()}" 
-                                     data-slot="${slot.id}"
-                                     onclick="toggleTimeSlot('${day.toLowerCase()}', '${
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #4a9eff; margin-bottom: 15px; font-size: 1.1em;">${day}</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                            ${TIME_SLOTS.map((slot) => {
+                              const isActive =
+                                userSelections[day.toLowerCase()] &&
+                                userSelections[day.toLowerCase()].includes(
                                   slot.id
-                                }')">
-                                    Available
-                                </div>
-                            `
-                              )
-                              .join("")}
-                        </div>
-                        <div class="time-slot-grid">
-                            <div></div>
-                            ${TIME_SLOTS.slice(6)
-                              .map(
-                                (slot) => `
-                                <div class="time-slot-btn" 
-                                     data-day="${day.toLowerCase()}" 
-                                     data-slot="${slot.id}"
-                                     onclick="toggleTimeSlot('${day.toLowerCase()}', '${
-                                  slot.id
-                                }')">
-                                    Available
-                                </div>
-                            `
-                              )
-                              .join("")}
+                                );
+                              return `
+                                    <div class="time-slot-btn ${
+                                      isActive ? "active" : ""
+                                    }" 
+                                         data-day="${day.toLowerCase()}" 
+                                         data-slot="${slot.id}"
+                                         onclick="toggleTimeSlot('${day.toLowerCase()}', '${
+                                slot.id
+                              }')"
+                                         style="padding: 12px 8px; min-height: 50px; font-size: 14px; font-weight: 600;">
+                                        ${slot.name}
+                                    </div>
+                                `;
+                            }).join("")}
                         </div>
                     </div>
                 `
@@ -1160,8 +1144,8 @@
       }
       loadData();
 
-      // Auto-refresh every 30 seconds
-      setInterval(loadData, 30000);
+      // Auto-refresh every 2 minutes to avoid disrupting user input
+      setInterval(loadData, 120000);
 
       // Re-render on window resize for responsive layout
       let resizeTimeout;
