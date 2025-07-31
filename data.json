@@ -1,0 +1,14 @@
+{
+    "lastUpdated": "",
+    "members": [],
+    "pendingSubmissions": [],
+    "config": {
+      "allianceName": "Your Alliance Name",
+      "timezones": ["UTC-12", "UTC-11", "UTC-10", "UTC-9", "UTC-8", "UTC-7", "UTC-6", "UTC-5", "UTC-4", "UTC-3", "UTC-2", "UTC-1", "UTC", "UTC+1", "UTC+2", "UTC+3", "UTC+4", "UTC+5", "UTC+6", "UTC+7", "UTC+8", "UTC+9", "UTC+10", "UTC+11", "UTC+12"],
+      "eventTypes": {
+        "rally": { "name": "Rally", "minPlayers": 5, "color": "#ff4444" },
+        "defense": { "name": "Defense", "minPlayers": 10, "color": "#4444ff" },
+        "gathering": { "name": "Gathering", "minPlayers": 3, "color": "#44ff44" }
+      }
+    }
+  }
