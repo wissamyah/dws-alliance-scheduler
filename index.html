@@ -30,6 +30,10 @@
             border-radius: 10px;
             margin-bottom: 30px;
             border: 1px solid #2a2a3e;
+            transition: all 0.3s ease;
+        }
+        .auth-section.hidden {
+            display: none;
         }
         .auth-section input {
             background: #0a0a0a;
@@ -161,7 +165,45 @@
         }
         .success { background: #1a3a1a; color: #44ff44; }
         .error { background: #3a1a1a; color: #ff4444; }
-        .hidden { display: none; }
+        .time-slot-grid {
+            display: grid;
+            grid-template-columns: 100px repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .time-slot-header {
+            font-weight: bold;
+            color: #4a9eff;
+            text-align: center;
+            padding: 10px;
+            background: #0a0a0a;
+            border-radius: 5px;
+        }
+        .time-slot-day {
+            font-weight: 500;
+            color: #888;
+            padding: 5px;
+        }
+        .time-slot-btn {
+            padding: 10px;
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 14px;
+        }
+        .time-slot-btn:hover {
+            border-color: #4a9eff;
+            transform: scale(1.05);
+        }
+        .time-slot-btn.active {
+            background: #4a9eff;
+            border-color: #4a9eff;
+            color: white;
+        }
         #loadingIndicator {
             position: fixed;
             top: 20px;
@@ -184,14 +226,16 @@
 
         <div id="messageArea"></div>
 
-        <div class="auth-section">
+        <div id="authSection" class="auth-section">
             <h2>Authentication</h2>
             <p style="margin-bottom: 15px;">
                 <span id="authStatus">Not authenticated</span>
             </p>
-            <input type="password" id="githubToken" placeholder="GitHub Token (for R4s only)">
-            <button class="btn" onclick="authenticateR4()">Authenticate as R4</button>
-            <button class="btn btn-danger" onclick="logout()">Logout</button>
+            <div id="authControls">
+                <input type="password" id="githubToken" placeholder="GitHub Token (for R4s only)">
+                <button class="btn" onclick="authenticateR4()">Authenticate as R4</button>
+            </div>
+            <button class="btn btn-danger" onclick="logout()" id="logoutBtn" style="display: none;">Logout</button>
         </div>
 
         <div class="member-form">
@@ -215,7 +259,15 @@
                 </div>
             </div>
             <h3 style="margin: 20px 0 10px;">Available Time Slots (in your timezone)</h3>
-            <div id="timeSlotInputs" class="form-grid"></div>
+            <p style="color: #888; margin-bottom: 15px; font-size: 14px;">Click the time blocks when you're usually available to play</p>
+            <div class="time-slot-grid">
+                <div></div>
+                <div class="time-slot-header">Morning<br>6AM-12PM</div>
+                <div class="time-slot-header">Afternoon<br>12PM-6PM</div>
+                <div class="time-slot-header">Evening<br>6PM-12AM</div>
+                <div class="time-slot-header">Night<br>12AM-6AM</div>
+            </div>
+            <div id="timeSlotInputs"></div>
             <button class="btn btn-success" onclick="submitMemberInfo()">Submit Information</button>
         </div>
 
@@ -233,7 +285,7 @@
     </div>
 
     <script>
-        const REPO_OWNER = 'wissamyah'; // CHANGE THIS
+        const REPO_OWNER = 'YOUR_GITHUB_USERNAME'; // CHANGE THIS
         const REPO_NAME = 'dws-alliance-scheduler';
         const DATA_FILE = 'data.json';
         
@@ -302,6 +354,9 @@
             updateAuthStatus();
             renderUI();
             showMessage('Authenticated as R4!', 'success');
+            
+            // Hide auth section for R4s
+            document.getElementById('authSection').classList.add('hidden');
         }
 
         function logout() {
@@ -311,11 +366,17 @@
             document.getElementById('githubToken').value = '';
             updateAuthStatus();
             renderUI();
+            
+            // Show auth section again
+            document.getElementById('authSection').classList.remove('hidden');
         }
 
         function updateAuthStatus() {
-            document.getElementById('authStatus').textContent = isR4 ? 'Authenticated as R4' : 'Not authenticated';
-            document.getElementById('pendingSection').classList.toggle('hidden', !isR4);
+            const isAuthenticated = isR4;
+            document.getElementById('authStatus').textContent = isAuthenticated ? 'Authenticated as R4' : 'Not authenticated';
+            document.getElementById('pendingSection').classList.toggle('hidden', !isAuthenticated);
+            document.getElementById('authControls').style.display = isAuthenticated ? 'none' : 'block';
+            document.getElementById('logoutBtn').style.display = isAuthenticated ? 'inline-block' : 'none';
         }
 
         function submitMemberInfo() {
@@ -330,11 +391,19 @@
             }
 
             const timeSlots = {};
-            ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].forEach(day => {
-                const start = document.getElementById(`${day}-start`).value;
-                const end = document.getElementById(`${day}-end`).value;
-                if (start && end) {
-                    timeSlots[day] = [`${start}-${end}`];
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            const periods = ['morning', 'afternoon', 'evening', 'night'];
+            
+            days.forEach(day => {
+                const daySlots = [];
+                periods.forEach(period => {
+                    const btn = document.querySelector(`[data-day="${day}"][data-period="${period}"]`);
+                    if (btn && btn.classList.contains('active')) {
+                        daySlots.push(period);
+                    }
+                });
+                if (daySlots.length > 0) {
+                    timeSlots[day] = daySlots;
                 }
             });
 
@@ -363,6 +432,15 @@
             document.getElementById('username').value = '';
             document.getElementById('carPower').value = '';
             document.getElementById('towerLevel').value = '';
+            // Clear time slots
+            document.querySelectorAll('.time-slot-btn.active').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        function toggleTimeSlot(day, period) {
+            const btn = document.querySelector(`[data-day="${day}"][data-period="${period}"]`);
+            btn.classList.toggle('active');
         }
 
         function approvePending(id) {
@@ -395,14 +473,20 @@
             ).join('');
 
             // Render time slot inputs
-            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const periods = ['morning', 'afternoon', 'evening', 'night'];
+            
             document.getElementById('timeSlotInputs').innerHTML = days.map(day => `
-                <div class="form-group">
-                    <label>${day.charAt(0).toUpperCase() + day.slice(1)}</label>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="time" id="${day}-start" style="flex: 1;">
-                        <input type="time" id="${day}-end" style="flex: 1;">
-                    </div>
+                <div class="time-slot-grid">
+                    <div class="time-slot-day">${day}</div>
+                    ${periods.map(period => `
+                        <div class="time-slot-btn" 
+                             data-day="${day.toLowerCase()}" 
+                             data-period="${period}"
+                             onclick="toggleTimeSlot('${day.toLowerCase()}', '${period}')">
+                            Available
+                        </div>
+                    `).join('')}
                 </div>
             `).join('');
 
@@ -429,8 +513,8 @@
                     </div>
                     <div class="stats">Timezone: ${member.timezone}</div>
                     <div class="time-slots">
-                        ${Object.entries(member.availability || {}).map(([day, slots]) => 
-                            `<div>${day}: ${slots.join(', ')}</div>`
+                        ${Object.entries(member.availability || {}).map(([day, periods]) => 
+                            `<div><strong>${day}:</strong> ${periods.join(', ')}</div>`
                         ).join('')}
                     </div>
                     ${isR4 ? `<button class="btn btn-danger" onclick="deleteMember(${member.id})">Delete</button>` : ''}
@@ -455,23 +539,56 @@
 
         function renderTimeline() {
             const view = document.getElementById('timelineView');
-            const hours = Array.from({length: 24}, (_, i) => i);
+            const periods = [
+                { name: 'Night', hours: '12AM-6AM' },
+                { name: 'Morning', hours: '6AM-12PM' },
+                { name: 'Afternoon', hours: '12PM-6PM' },
+                { name: 'Evening', hours: '6PM-12AM' }
+            ];
+            
+            // Count members available in each period
+            const availability = {};
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            
+            days.forEach(day => {
+                availability[day] = {};
+                periods.forEach(p => {
+                    const periodName = p.name.toLowerCase();
+                    availability[day][periodName] = currentData.members.filter(m => 
+                        m.availability[day] && m.availability[day].includes(periodName)
+                    ).length;
+                });
+            });
             
             view.innerHTML = `
-                <div class="timeline-header">
-                    <div>Member</div>
-                    ${hours.map(h => `<div>${h}:00</div>`).join('')}
-                </div>
-                ${currentData.members.map(member => {
-                    const availability = new Array(24).fill(false);
-                    // This is simplified - you'd need to convert timezones properly
-                    return `
-                        <div class="timeline-row">
-                            <div style="font-size: 12px;">${member.username}</div>
-                            ${hours.map(h => `<div class="timeline-cell ${availability[h] ? 'available' : ''}"></div>`).join('')}
+                <div style="display: grid; grid-template-columns: 100px repeat(4, 1fr); gap: 10px; margin-top: 20px;">
+                    <div></div>
+                    ${periods.map(p => `<div style="text-align: center; font-weight: bold; color: #4a9eff;">${p.name}<br><small>${p.hours}</small></div>`).join('')}
+                    ${days.map(day => `
+                        <div style="display: contents;">
+                            <div style="font-weight: 500; color: #888; text-transform: capitalize;">${day}</div>
+                            ${periods.map(p => {
+                                const count = availability[day][p.name.toLowerCase()];
+                                const intensity = Math.min(count * 20, 100);
+                                return `
+                                    <div style="
+                                        background: ${count > 0 ? `rgba(68, 255, 68, ${intensity/100})` : '#0a0a0a'};
+                                        color: ${count > 0 ? '#000' : '#666'};
+                                        padding: 15px;
+                                        border-radius: 5px;
+                                        text-align: center;
+                                        border: 1px solid #333;
+                                    ">
+                                        ${count} ${count === 1 ? 'member' : 'members'}
+                                    </div>
+                                `;
+                            }).join('')}
                         </div>
-                    `;
-                }).join('')}
+                    `).join('')}
+                </div>
+                <div style="margin-top: 20px; text-align: center; color: #888; font-size: 14px;">
+                    Brighter green = more members available
+                </div>
             `;
         }
 
@@ -489,6 +606,8 @@
         if (authToken) {
             isR4 = true;
             updateAuthStatus();
+            // Hide auth section if already authenticated
+            document.getElementById('authSection').classList.add('hidden');
         }
         loadData();
         
