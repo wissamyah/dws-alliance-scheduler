@@ -32,6 +32,56 @@ const MOBILE_SLOT_GROUPS = [
   { label: "Evening", slots: ["slot10", "slot11", "slot12"] },
 ];
 
+// Helper function to convert member's local time slots to server time (UTC-2) slots
+function convertSlotsToServerTime(memberSlots, memberTimezone) {
+  const serverTimeSlots = [];
+  const timezoneOffset = parseInt(memberTimezone.replace("UTC", "")) || 0;
+  const serverOffset = -2; // Server is UTC-2
+  
+  memberSlots.forEach(slotId => {
+    const slot = TIME_SLOTS.find(s => s.id === slotId);
+    if (slot) {
+      // Convert each hour in the slot from local time to server time (UTC-2)
+      slot.hours.forEach(localHour => {
+        let serverHour = localHour - timezoneOffset - serverOffset;
+        
+        // Handle day wrap-around
+        if (serverHour < 0) {
+          serverHour += 24;
+        } else if (serverHour >= 24) {
+          serverHour -= 24;
+        }
+        
+        // Find which server time slot this hour belongs to
+        const serverSlot = TIME_SLOTS.find(s => s.hours.includes(serverHour));
+        if (serverSlot && !serverTimeSlots.includes(serverSlot.id)) {
+          serverTimeSlots.push(serverSlot.id);
+        }
+      });
+    }
+  });
+  
+  return serverTimeSlots;
+}
+
+// Helper function to clean up localStorage pending submissions
+function cleanupLocalPending(processedId) {
+  const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
+  const updatedPending = localPending.filter(pending => pending.id !== processedId);
+  
+  if (updatedPending.length === 0) {
+    localStorage.removeItem("pendingSubmissions");
+  } else {
+    localStorage.setItem("pendingSubmissions", JSON.stringify(updatedPending));
+  }
+}
+
+// Helper function to clear all localStorage pending submissions (useful for testing)
+function clearAllLocalPending() {
+  localStorage.removeItem("pendingSubmissions");
+  showMessage("Cleared all local pending submissions", "success");
+}
+
 function updateServerTimeDisplay() {
   const selectedTz = document.getElementById("timezone").value;
   if (!selectedTz) return;
@@ -322,24 +372,6 @@ function toggleTimeSlot(day, slotId) {
   localStorage.setItem("timeSlotSelections", JSON.stringify(userSelections));
 }
 
-// Helper function to clean up localStorage pending submissions
-function cleanupLocalPending(processedId) {
-  const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
-  const updatedPending = localPending.filter(pending => pending.id !== processedId);
-  
-  if (updatedPending.length === 0) {
-    localStorage.removeItem("pendingSubmissions");
-  } else {
-    localStorage.setItem("pendingSubmissions", JSON.stringify(updatedPending));
-  }
-}
-
-// Helper function to clear all localStorage pending submissions (useful for testing)
-function clearAllLocalPending() {
-  localStorage.removeItem("pendingSubmissions");
-  showMessage("Cleared all local pending submissions", "success");
-}
-
 function approvePending(id) {
   const pending = currentData.pendingSubmissions.find((p) => p.id === id);
   if (pending) {
@@ -598,38 +630,6 @@ function renderPending() {
     .join("");
 }
 
-// Helper function to convert member's local time slots to server time (UTC-2) slots
-function convertSlotsToServerTime(memberSlots, memberTimezone) {
-  const serverTimeSlots = [];
-  const timezoneOffset = parseInt(memberTimezone.replace("UTC", "")) || 0;
-  const serverOffset = -2; // Server is UTC-2
-  
-  memberSlots.forEach(slotId => {
-    const slot = TIME_SLOTS.find(s => s.id === slotId);
-    if (slot) {
-      // Convert each hour in the slot from local time to server time (UTC-2)
-      slot.hours.forEach(localHour => {
-        let serverHour = localHour - timezoneOffset - serverOffset;
-        
-        // Handle day wrap-around
-        if (serverHour < 0) {
-          serverHour += 24;
-        } else if (serverHour >= 24) {
-          serverHour -= 24;
-        }
-        
-        // Find which server time slot this hour belongs to
-        const serverSlot = TIME_SLOTS.find(s => s.hours.includes(serverHour));
-        if (serverSlot && !serverTimeSlots.includes(serverSlot.id)) {
-          serverTimeSlots.push(serverSlot.id);
-        }
-      });
-    }
-  });
-  
-  return serverTimeSlots;
-}
-
 function renderTimeline() {
   const view = document.getElementById("timelineView");
   const days = [
@@ -643,19 +643,19 @@ function renderTimeline() {
   ];
   const isMobile = window.innerWidth < 768;
 
-  // Count members available in each UTC slot (converted from their local time)
+  // Count members available in each server time slot (converted from their local time)
   const availability = {};
   days.forEach((day) => {
     availability[day] = {};
     TIME_SLOTS.forEach((slot) => {
       availability[day][slot.id] = 0;
       
-      // For each member, check if they're available in this UTC slot
+      // For each member, check if they're available in this server time slot
       currentData.members.forEach((member) => {
         if (member.availability[day]) {
-          // Convert member's local slots to UTC slots
-          const memberUtcSlots = convertSlotsToUTC(member.availability[day], member.timezone);
-          if (memberUtcSlots.includes(slot.id)) {
+          // Convert member's local slots to server time slots
+          const memberServerTimeSlots = convertSlotsToServerTime(member.availability[day], member.timezone);
+          if (memberServerTimeSlots.includes(slot.id)) {
             availability[day][slot.id]++;
           }
         }
@@ -667,7 +667,7 @@ function renderTimeline() {
     // Mobile view - simplified
     view.innerHTML = `
                     <div style="margin-top: 20px;">
-                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Member availability by time slot (converted to UTC)</p>
+                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Member availability by time slot (converted to server time UTC-2)</p>
                         ${days
                           .map((day) => {
                             const maxCount = Math.max(
@@ -684,7 +684,7 @@ function renderTimeline() {
                                     ${
                                       bestSlots.length > 0
                                         ? `
-                                        <p style="color: #44ff44;">Best UTC time: ${bestSlots
+                                        <p style="color: #44ff44;">Best server time: ${bestSlots
                                           .map((s) => s.name)
                                           .join(", ")}</p>
                                         <p style="color: #888; font-size: 14px;">${maxCount} members available</p>
@@ -703,7 +703,7 @@ function renderTimeline() {
     // Desktop view - full grid
     view.innerHTML = `
                     <div style="margin-top: 20px; overflow-x: auto;">
-                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Light green = more members available (times converted to UTC)</p>
+                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Light green = more members available (times converted to server time UTC-2)</p>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <th style="padding: 10px; text-align: left;">Day</th>
