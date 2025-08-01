@@ -1,64 +1,14 @@
 {
-  "lastUpdated": "2025-08-01T14:52:02.989Z",
+  "lastUpdated": "2025-08-01T15:33:41.762Z",
   "members": [
     {
       "id": 1754055485655,
       "username": "Falowyn",
-      "carPower": 62000000,
-      "towerLevel": 30,
-      "timezone": "UTC+1",
-      "availability": {
-        "monday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "tuesday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "wednesday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "thursday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "friday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "saturday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "sunday": [
-          "slot1",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ]
-      },
-      "submittedAt": "2025-08-01T13:38:05.655Z"
+      "carPower": 60000000,
+      "towerLevel": 31,
+      "timezone": "UTC+2",
+      "availability": {},
+      "submittedAt": "2025-08-01T15:33:41.762Z"
     }
   ],
   "pendingSubmissions": [],
@@ -109,5 +59,5 @@
       }
     }
   },
-  "sha": "ef8009fa97ef57b2561813d64586f27c6d27d1a5"
+  "sha": "1a9c91f05e39fe8f561257d183b712a45a63cf96"
 }
