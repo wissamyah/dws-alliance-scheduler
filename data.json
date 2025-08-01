@@ -1,6 +1,115 @@
 {
-  "lastUpdated": "2025-07-31T23:36:16.449Z",
-  "members": [],
+  "lastUpdated": "2025-08-01T00:35:43.526Z",
+  "members": [
+    {
+      "id": 1754008543525,
+      "username": "TigressZoe",
+      "carPower": 438,
+      "towerLevel": 33,
+      "timezone": "UTC-12",
+      "availability": {
+        "monday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-01T00:35:43.525Z"
+    }
+  ],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "Your Alliance Name",
@@ -49,5 +158,5 @@
       }
     }
   },
-  "sha": "4ac040dcbda911ce7522e52a8209edff7ad1c30a"
+  "sha": "a82b1c540d5d4b839b4efe007372314f3a5dae51"
 }
