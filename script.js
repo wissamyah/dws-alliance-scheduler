@@ -77,14 +77,20 @@ function updateServerTimeDisplay() {
   localTime.setHours(localTime.getUTCHours() + tzOffset);
 
   const timeDiff = tzOffset - serverOffset;
-  const ahead = timeDiff > 0 ? "ahead of" : "behind";
   const diff = Math.abs(timeDiff);
+  
+  let relationshipText;
+  if (timeDiff > 0) {
+    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} ahead of server time`;
+  } else if (timeDiff < 0) {
+    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} behind server time`;
+  } else {
+    relationshipText = `Your timezone matches server time`;
+  }
 
   document.getElementById(
     "serverTimeInfo"
-  ).innerHTML = `Server time is ${diff} hour${
-    diff !== 1 ? "s" : ""
-  } ${ahead} your selected timezone<br>
+  ).innerHTML = `${relationshipText}<br>
                  Current server time: ${serverTime
                    .toTimeString()
                    .slice(0, 5)} (UTC-2)`;
