@@ -174,15 +174,21 @@ function logout() {
 }
 
 function updateAuthStatus() {
-  document.getElementById("authStatus").textContent = isAuthenticated
-    ? "Authenticated"
-    : "Not authenticated";
-  document.getElementById("authControls").style.display = isAuthenticated
-    ? "none"
-    : "block";
-  document.getElementById("logoutBtn").style.display = isAuthenticated
-    ? "inline-block"
-    : "none";
+  const authStatusEl = document.getElementById("authStatus");
+  const authControlsEl = document.getElementById("authControls");
+  const logoutBtnEl = document.getElementById("logoutBtn");
+  
+  if (authStatusEl) {
+    authStatusEl.textContent = isAuthenticated ? "Authenticated" : "Not authenticated";
+  }
+  
+  if (authControlsEl) {
+    authControlsEl.style.display = isAuthenticated ? "none" : "block";
+  }
+  
+  if (logoutBtnEl) {
+    logoutBtnEl.style.display = isAuthenticated ? "inline-block" : "none";
+  }
 }
 
 function submitMemberInfo() {
