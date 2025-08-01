@@ -1,20 +1,6 @@
 {
-  "lastUpdated": "2025-08-01T11:57:42.308Z",
-  "members": [
-    {
-      "id": 1754048916248,
-      "username": "Test3",
-      "carPower": 20000000,
-      "towerLevel": 29,
-      "timezone": "UTC-2",
-      "availability": {
-        "monday": [
-          "slot1"
-        ]
-      },
-      "submittedAt": "2025-08-01T11:48:36.248Z"
-    }
-  ],
+  "lastUpdated": "2025-08-01T11:57:44.085Z",
+  "members": [],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "Your Alliance Name",
@@ -63,5 +49,5 @@
       }
     }
   },
-  "sha": "c870414f37ec1bd2d2be1c0cfb74c54429caf9aa"
+  "sha": "b7eec9f29a4995804b9a706cbdff67fd3919a327"
 }
