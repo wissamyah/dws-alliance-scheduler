@@ -251,10 +251,31 @@ function submitMemberInfo() {
     submittedAt: new Date().toISOString(),
   };
 
-  // Add member directly to the roster
-  currentData.members.push(submission);
+  // Helper function to normalize username for comparison (remove spaces, convert to lowercase)
+  function normalizeUsername(name) {
+    return name.replace(/\s+/g, '').toLowerCase();
+  }
+
+  // Check if member with same username already exists (ignoring case and spaces)
+  const normalizedInputUsername = normalizeUsername(username);
+  const existingMemberIndex = currentData.members.findIndex(member => 
+    normalizeUsername(member.username) === normalizedInputUsername
+  );
+
+  if (existingMemberIndex !== -1) {
+    // Replace existing member's data, but keep the original ID and username format
+    const existingMember = currentData.members[existingMemberIndex];
+    submission.id = existingMember.id; // Keep original ID
+    submission.username = existingMember.username; // Keep original username format
+    currentData.members[existingMemberIndex] = submission;
+    showMessage(`${existingMember.username}'s information has been updated!`, "success");
+  } else {
+    // Add as new member
+    currentData.members.push(submission);
+    showMessage("Member information submitted successfully!", "success");
+  }
+
   saveData();
-  showMessage("Member information submitted successfully!", "success");
   
   // Immediately update the UI
   renderMembers();
