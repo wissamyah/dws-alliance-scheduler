@@ -66,8 +66,25 @@ async function loadData() {
     );
     const file = await response.json();
     const content = atob(file.content);
-    currentData = JSON.parse(content);
-    currentData.sha = file.sha;
+    const freshData = JSON.parse(content);
+    freshData.sha = file.sha;
+    
+    // Preserve existing pending submissions that haven't been saved to GitHub
+    if (currentData && currentData.pendingSubmissions) {
+      // Keep pending submissions that aren't in the fresh data
+      const preservedPending = currentData.pendingSubmissions.filter(pending => 
+        !freshData.pendingSubmissions.some(fresh => fresh.id === pending.id)
+      );
+      freshData.pendingSubmissions = [...freshData.pendingSubmissions, ...preservedPending];
+    }
+    
+    currentData = freshData;
+    
+    // Load any additional local pending submissions for R4s
+    if (isR4) {
+      loadLocalPendingSubmissions();
+    }
+    
     renderUI();
   } catch (error) {
     showMessage("Error loading data: " + error.message, "error");
@@ -141,10 +158,18 @@ function loadLocalPendingSubmissions() {
   
   const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
   if (localPending.length > 0) {
-    // Add local pending submissions to current data
-    currentData.pendingSubmissions = [...currentData.pendingSubmissions, ...localPending];
-    // Clear localStorage after loading
-    localStorage.removeItem("pendingSubmissions");
+    // Merge local pending with current data, avoiding duplicates
+    localPending.forEach(localSub => {
+      const exists = currentData.pendingSubmissions.some(existing => 
+        existing.id === localSub.id || 
+        (existing.username === localSub.username && existing.submittedAt === localSub.submittedAt)
+      );
+      if (!exists) {
+        currentData.pendingSubmissions.push(localSub);
+      }
+    });
+    
+    // Don't clear localStorage immediately - keep it as backup until submissions are processed
     showMessage(`Loaded ${localPending.length} pending submission(s) from local storage.`, "success");
   }
 }
@@ -297,6 +322,24 @@ function toggleTimeSlot(day, slotId) {
   localStorage.setItem("timeSlotSelections", JSON.stringify(userSelections));
 }
 
+// Helper function to clean up localStorage pending submissions
+function cleanupLocalPending(processedId) {
+  const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
+  const updatedPending = localPending.filter(pending => pending.id !== processedId);
+  
+  if (updatedPending.length === 0) {
+    localStorage.removeItem("pendingSubmissions");
+  } else {
+    localStorage.setItem("pendingSubmissions", JSON.stringify(updatedPending));
+  }
+}
+
+// Helper function to clear all localStorage pending submissions (useful for testing)
+function clearAllLocalPending() {
+  localStorage.removeItem("pendingSubmissions");
+  showMessage("Cleared all local pending submissions", "success");
+}
+
 function approvePending(id) {
   const pending = currentData.pendingSubmissions.find((p) => p.id === id);
   if (pending) {
@@ -316,6 +359,10 @@ function approvePending(id) {
     currentData.pendingSubmissions = currentData.pendingSubmissions.filter(
       (p) => p.id !== id
     );
+    
+    // Clean up localStorage
+    cleanupLocalPending(id);
+    
     saveData();
     showMessage(`${pending.username} approved and added to alliance!`, "success");
     
@@ -346,6 +393,10 @@ function rejectPending(id) {
   currentData.pendingSubmissions = currentData.pendingSubmissions.filter(
     (p) => p.id !== id
   );
+  
+  // Clean up localStorage
+  cleanupLocalPending(id);
+  
   saveData();
   showMessage(pending ? `${pending.username} rejected` : "Submission rejected", "error");
   
@@ -722,7 +773,14 @@ if (authToken) {
   // Hide auth section if already authenticated
   document.getElementById("authSection").classList.add("hidden");
 }
-loadData();
+
+loadData().then(() => {
+  // Load local pending submissions after initial data load for R4s
+  if (isR4) {
+    loadLocalPendingSubmissions();
+    renderUI(); // Re-render to show any loaded pending submissions
+  }
+});
 
 // Auto-refresh every 2 minutes to avoid disrupting user input
 setInterval(loadData, 120000);
