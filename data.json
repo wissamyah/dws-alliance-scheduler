@@ -1,20 +1,6 @@
 {
-  "lastUpdated": "2025-08-01T15:33:57.263Z",
-  "members": [
-    {
-      "id": 1754055485655,
-      "username": "Falowyn",
-      "carPower": 60000,
-      "towerLevel": 29,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot1"
-        ]
-      },
-      "submittedAt": "2025-08-01T15:33:57.262Z"
-    }
-  ],
+  "lastUpdated": "2025-08-01T15:34:04.064Z",
+  "members": [],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "The Dark Creed",
@@ -63,5 +49,5 @@
       }
     }
   },
-  "sha": "873096f46beeba201e65337da8b100cfd53aea0f"
+  "sha": "2a4abb5647bff0e584a00aea46b2058ef8c5c9a2"
 }
