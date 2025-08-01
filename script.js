@@ -43,7 +43,8 @@ function convertSlotsToServerTime(memberSlots, memberTimezone) {
     if (slot) {
       // Convert each hour in the slot from local time to server time (UTC-2)
       slot.hours.forEach(localHour => {
-        let serverHour = localHour - timezoneOffset - serverOffset;
+        // Correct conversion: subtract timezone difference
+        let serverHour = localHour - (timezoneOffset - serverOffset);
         
         // Handle day wrap-around
         if (serverHour < 0) {
