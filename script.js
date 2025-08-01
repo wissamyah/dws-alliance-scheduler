@@ -112,68 +112,41 @@ async function saveData() {
   showLoading(false);
 }
 
-async function saveDataUnauthenticated() {
+function saveDataUnauthenticated() {
   showLoading(true);
   try {
-    // For unauthenticated users, we'll create a GitHub issue instead
-    const submission =
-      currentData.pendingSubmissions[currentData.pendingSubmissions.length - 1];
-
-    const issueBody = `
-**New Member Submission**
-
-**Username:** ${submission.username}
-**Car Power:** ${submission.carPower.toLocaleString()}
-**Tower Level:** ${submission.towerLevel}
-**Timezone:** ${submission.timezone}
-**Submitted At:** ${submission.submittedAt}
-
-**Availability:**
-${Object.entries(submission.availability || {})
-  .map(([day, slots]) => {
-    const slotNames = slots.map((slotId) => {
-      const slot = TIME_SLOTS.find((s) => s.id === slotId);
-      return slot ? slot.name : slotId;
-    });
-    return `- **${
-      day.charAt(0).toUpperCase() + day.slice(1)
-    }:** ${slotNames.join(", ")}`;
-  })
-  .join("\n")}
-
-*This submission needs to be reviewed and approved by an R4.*
-           `;
-
-    const response = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: `New Member Submission: ${submission.username}`,
-          body: issueBody.trim(),
-          labels: ["member-submission", "pending-review"],
-        }),
-      }
+    // Save to localStorage for now
+    const pendingSubmissions = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
+    const latestSubmission = currentData.pendingSubmissions[currentData.pendingSubmissions.length - 1];
+    
+    pendingSubmissions.push(latestSubmission);
+    localStorage.setItem("pendingSubmissions", JSON.stringify(pendingSubmissions));
+    
+    showMessage(
+      "Your submission has been saved locally! Please contact an R4 member to have your information added to the alliance roster. You can find them in the Discord server.",
+      "success"
     );
-
-    if (response.ok) {
-      showMessage(
-        "Your submission has been created as a GitHub issue for review!",
-        "success"
-      );
-    } else {
-      throw new Error("Failed to create submission issue");
-    }
   } catch (error) {
     showMessage(
-      "Submission saved locally but couldn't create GitHub issue. Please contact an R4.",
+      "Error saving your submission. Please try again or contact an R4 member directly.",
       "error"
     );
   }
   showLoading(false);
+}
+
+// Load pending submissions from localStorage for R4s
+function loadLocalPendingSubmissions() {
+  if (!isR4) return;
+  
+  const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
+  if (localPending.length > 0) {
+    // Add local pending submissions to current data
+    currentData.pendingSubmissions = [...currentData.pendingSubmissions, ...localPending];
+    // Clear localStorage after loading
+    localStorage.removeItem("pendingSubmissions");
+    showMessage(`Loaded ${localPending.length} pending submission(s) from local storage.`, "success");
+  }
 }
 
 function authenticateR4() {
@@ -186,6 +159,10 @@ function authenticateR4() {
   localStorage.setItem("githubToken", token);
   isR4 = true;
   updateAuthStatus();
+  
+  // Load any local pending submissions
+  loadLocalPendingSubmissions();
+  
   renderUI();
   showMessage("Authenticated as R4!", "success");
 
@@ -274,9 +251,8 @@ function submitMemberInfo() {
     showMessage("Member added successfully!", "success");
   } else {
     currentData.pendingSubmissions.push(submission);
-    // For non-R4 users, we need to save without authentication
+    // For non-R4 users, save locally instead of trying to create GitHub issues
     saveDataUnauthenticated();
-    showMessage("Your information has been submitted for review!", "success");
   }
 
   // Clear form
