@@ -476,7 +476,7 @@ function renderMembers() {
                     </div>
                     ${
                       isR4
-                        ? `<button class="btn btn-danger" onclick="deleteMember(${member.id})">Delete</button>`
+                        ? `<button class="delete-btn" onclick="showDeleteModal(${member.id})">&times;</button>`
                         : ""
                     }
                 </div>
@@ -576,7 +576,7 @@ function renderTimeline() {
     // Desktop view - full grid
     view.innerHTML = `
                     <div style="margin-top: 20px; overflow-x: auto;">
-                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Darker green = more members available</p>
+                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Light green = more members available</p>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <th style="padding: 10px; text-align: left;">Day</th>
@@ -658,4 +658,36 @@ window.addEventListener("resize", () => {
   resizeTimeout = setTimeout(() => {
     if (currentData) renderUI();
   }, 250);
+});
+
+// Modal Handling
+const modal = document.getElementById("confirmationModal");
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+let memberIdToDelete = null;
+
+function showDeleteModal(id) {
+  memberIdToDelete = id;
+  modal.classList.add("active");
+}
+
+function hideDeleteModal() {
+  memberIdToDelete = null;
+  modal.classList.remove("active");
+}
+
+confirmDeleteBtn.addEventListener("click", () => {
+  if (memberIdToDelete !== null) {
+    deleteMember(memberIdToDelete);
+    hideDeleteModal();
+  }
+});
+
+cancelDeleteBtn.addEventListener("click", hideDeleteModal);
+
+// Close modal if clicking outside of it
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    hideDeleteModal();
+  }
 });
