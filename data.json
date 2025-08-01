@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-01T18:49:50.561Z",
+  "lastUpdated": "2025-08-01T20:24:23.347Z",
   "members": [
     {
       "id": 1754073969912,
@@ -56,6 +56,65 @@
         ]
       },
       "submittedAt": "2025-08-01T18:49:50.560Z"
+    },
+    {
+      "id": 1754079863346,
+      "username": "Falowyn",
+      "carPower": 62000000,
+      "towerLevel": 30,
+      "timezone": "UTC+1",
+      "availability": {
+        "monday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "tuesday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "wednesday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "thursday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "friday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "saturday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "sunday": [
+          "slot1",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ]
+      },
+      "submittedAt": "2025-08-01T20:24:23.346Z"
     }
   ],
   "pendingSubmissions": [],
@@ -106,5 +165,5 @@
       }
     }
   },
-  "sha": "6962ea9201ac12dea637a8c0d49ffcfbf6a48985"
+  "sha": "179640718cb3716426df8de13ada1a9d65a42a23"
 }
