@@ -249,10 +249,19 @@ function submitMemberInfo() {
     currentData.members.push(submission);
     saveData();
     showMessage("Member added successfully!", "success");
+    
+    // Immediately update the UI to show the new member and updated timeline
+    renderMembers();
+    renderTimeline();
   } else {
     currentData.pendingSubmissions.push(submission);
     // For non-R4 users, save locally instead of trying to create GitHub issues
     saveDataUnauthenticated();
+    
+    // Update the pending list if R4 is viewing
+    if (isR4) {
+      renderPending();
+    }
   }
 
   // Clear form
@@ -309,6 +318,13 @@ function approvePending(id) {
     );
     saveData();
     showMessage(`${pending.username} approved and added to alliance!`, "success");
+    
+    // Immediately update the UI to show the new member and updated timeline
+    setTimeout(() => {
+      renderMembers();
+      renderPending();
+      renderTimeline();
+    }, 400); // Slight delay to let the pending item fade out first
   }
 }
 
@@ -332,12 +348,27 @@ function rejectPending(id) {
   );
   saveData();
   showMessage(pending ? `${pending.username} rejected` : "Submission rejected", "error");
+  
+  // Update the pending list
+  setTimeout(() => {
+    renderPending();
+  }, 400);
 }
 
 function deleteMember(id) {
   if (!isR4) return;
+  
+  // Get member info before deletion for the message
+  const member = currentData.members.find(m => m.id === id);
+  const memberName = member ? member.username : 'Member';
+  
   currentData.members = currentData.members.filter((m) => m.id !== id);
   saveData();
+  showMessage(`${memberName} has been removed from the alliance`, "error");
+  
+  // Immediately update the UI to remove the member and update timeline
+  renderMembers();
+  renderTimeline();
 }
 
 function renderUI() {
@@ -516,35 +547,36 @@ function renderPending() {
     .join("");
 }
 
-// Helper function to convert member's local time slots to UTC slots
-function convertSlotsToUTC(memberSlots, memberTimezone) {
-  const utcSlots = [];
+// Helper function to convert member's local time slots to server time (UTC-2) slots
+function convertSlotsToServerTime(memberSlots, memberTimezone) {
+  const serverTimeSlots = [];
   const timezoneOffset = parseInt(memberTimezone.replace("UTC", "")) || 0;
+  const serverOffset = -2; // Server is UTC-2
   
   memberSlots.forEach(slotId => {
     const slot = TIME_SLOTS.find(s => s.id === slotId);
     if (slot) {
-      // Convert each hour in the slot from local time to UTC
+      // Convert each hour in the slot from local time to server time (UTC-2)
       slot.hours.forEach(localHour => {
-        let utcHour = localHour - timezoneOffset;
+        let serverHour = localHour - timezoneOffset - serverOffset;
         
         // Handle day wrap-around
-        if (utcHour < 0) {
-          utcHour += 24;
-        } else if (utcHour >= 24) {
-          utcHour -= 24;
+        if (serverHour < 0) {
+          serverHour += 24;
+        } else if (serverHour >= 24) {
+          serverHour -= 24;
         }
         
-        // Find which UTC slot this hour belongs to
-        const utcSlot = TIME_SLOTS.find(s => s.hours.includes(utcHour));
-        if (utcSlot && !utcSlots.includes(utcSlot.id)) {
-          utcSlots.push(utcSlot.id);
+        // Find which server time slot this hour belongs to
+        const serverSlot = TIME_SLOTS.find(s => s.hours.includes(serverHour));
+        if (serverSlot && !serverTimeSlots.includes(serverSlot.id)) {
+          serverTimeSlots.push(serverSlot.id);
         }
       });
     }
   });
   
-  return utcSlots;
+  return serverTimeSlots;
 }
 
 function renderTimeline() {
