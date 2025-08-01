@@ -1,14 +1,106 @@
 {
-    "lastUpdated": "",
-    "members": [],
-    "pendingSubmissions": [],
-    "config": {
-      "allianceName": "The Dark Creed",
-      "timezones": ["UTC-12", "UTC-11", "UTC-10", "UTC-9", "UTC-8", "UTC-7", "UTC-6", "UTC-5", "UTC-4", "UTC-3", "UTC-2", "UTC-1", "UTC", "UTC+1", "UTC+2", "UTC+3", "UTC+4", "UTC+5", "UTC+6", "UTC+7", "UTC+8", "UTC+9", "UTC+10", "UTC+11", "UTC+12"],
-      "eventTypes": {
-        "rally": { "name": "Rally", "minPlayers": 5, "color": "#ff4444" },
-        "defense": { "name": "Defense", "minPlayers": 10, "color": "#4444ff" },
-        "gathering": { "name": "Gathering", "minPlayers": 3, "color": "#44ff44" }
+  "lastUpdated": "2025-08-01T13:27:08.418Z",
+  "members": [
+    {
+      "id": 1754054828418,
+      "username": "Falowyn",
+      "carPower": 62000000,
+      "towerLevel": 30,
+      "timezone": "UTC+1",
+      "availability": {
+        "monday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "tuesday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "wednesday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "thursday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "friday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "saturday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ],
+        "sunday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10"
+        ]
+      },
+      "submittedAt": "2025-08-01T13:27:08.418Z"
+    }
+  ],
+  "pendingSubmissions": [],
+  "config": {
+    "allianceName": "The Dark Creed",
+    "timezones": [
+      "UTC-12",
+      "UTC-11",
+      "UTC-10",
+      "UTC-9",
+      "UTC-8",
+      "UTC-7",
+      "UTC-6",
+      "UTC-5",
+      "UTC-4",
+      "UTC-3",
+      "UTC-2",
+      "UTC-1",
+      "UTC",
+      "UTC+1",
+      "UTC+2",
+      "UTC+3",
+      "UTC+4",
+      "UTC+5",
+      "UTC+6",
+      "UTC+7",
+      "UTC+8",
+      "UTC+9",
+      "UTC+10",
+      "UTC+11",
+      "UTC+12"
+    ],
+    "eventTypes": {
+      "rally": {
+        "name": "Rally",
+        "minPlayers": 5,
+        "color": "#ff4444"
+      },
+      "defense": {
+        "name": "Defense",
+        "minPlayers": 10,
+        "color": "#4444ff"
+      },
+      "gathering": {
+        "name": "Gathering",
+        "minPlayers": 3,
+        "color": "#44ff44"
       }
     }
-  }
+  },
+  "sha": "41ea1b72147e2323261aa5b1b82fceefa17bc54b"
+}
