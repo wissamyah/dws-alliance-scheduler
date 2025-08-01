@@ -3,7 +3,7 @@ const REPO_NAME = "dws-alliance-scheduler";
 const DATA_FILE = "data.json";
 
 let authToken = localStorage.getItem("githubToken");
-let isR4 = false;
+let isAuthenticated = false;
 let currentData = null;
 let userSelections =
   JSON.parse(localStorage.getItem("timeSlotSelections")) || {};
@@ -64,24 +64,6 @@ function convertSlotsToServerTime(memberSlots, memberTimezone) {
   return serverTimeSlots;
 }
 
-// Helper function to clean up localStorage pending submissions
-function cleanupLocalPending(processedId) {
-  const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
-  const updatedPending = localPending.filter(pending => pending.id !== processedId);
-  
-  if (updatedPending.length === 0) {
-    localStorage.removeItem("pendingSubmissions");
-  } else {
-    localStorage.setItem("pendingSubmissions", JSON.stringify(updatedPending));
-  }
-}
-
-// Helper function to clear all localStorage pending submissions (useful for testing)
-function clearAllLocalPending() {
-  localStorage.removeItem("pendingSubmissions");
-  showMessage("Cleared all local pending submissions", "success");
-}
-
 function updateServerTimeDisplay() {
   const selectedTz = document.getElementById("timezone").value;
   if (!selectedTz) return;
@@ -116,25 +98,8 @@ async function loadData() {
     );
     const file = await response.json();
     const content = atob(file.content);
-    const freshData = JSON.parse(content);
-    freshData.sha = file.sha;
-    
-    // Preserve existing pending submissions that haven't been saved to GitHub
-    if (currentData && currentData.pendingSubmissions) {
-      // Keep pending submissions that aren't in the fresh data
-      const preservedPending = currentData.pendingSubmissions.filter(pending => 
-        !freshData.pendingSubmissions.some(fresh => fresh.id === pending.id)
-      );
-      freshData.pendingSubmissions = [...freshData.pendingSubmissions, ...preservedPending];
-    }
-    
-    currentData = freshData;
-    
-    // Load any additional local pending submissions for R4s
-    if (isR4) {
-      loadLocalPendingSubmissions();
-    }
-    
+    currentData = JSON.parse(content);
+    currentData.sha = file.sha;
     renderUI();
   } catch (error) {
     showMessage("Error loading data: " + error.message, "error");
@@ -143,8 +108,8 @@ async function loadData() {
 }
 
 async function saveData() {
-  if (!isR4 || !authToken) {
-    showMessage("Only R4s can save data", "error");
+  if (!isAuthenticated || !authToken) {
+    showMessage("You must be authenticated to save data", "error");
     return;
   }
   showLoading(true);
@@ -179,52 +144,7 @@ async function saveData() {
   showLoading(false);
 }
 
-function saveDataUnauthenticated() {
-  showLoading(true);
-  try {
-    // Save to localStorage for now
-    const pendingSubmissions = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
-    const latestSubmission = currentData.pendingSubmissions[currentData.pendingSubmissions.length - 1];
-    
-    pendingSubmissions.push(latestSubmission);
-    localStorage.setItem("pendingSubmissions", JSON.stringify(pendingSubmissions));
-    
-    showMessage(
-      "Your submission has been saved locally! Please contact an R4 member to have your information added to the alliance roster. You can find them in the Discord server.",
-      "success"
-    );
-  } catch (error) {
-    showMessage(
-      "Error saving your submission. Please try again or contact an R4 member directly.",
-      "error"
-    );
-  }
-  showLoading(false);
-}
-
-// Load pending submissions from localStorage for R4s
-function loadLocalPendingSubmissions() {
-  if (!isR4) return;
-  
-  const localPending = JSON.parse(localStorage.getItem("pendingSubmissions")) || [];
-  if (localPending.length > 0) {
-    // Merge local pending with current data, avoiding duplicates
-    localPending.forEach(localSub => {
-      const exists = currentData.pendingSubmissions.some(existing => 
-        existing.id === localSub.id || 
-        (existing.username === localSub.username && existing.submittedAt === localSub.submittedAt)
-      );
-      if (!exists) {
-        currentData.pendingSubmissions.push(localSub);
-      }
-    });
-    
-    // Don't clear localStorage immediately - keep it as backup until submissions are processed
-    showMessage(`Loaded ${localPending.length} pending submission(s) from local storage.`, "success");
-  }
-}
-
-function authenticateR4() {
+function authenticate() {
   const token = document.getElementById("githubToken").value;
   if (!token) {
     showMessage("Please enter a GitHub token", "error");
@@ -232,22 +152,18 @@ function authenticateR4() {
   }
   authToken = token;
   localStorage.setItem("githubToken", token);
-  isR4 = true;
+  isAuthenticated = true;
   updateAuthStatus();
-  
-  // Load any local pending submissions
-  loadLocalPendingSubmissions();
-  
   renderUI();
-  showMessage("Authenticated as R4!", "success");
+  showMessage("Authentication successful!", "success");
 
-  // Hide auth section for R4s
+  // Hide auth section after authentication
   document.getElementById("authSection").classList.add("hidden");
 }
 
 function logout() {
   authToken = null;
-  isR4 = false;
+  isAuthenticated = false;
   localStorage.removeItem("githubToken");
   document.getElementById("githubToken").value = "";
   updateAuthStatus();
@@ -258,13 +174,9 @@ function logout() {
 }
 
 function updateAuthStatus() {
-  const isAuthenticated = isR4;
   document.getElementById("authStatus").textContent = isAuthenticated
-    ? "Authenticated as R4"
+    ? "Authenticated"
     : "Not authenticated";
-  document
-    .getElementById("pendingSection")
-    .classList.toggle("hidden", !isAuthenticated);
   document.getElementById("authControls").style.display = isAuthenticated
     ? "none"
     : "block";
@@ -274,6 +186,12 @@ function updateAuthStatus() {
 }
 
 function submitMemberInfo() {
+  // Check if user is authenticated first
+  if (!isAuthenticated) {
+    showMessage("You must authenticate with a GitHub token before submitting your information!", "error");
+    return;
+  }
+
   const username = document.getElementById("username").value;
   const carPower = document.getElementById("carPower").value;
   const towerLevel = document.getElementById("towerLevel").value;
@@ -320,24 +238,14 @@ function submitMemberInfo() {
     submittedAt: new Date().toISOString(),
   };
 
-  if (isR4) {
-    currentData.members.push(submission);
-    saveData();
-    showMessage("Member added successfully!", "success");
-    
-    // Immediately update the UI to show the new member and updated timeline
-    renderMembers();
-    renderTimeline();
-  } else {
-    currentData.pendingSubmissions.push(submission);
-    // For non-R4 users, save locally instead of trying to create GitHub issues
-    saveDataUnauthenticated();
-    
-    // Update the pending list if R4 is viewing
-    if (isR4) {
-      renderPending();
-    }
-  }
+  // Add member directly to the roster
+  currentData.members.push(submission);
+  saveData();
+  showMessage("Member information submitted successfully!", "success");
+  
+  // Immediately update the UI
+  renderMembers();
+  renderTimeline();
 
   // Clear form
   document.getElementById("username").value = "";
@@ -372,74 +280,22 @@ function toggleTimeSlot(day, slotId) {
   localStorage.setItem("timeSlotSelections", JSON.stringify(userSelections));
 }
 
-function approvePending(id) {
-  const pending = currentData.pendingSubmissions.find((p) => p.id === id);
-  if (pending) {
-    // Immediate visual feedback - remove from UI
-    const pendingElement = document.querySelector(`[data-pending-id="${id}"]`);
-    if (pendingElement) {
-      pendingElement.style.opacity = '0.5';
-      pendingElement.style.pointerEvents = 'none';
-      setTimeout(() => {
-        if (pendingElement.parentNode) {
-          pendingElement.parentNode.removeChild(pendingElement);
-        }
-      }, 300);
-    }
-    
-    currentData.members.push(pending);
-    currentData.pendingSubmissions = currentData.pendingSubmissions.filter(
-      (p) => p.id !== id
-    );
-    
-    // Clean up localStorage
-    cleanupLocalPending(id);
-    
-    saveData();
-    showMessage(`${pending.username} approved and added to alliance!`, "success");
-    
-    // Immediately update the UI to show the new member and updated timeline
-    setTimeout(() => {
-      renderMembers();
-      renderPending();
-      renderTimeline();
-    }, 400); // Slight delay to let the pending item fade out first
+function showDeleteModal(id) {
+  // Ask for R5 password
+  const password = prompt("Enter the R5 password to delete this member:");
+  
+  if (password === "R5") {
+    deleteMember(id);
+  } else if (password !== null) { // null means user cancelled
+    showMessage("Incorrect password. Member not deleted.", "error");
   }
-}
-
-function rejectPending(id) {
-  const pending = currentData.pendingSubmissions.find((p) => p.id === id);
-  
-  // Immediate visual feedback - remove from UI
-  const pendingElement = document.querySelector(`[data-pending-id="${id}"]`);
-  if (pendingElement) {
-    pendingElement.style.opacity = '0.5';
-    pendingElement.style.pointerEvents = 'none';
-    setTimeout(() => {
-      if (pendingElement.parentNode) {
-        pendingElement.parentNode.removeChild(pendingElement);
-      }
-    }, 300);
-  }
-  
-  currentData.pendingSubmissions = currentData.pendingSubmissions.filter(
-    (p) => p.id !== id
-  );
-  
-  // Clean up localStorage
-  cleanupLocalPending(id);
-  
-  saveData();
-  showMessage(pending ? `${pending.username} rejected` : "Submission rejected", "error");
-  
-  // Update the pending list
-  setTimeout(() => {
-    renderPending();
-  }, 400);
 }
 
 function deleteMember(id) {
-  if (!isR4) return;
+  if (!isAuthenticated) {
+    showMessage("You must be authenticated to delete members", "error");
+    return;
+  }
   
   // Get member info before deletion for the message
   const member = currentData.members.find(m => m.id === id);
@@ -447,7 +303,7 @@ function deleteMember(id) {
   
   currentData.members = currentData.members.filter((m) => m.id !== id);
   saveData();
-  showMessage(`${memberName} has been removed from the alliance`, "error");
+  showMessage(`${memberName} has been removed from the alliance`, "success");
   
   // Immediately update the UI to remove the member and update timeline
   renderMembers();
@@ -556,11 +412,6 @@ function renderUI() {
   // Render members
   renderMembers();
 
-  // Render pending (for R4s)
-  if (isR4) {
-    renderPending();
-  }
-
   // Render timeline
   renderTimeline();
 }
@@ -593,37 +444,10 @@ function renderMembers() {
                           .join("")}
                     </div>
                     ${
-                      isR4
+                      isAuthenticated
                         ? `<button class="delete-btn" onclick="showDeleteModal(${member.id})">&times;</button>`
                         : ""
                     }
-                </div>
-            `
-    )
-    .join("");
-}
-
-function renderPending() {
-  const list = document.getElementById("pendingList");
-  list.innerHTML = currentData.pendingSubmissions
-    .map(
-      (sub) => `
-                <div class="pending-item" data-pending-id="${sub.id}" style="transition: opacity 0.3s ease;">
-                    <div>
-                        <strong>${
-                          sub.username
-                        }</strong> - Power: ${sub.carPower.toLocaleString()}, Tower: ${
-        sub.towerLevel
-      }
-                    </div>
-                    <div>
-                        <button class="btn btn-success" onclick="approvePending(${
-                          sub.id
-                        })">Approve</button>
-                        <button class="btn btn-danger" onclick="rejectPending(${
-                          sub.id
-                        })">Reject</button>
-                    </div>
                 </div>
             `
     )
@@ -768,19 +592,13 @@ function showLoading(show) {
 
 // Initialize
 if (authToken) {
-  isR4 = true;
+  isAuthenticated = true;
   updateAuthStatus();
   // Hide auth section if already authenticated
   document.getElementById("authSection").classList.add("hidden");
 }
 
-loadData().then(() => {
-  // Load local pending submissions after initial data load for R4s
-  if (isR4) {
-    loadLocalPendingSubmissions();
-    renderUI(); // Re-render to show any loaded pending submissions
-  }
-});
+loadData();
 
 // Auto-refresh every 2 minutes to avoid disrupting user input
 setInterval(loadData, 120000);
@@ -792,36 +610,4 @@ window.addEventListener("resize", () => {
   resizeTimeout = setTimeout(() => {
     if (currentData) renderUI();
   }, 250);
-});
-
-// Modal Handling
-const modal = document.getElementById("confirmationModal");
-const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-let memberIdToDelete = null;
-
-function showDeleteModal(id) {
-  memberIdToDelete = id;
-  modal.classList.add("active");
-}
-
-function hideDeleteModal() {
-  memberIdToDelete = null;
-  modal.classList.remove("active");
-}
-
-confirmDeleteBtn.addEventListener("click", () => {
-  if (memberIdToDelete !== null) {
-    deleteMember(memberIdToDelete);
-    hideDeleteModal();
-  }
-});
-
-cancelDeleteBtn.addEventListener("click", hideDeleteModal);
-
-// Close modal if clicking outside of it
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    hideDeleteModal();
-  }
 });
