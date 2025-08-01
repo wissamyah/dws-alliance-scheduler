@@ -291,19 +291,47 @@ function toggleTimeSlot(day, slotId) {
 function approvePending(id) {
   const pending = currentData.pendingSubmissions.find((p) => p.id === id);
   if (pending) {
+    // Immediate visual feedback - remove from UI
+    const pendingElement = document.querySelector(`[data-pending-id="${id}"]`);
+    if (pendingElement) {
+      pendingElement.style.opacity = '0.5';
+      pendingElement.style.pointerEvents = 'none';
+      setTimeout(() => {
+        if (pendingElement.parentNode) {
+          pendingElement.parentNode.removeChild(pendingElement);
+        }
+      }, 300);
+    }
+    
     currentData.members.push(pending);
     currentData.pendingSubmissions = currentData.pendingSubmissions.filter(
       (p) => p.id !== id
     );
     saveData();
+    showMessage(`${pending.username} approved and added to alliance!`, "success");
   }
 }
 
 function rejectPending(id) {
+  const pending = currentData.pendingSubmissions.find((p) => p.id === id);
+  
+  // Immediate visual feedback - remove from UI
+  const pendingElement = document.querySelector(`[data-pending-id="${id}"]`);
+  if (pendingElement) {
+    pendingElement.style.opacity = '0.5';
+    pendingElement.style.pointerEvents = 'none';
+    setTimeout(() => {
+      if (pendingElement.parentNode) {
+        pendingElement.parentNode.removeChild(pendingElement);
+      }
+    }, 300);
+  }
+  
   currentData.pendingSubmissions = currentData.pendingSubmissions.filter(
     (p) => p.id !== id
   );
   saveData();
+  showMessage(pending ? `${pending.username} rejected` : "Submission rejected", "error");
 }
 
 function deleteMember(id) {
@@ -466,7 +494,7 @@ function renderPending() {
   list.innerHTML = currentData.pendingSubmissions
     .map(
       (sub) => `
-                <div class="pending-item">
+                <div class="pending-item" data-pending-id="${sub.id}" style="transition: opacity 0.3s ease;">
                     <div>
                         <strong>${
                           sub.username
@@ -488,6 +516,37 @@ function renderPending() {
     .join("");
 }
 
+// Helper function to convert member's local time slots to UTC slots
+function convertSlotsToUTC(memberSlots, memberTimezone) {
+  const utcSlots = [];
+  const timezoneOffset = parseInt(memberTimezone.replace("UTC", "")) || 0;
+  
+  memberSlots.forEach(slotId => {
+    const slot = TIME_SLOTS.find(s => s.id === slotId);
+    if (slot) {
+      // Convert each hour in the slot from local time to UTC
+      slot.hours.forEach(localHour => {
+        let utcHour = localHour - timezoneOffset;
+        
+        // Handle day wrap-around
+        if (utcHour < 0) {
+          utcHour += 24;
+        } else if (utcHour >= 24) {
+          utcHour -= 24;
+        }
+        
+        // Find which UTC slot this hour belongs to
+        const utcSlot = TIME_SLOTS.find(s => s.hours.includes(utcHour));
+        if (utcSlot && !utcSlots.includes(utcSlot.id)) {
+          utcSlots.push(utcSlot.id);
+        }
+      });
+    }
+  });
+  
+  return utcSlots;
+}
+
 function renderTimeline() {
   const view = document.getElementById("timelineView");
   const days = [
@@ -501,14 +560,23 @@ function renderTimeline() {
   ];
   const isMobile = window.innerWidth < 768;
 
-  // Count members available in each slot
+  // Count members available in each UTC slot (converted from their local time)
   const availability = {};
   days.forEach((day) => {
     availability[day] = {};
     TIME_SLOTS.forEach((slot) => {
-      availability[day][slot.id] = currentData.members.filter(
-        (m) => m.availability[day] && m.availability[day].includes(slot.id)
-      ).length;
+      availability[day][slot.id] = 0;
+      
+      // For each member, check if they're available in this UTC slot
+      currentData.members.forEach((member) => {
+        if (member.availability[day]) {
+          // Convert member's local slots to UTC slots
+          const memberUtcSlots = convertSlotsToUTC(member.availability[day], member.timezone);
+          if (memberUtcSlots.includes(slot.id)) {
+            availability[day][slot.id]++;
+          }
+        }
+      });
     });
   });
 
@@ -516,7 +584,7 @@ function renderTimeline() {
     // Mobile view - simplified
     view.innerHTML = `
                     <div style="margin-top: 20px;">
-                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Member availability by time slot</p>
+                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Member availability by time slot (converted to UTC)</p>
                         ${days
                           .map((day) => {
                             const maxCount = Math.max(
@@ -533,7 +601,7 @@ function renderTimeline() {
                                     ${
                                       bestSlots.length > 0
                                         ? `
-                                        <p style="color: #44ff44;">Best time: ${bestSlots
+                                        <p style="color: #44ff44;">Best UTC time: ${bestSlots
                                           .map((s) => s.name)
                                           .join(", ")}</p>
                                         <p style="color: #888; font-size: 14px;">${maxCount} members available</p>
@@ -552,7 +620,7 @@ function renderTimeline() {
     // Desktop view - full grid
     view.innerHTML = `
                     <div style="margin-top: 20px; overflow-x: auto;">
-                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Light green = more members available</p>
+                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Light green = more members available (times converted to UTC)</p>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <th style="padding: 10px; text-align: left;">Day</th>
