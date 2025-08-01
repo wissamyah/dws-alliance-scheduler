@@ -1,6 +1,63 @@
 {
-  "lastUpdated": "2025-08-01T15:34:04.064Z",
-  "members": [],
+  "lastUpdated": "2025-08-01T18:46:09.914Z",
+  "members": [
+    {
+      "id": 1754073969912,
+      "username": "The 699",
+      "carPower": 90000000,
+      "towerLevel": 31,
+      "timezone": "UTC-12",
+      "availability": {
+        "monday": [
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "tuesday": [
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "wednesday": [
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "thursday": [
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "friday": [
+          "slot1",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot1",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-08-01T18:46:09.912Z"
+    }
+  ],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "The Dark Creed",
@@ -49,5 +106,5 @@
       }
     }
   },
-  "sha": "2a4abb5647bff0e584a00aea46b2058ef8c5c9a2"
+  "sha": "d6af6e07beae2ffa83bd91d0d5a24a615fe39f7a"
 }
