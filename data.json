@@ -1,59 +1,6 @@
 {
-  "lastUpdated": "2025-08-01T13:27:08.418Z",
-  "members": [
-    {
-      "id": 1754054828418,
-      "username": "Falowyn",
-      "carPower": 62000000,
-      "towerLevel": 30,
-      "timezone": "UTC+1",
-      "availability": {
-        "monday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "tuesday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "wednesday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "thursday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "friday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "saturday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ],
-        "sunday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10"
-        ]
-      },
-      "submittedAt": "2025-08-01T13:27:08.418Z"
-    }
-  ],
+  "lastUpdated": "2025-08-01T13:34:33.603Z",
+  "members": [],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "The Dark Creed",
@@ -102,5 +49,5 @@
       }
     }
   },
-  "sha": "41ea1b72147e2323261aa5b1b82fceefa17bc54b"
+  "sha": "6914def9e9801d2c553e055af7ff30742d4c8f5e"
 }
