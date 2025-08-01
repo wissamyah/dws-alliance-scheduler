@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-01T11:49:00.447Z",
+  "lastUpdated": "2025-08-01T11:49:02.098Z",
   "members": [
     {
       "id": 1754048862265,
@@ -13,6 +13,19 @@
         ]
       },
       "submittedAt": "2025-08-01T11:47:42.265Z"
+    },
+    {
+      "id": 1754048901684,
+      "username": "Test2",
+      "carPower": 15000000,
+      "towerLevel": 31,
+      "timezone": "UTC+2",
+      "availability": {
+        "monday": [
+          "slot1"
+        ]
+      },
+      "submittedAt": "2025-08-01T11:48:21.684Z"
     }
   ],
   "pendingSubmissions": [
@@ -28,19 +41,6 @@
         ]
       },
       "submittedAt": "2025-08-01T11:48:36.248Z"
-    },
-    {
-      "id": 1754048901684,
-      "username": "Test2",
-      "carPower": 15000000,
-      "towerLevel": 31,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot1"
-        ]
-      },
-      "submittedAt": "2025-08-01T11:48:21.684Z"
     },
     {
       "id": 1754048916248,
@@ -103,5 +103,5 @@
       }
     }
   },
-  "sha": "4182953d887f314face5e1a747cecdee70086153"
+  "sha": "2f35a05e47ebdeb4db1c2c5b2e6f3ccd853dd21c"
 }
