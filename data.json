@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-01T11:49:02.098Z",
+  "lastUpdated": "2025-08-01T11:49:04.669Z",
   "members": [
     {
       "id": 1754048862265,
@@ -26,21 +26,6 @@
         ]
       },
       "submittedAt": "2025-08-01T11:48:21.684Z"
-    }
-  ],
-  "pendingSubmissions": [
-    {
-      "id": 1754048916248,
-      "username": "Test3",
-      "carPower": 20000000,
-      "towerLevel": 29,
-      "timezone": "UTC-2",
-      "availability": {
-        "monday": [
-          "slot1"
-        ]
-      },
-      "submittedAt": "2025-08-01T11:48:36.248Z"
     },
     {
       "id": 1754048916248,
@@ -56,6 +41,7 @@
       "submittedAt": "2025-08-01T11:48:36.248Z"
     }
   ],
+  "pendingSubmissions": [],
   "config": {
     "allianceName": "Your Alliance Name",
     "timezones": [
@@ -103,5 +89,5 @@
       }
     }
   },
-  "sha": "2f35a05e47ebdeb4db1c2c5b2e6f3ccd853dd21c"
+  "sha": "0661106e100f018dec6ab62e60c47264f8236ad8"
 }
