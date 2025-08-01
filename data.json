@@ -1,54 +1,6 @@
 {
-  "lastUpdated": "2025-08-01T11:19:10.993Z",
-  "members": [
-    {
-      "id": 1754046938242,
-      "username": "Falowyn",
-      "carPower": 20,
-      "towerLevel": 35,
-      "timezone": "UTC-12",
-      "availability": {
-        "monday": [
-          "slot1",
-          "slot2",
-          "slot5",
-          "slot6"
-        ],
-        "tuesday": [
-          "slot2",
-          "slot6"
-        ],
-        "wednesday": [
-          "slot2",
-          "slot6",
-          "slot10"
-        ],
-        "thursday": [
-          "slot3",
-          "slot7",
-          "slot11"
-        ],
-        "friday": [
-          "slot2",
-          "slot6",
-          "slot7",
-          "slot11"
-        ],
-        "saturday": [
-          "slot2",
-          "slot6",
-          "slot7",
-          "slot11"
-        ],
-        "sunday": [
-          "slot6",
-          "slot7",
-          "slot10"
-        ]
-      },
-      "submittedAt": "2025-08-01T11:15:38.242Z"
-    }
-  ],
+  "lastUpdated": "2025-08-01T11:19:12.850Z",
+  "members": [],
   "pendingSubmissions": [],
   "config": {
     "allianceName": "Your Alliance Name",
@@ -97,5 +49,5 @@
       }
     }
   },
-  "sha": "38cda8ec40f68c243e095dbae2cd2f1c5cbbc67b"
+  "sha": "ac13482557d14add4792172a9274794ca8aceb5a"
 }
