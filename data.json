@@ -1,7 +1,61 @@
 {
-  "lastUpdated": "2025-08-01T11:37:45.151Z",
-  "members": [],
-  "pendingSubmissions": [],
+  "lastUpdated": "2025-08-01T11:49:00.447Z",
+  "members": [
+    {
+      "id": 1754048862265,
+      "username": "Test1",
+      "carPower": 15000000,
+      "towerLevel": 30,
+      "timezone": "UTC",
+      "availability": {
+        "monday": [
+          "slot1"
+        ]
+      },
+      "submittedAt": "2025-08-01T11:47:42.265Z"
+    }
+  ],
+  "pendingSubmissions": [
+    {
+      "id": 1754048916248,
+      "username": "Test3",
+      "carPower": 20000000,
+      "towerLevel": 29,
+      "timezone": "UTC-2",
+      "availability": {
+        "monday": [
+          "slot1"
+        ]
+      },
+      "submittedAt": "2025-08-01T11:48:36.248Z"
+    },
+    {
+      "id": 1754048901684,
+      "username": "Test2",
+      "carPower": 15000000,
+      "towerLevel": 31,
+      "timezone": "UTC+2",
+      "availability": {
+        "monday": [
+          "slot1"
+        ]
+      },
+      "submittedAt": "2025-08-01T11:48:21.684Z"
+    },
+    {
+      "id": 1754048916248,
+      "username": "Test3",
+      "carPower": 20000000,
+      "towerLevel": 29,
+      "timezone": "UTC-2",
+      "availability": {
+        "monday": [
+          "slot1"
+        ]
+      },
+      "submittedAt": "2025-08-01T11:48:36.248Z"
+    }
+  ],
   "config": {
     "allianceName": "Your Alliance Name",
     "timezones": [
@@ -49,5 +103,5 @@
       }
     }
   },
-  "sha": "8b8e89d96c7f311e12cbe497a5b73b63734efc02"
+  "sha": "4182953d887f314face5e1a747cecdee70086153"
 }
