@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-01T12:11:07.137Z",
+  "lastUpdated": "2025-08-01T12:11:08.395Z",
   "members": [
     {
       "id": 1754050229628,
@@ -13,6 +13,19 @@
         ]
       },
       "submittedAt": "2025-08-01T12:10:29.628Z"
+    },
+    {
+      "id": 1754050255396,
+      "username": "Test3",
+      "carPower": 20000000,
+      "towerLevel": 30,
+      "timezone": "UTC+2",
+      "availability": {
+        "monday": [
+          "slot1"
+        ]
+      },
+      "submittedAt": "2025-08-01T12:10:55.396Z"
     }
   ],
   "pendingSubmissions": [
@@ -30,19 +43,6 @@
       "submittedAt": "2025-08-01T12:10:41.793Z"
     },
     {
-      "id": 1754050255396,
-      "username": "Test3",
-      "carPower": 20000000,
-      "towerLevel": 30,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot1"
-        ]
-      },
-      "submittedAt": "2025-08-01T12:10:55.396Z"
-    },
-    {
       "id": 1754050241793,
       "username": "Test2",
       "carPower": 15000000,
@@ -54,19 +54,6 @@
         ]
       },
       "submittedAt": "2025-08-01T12:10:41.793Z"
-    },
-    {
-      "id": 1754050255396,
-      "username": "Test3",
-      "carPower": 20000000,
-      "towerLevel": 30,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot1"
-        ]
-      },
-      "submittedAt": "2025-08-01T12:10:55.396Z"
     }
   ],
   "config": {
@@ -116,5 +103,5 @@
       }
     }
   },
-  "sha": "d3c1c184c56837c4327b1873f20c68fe371d3455"
+  "sha": "abba65b806d630c02165f408bc2f2a3227fcbb52"
 }
