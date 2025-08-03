@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-02T02:41:22.167Z",
+  "lastUpdated": "2025-08-03T01:04:12.318Z",
   "members": [
     {
       "id": 1754073969912,
@@ -221,6 +221,9 @@
           "slot12"
         ],
         "saturday": [
+          "slot1",
+          "slot2",
+          "slot3",
           "slot4",
           "slot5",
           "slot6",
@@ -232,6 +235,9 @@
           "slot12"
         ],
         "sunday": [
+          "slot1",
+          "slot2",
+          "slot3",
           "slot4",
           "slot5",
           "slot6",
@@ -243,7 +249,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-02T01:49:41.881Z"
+      "submittedAt": "2025-08-03T01:04:12.318Z"
     },
     {
       "id": 1754102482166,
@@ -332,5 +338,5 @@
       }
     }
   },
-  "sha": "b78d6df62c2e5650079433d02d8fec60e7a8e203"
+  "sha": "5a8cf7e1e1bb0f5258d4a5261d51f37d3b0223d2"
 }
