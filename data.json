@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-03T17:32:24.529Z",
+  "lastUpdated": "2025-08-03T17:35:24.609Z",
   "members": [
     {
       "id": 1754079863346,
@@ -397,56 +397,14 @@
       "username": "The 699",
       "carPower": 91000000,
       "towerLevel": 31,
-      "timezone": "UTC-12",
+      "timezone": "UTC+4",
       "availability": {
         "monday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "tuesday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "wednesday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "thursday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "friday": [
           "slot1",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "saturday": [
-          "slot1",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "sunday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
+          "slot2"
         ]
       },
-      "submittedAt": "2025-08-03T17:32:24.525Z"
+      "submittedAt": "2025-08-03T17:35:24.608Z"
     }
   ],
   "pendingSubmissions": [],
@@ -497,5 +455,5 @@
       }
     }
   },
-  "sha": "966317cc98df63558063989fd15870738fc83ace"
+  "sha": "a02aa671b6d641a87e42fb0456c1ea33a7ef5861"
 }
