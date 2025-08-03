@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-03T17:35:24.609Z",
+  "lastUpdated": "2025-08-03T17:45:35.742Z",
   "members": [
     {
       "id": 1754079863346,
@@ -391,20 +391,6 @@
         ]
       },
       "submittedAt": "2025-08-03T13:11:02.355Z"
-    },
-    {
-      "id": 1754242344525,
-      "username": "The 699",
-      "carPower": 91000000,
-      "towerLevel": 31,
-      "timezone": "UTC+4",
-      "availability": {
-        "monday": [
-          "slot1",
-          "slot2"
-        ]
-      },
-      "submittedAt": "2025-08-03T17:35:24.608Z"
     }
   ],
   "pendingSubmissions": [],
@@ -455,5 +441,5 @@
       }
     }
   },
-  "sha": "a02aa671b6d641a87e42fb0456c1ea33a7ef5861"
+  "sha": "13719e06fd38eb921973b15beda6a299e8d92e39"
 }
