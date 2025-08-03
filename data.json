@@ -1,62 +1,6 @@
 {
-  "lastUpdated": "2025-08-03T13:11:02.357Z",
+  "lastUpdated": "2025-08-03T17:31:27.732Z",
   "members": [
-    {
-      "id": 1754073969912,
-      "username": "The 699",
-      "carPower": 90000000,
-      "towerLevel": 31,
-      "timezone": "UTC-12",
-      "availability": {
-        "monday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "tuesday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "wednesday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "thursday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "friday": [
-          "slot1",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "saturday": [
-          "slot1",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "sunday": [
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ]
-      },
-      "submittedAt": "2025-08-01T18:49:50.560Z"
-    },
     {
       "id": 1754079863346,
       "username": "Falowyn",
@@ -497,5 +441,5 @@
       }
     }
   },
-  "sha": "172f0e9732dd1ac8d4a2f2c39401fa4b1faaa679"
+  "sha": "681c60a3f0731e62d482692e0a67d322bdad6634"
 }
