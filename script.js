@@ -5,8 +5,12 @@ const DATA_FILE = "data.json";
 let authToken = localStorage.getItem("githubToken");
 let isAuthenticated = false;
 let currentData = null;
-let userSelections =
-  JSON.parse(localStorage.getItem("timeSlotSelections")) || {};
+let userSelections = JSON.parse(localStorage.getItem("timeSlotSelections")) || {};
+
+// Timezone management
+let isTimezoneConfirmed = localStorage.getItem("timezoneConfirmed") === "true";
+let confirmedTimezone = localStorage.getItem("confirmedTimezone");
+let detectedTimezone = null;
 
 // Time slot definitions - 2 hour blocks
 const TIME_SLOTS = [
@@ -24,13 +28,180 @@ const TIME_SLOTS = [
   { id: "slot12", name: "10PM-12AM", hours: [22, 23] },
 ];
 
-// For mobile view, show 3 slots at a time
-const MOBILE_SLOT_GROUPS = [
-  { label: "Night", slots: ["slot1", "slot2", "slot3"] },
-  { label: "Morning", slots: ["slot4", "slot5", "slot6"] },
-  { label: "Afternoon", slots: ["slot7", "slot8", "slot9"] },
-  { label: "Evening", slots: ["slot10", "slot11", "slot12"] },
-];
+// Helper function to convert IANA timezone to UTC offset
+function getTimezoneOffset(timezone) {
+  try {
+    const now = new Date();
+    const utc = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+    const local = new Date(utc.toLocaleString("en-US", {timeZone: timezone}));
+    const diff = (local.getTime() - utc.getTime()) / (1000 * 60 * 60);
+    return Math.round(diff);
+  } catch (e) {
+    return 0;
+  }
+}
+
+// Helper function to convert timezone offset to UTC string
+function offsetToUTCString(offset) {
+  if (offset === 0) return "UTC";
+  const sign = offset >= 0 ? "+" : "";
+  return `UTC${sign}${offset}`;
+}
+
+// Auto-detect user's timezone
+function detectUserTimezone() {
+  try {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const offset = getTimezoneOffset(timezone);
+    const utcString = offsetToUTCString(offset);
+    
+    detectedTimezone = {
+      iana: timezone,
+      offset: offset,
+      utc: utcString
+    };
+    
+    return detectedTimezone;
+  } catch (e) {
+    // Fallback to UTC if detection fails
+    detectedTimezone = {
+      iana: "UTC",
+      offset: 0,
+      utc: "UTC"
+    };
+    return detectedTimezone;
+  }
+}
+
+// Update time displays in modal
+function updateTimeDisplays() {
+  if (!detectedTimezone) return;
+  
+  const now = new Date();
+  
+  // User's local time
+  const userTime = new Date(now.toLocaleString("en-US", {timeZone: detectedTimezone.iana}));
+  document.getElementById("userLocalTime").textContent = userTime.toTimeString().slice(0, 5);
+  document.getElementById("userTimezone").textContent = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
+  
+  // Server time (UTC-2)
+  const serverOffset = -2;
+  const serverTime = new Date();
+  serverTime.setHours(serverTime.getUTCHours() + serverOffset);
+  document.getElementById("serverTime").textContent = serverTime.toTimeString().slice(0, 5);
+  
+  // Time relationship
+  const timeDiff = detectedTimezone.offset - serverOffset;
+  const diff = Math.abs(timeDiff);
+  
+  let relationshipText;
+  if (timeDiff > 0) {
+    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} ahead of server time`;
+  } else if (timeDiff < 0) {
+    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} behind server time`;
+  } else {
+    relationshipText = `Your timezone matches server time perfectly!`;
+  }
+  
+  document.getElementById("timeRelationship").textContent = relationshipText;
+}
+
+// Show timezone confirmation modal
+function showTimezoneModal() {
+  detectUserTimezone();
+  updateTimeDisplays();
+  document.getElementById("timezoneModal").classList.add("active");
+  
+  // Update time displays every second
+  const interval = setInterval(() => {
+    if (document.getElementById("timezoneModal").classList.contains("active")) {
+      updateTimeDisplays();
+    } else {
+      clearInterval(interval);
+    }
+  }, 1000);
+}
+
+// Confirm timezone
+function confirmTimezone() {
+  if (!detectedTimezone) return;
+  
+  isTimezoneConfirmed = true;
+  confirmedTimezone = detectedTimezone.utc;
+  
+  localStorage.setItem("timezoneConfirmed", "true");
+  localStorage.setItem("confirmedTimezone", confirmedTimezone);
+  
+  document.getElementById("timezoneModal").classList.remove("active");
+  updateTimezoneUI();
+  showMessage("Timezone confirmed! You can now select your available time slots.", "success");
+}
+
+// Change timezone (show manual selection)
+function changeTimezone() {
+  document.getElementById("timezoneModal").classList.remove("active");
+  document.getElementById("manualTimezoneGroup").style.display = "block";
+  
+  // Update timezone status
+  document.getElementById("timezoneLocked").style.display = "block";
+  document.getElementById("timezoneStatus").style.display = "none";
+  
+  // Reset confirmation
+  isTimezoneConfirmed = false;
+  localStorage.removeItem("timezoneConfirmed");
+  localStorage.removeItem("confirmedTimezone");
+  
+  updateTimezoneUI();
+}
+
+// Update timezone-related UI elements
+function updateTimezoneUI() {
+  const timeLocked = document.getElementById("timezoneLocked");
+  const timeStatus = document.getElementById("timezoneStatus");
+  const manualGroup = document.getElementById("manualTimezoneGroup");
+  
+  if (isTimezoneConfirmed && confirmedTimezone) {
+    // Show confirmed status
+    timeLocked.style.display = "none";
+    timeStatus.style.display = "block";
+    manualGroup.style.display = "none";
+    
+    document.getElementById("confirmedTimezoneText").textContent = 
+      `Using ${confirmedTimezone} timezone`;
+    
+    // Enable time slot selection
+    enableTimeSlotSelection();
+  } else {
+    // Show locked message
+    timeLocked.style.display = "block";
+    timeStatus.style.display = "none";
+    
+    // Disable time slot selection
+    disableTimeSlotSelection();
+  }
+}
+
+// Enable time slot selection
+function enableTimeSlotSelection() {
+  const timeSlotButtons = document.querySelectorAll(".time-slot-btn");
+  timeSlotButtons.forEach(btn => {
+    btn.classList.remove("disabled");
+    btn.removeAttribute("disabled");
+  });
+  
+  document.getElementById("submitBtn").disabled = false;
+}
+
+// Disable time slot selection
+function disableTimeSlotSelection() {
+  const timeSlotButtons = document.querySelectorAll(".time-slot-btn");
+  timeSlotButtons.forEach(btn => {
+    btn.classList.add("disabled");
+    btn.setAttribute("disabled", "true");
+  });
+  
+  document.getElementById("submitBtn").disabled = true;
+}
 
 // Helper function to convert member's local time slots to server time (UTC-2) slots
 function convertSlotsToServerTime(memberSlots, memberTimezone) {
@@ -89,12 +260,24 @@ function updateServerTimeDisplay() {
     relationshipText = `Your timezone matches server time`;
   }
 
-  document.getElementById(
-    "serverTimeInfo"
-  ).innerHTML = `${relationshipText}<br>
-                 Current server time: ${serverTime
-                   .toTimeString()
-                   .slice(0, 5)} (UTC-2)`;
+  document.getElementById("serverTimeInfo").innerHTML = `${relationshipText}<br>
+                 Current server time: ${serverTime.toTimeString().slice(0, 5)} (UTC-2)`;
+}
+
+// Handle manual timezone selection
+function handleManualTimezoneChange() {
+  const selectedTz = document.getElementById("timezone").value;
+  if (selectedTz) {
+    isTimezoneConfirmed = true;
+    confirmedTimezone = selectedTz;
+    
+    localStorage.setItem("timezoneConfirmed", "true");
+    localStorage.setItem("confirmedTimezone", confirmedTimezone);
+    
+    updateTimezoneUI();
+    updateServerTimeDisplay();
+    showMessage(`Timezone set to ${selectedTz}! You can now select your available time slots.`, "success");
+  }
 }
 
 async function loadData() {
@@ -205,10 +388,18 @@ function submitMemberInfo() {
     return;
   }
 
+  // Check if timezone is confirmed
+  if (!isTimezoneConfirmed || !confirmedTimezone) {
+    showMessage("Please confirm your timezone before submitting your information!", "error");
+    if (!isTimezoneConfirmed) {
+      showTimezoneModal();
+    }
+    return;
+  }
+
   const username = document.getElementById("username").value;
   const carPower = document.getElementById("carPower").value;
   const towerLevel = document.getElementById("towerLevel").value;
-  const timezone = document.getElementById("timezone").value;
 
   if (!username || !carPower || !towerLevel) {
     showMessage("Please fill all required fields", "error");
@@ -246,7 +437,7 @@ function submitMemberInfo() {
     username,
     carPower: parseInt(carPower),
     towerLevel: parseInt(towerLevel),
-    timezone,
+    timezone: confirmedTimezone,
     availability: timeSlots,
     submittedAt: new Date().toISOString(),
   };
@@ -295,9 +486,21 @@ function submitMemberInfo() {
 }
 
 function toggleTimeSlot(day, slotId) {
+  // Check if timezone is confirmed
+  if (!isTimezoneConfirmed) {
+    showMessage("Please confirm your timezone first!", "error");
+    showTimezoneModal();
+    return;
+  }
+
   const btn = document.querySelector(
     `[data-day="${day}"][data-slot="${slotId}"]`
   );
+  
+  if (btn.classList.contains("disabled")) {
+    return;
+  }
+  
   btn.classList.toggle("active");
 
   // Save to localStorage
@@ -352,8 +555,11 @@ function renderUI() {
   timezoneSelect.innerHTML = currentData.config.timezones
     .map((tz) => `<option value="${tz}">${tz}</option>`)
     .join("");
-  timezoneSelect.addEventListener("change", updateServerTimeDisplay);
+  timezoneSelect.addEventListener("change", handleManualTimezoneChange);
   updateServerTimeDisplay();
+
+  // Update timezone UI
+  updateTimezoneUI();
 
   // Render time slot inputs
   const days = [
@@ -384,15 +590,18 @@ function renderUI() {
                                         userSelections[
                                           day.toLowerCase()
                                         ].includes(slot.id);
+                                      const disabledClass = !isTimezoneConfirmed ? "disabled" : "";
+                                      const disabledAttr = !isTimezoneConfirmed ? 'disabled="true"' : "";
                                       return `
                                             <div class="time-slot-btn ${
                                               isActive ? "active" : ""
-                                            }" 
+                                            } ${disabledClass}" 
                                                  data-day="${day.toLowerCase()}" 
                                                  data-slot="${slot.id}"
                                                  onclick="toggleTimeSlot('${day.toLowerCase()}', '${
                                         slot.id
                                       }')"
+                                                 ${disabledAttr}
                                                  style="padding: 15px 10px; min-height: 60px; font-size: 13px; font-weight: 600;">
                                                 ${slot.name}
                                             </div>
@@ -422,15 +631,18 @@ function renderUI() {
                                 userSelections[day.toLowerCase()].includes(
                                   slot.id
                                 );
+                              const disabledClass = !isTimezoneConfirmed ? "disabled" : "";
+                              const disabledAttr = !isTimezoneConfirmed ? 'disabled="true"' : "";
                               return `
                                     <div class="time-slot-btn ${
                                       isActive ? "active" : ""
-                                    }" 
+                                    } ${disabledClass}" 
                                          data-day="${day.toLowerCase()}" 
                                          data-slot="${slot.id}"
                                          onclick="toggleTimeSlot('${day.toLowerCase()}', '${
                                 slot.id
                               }')"
+                                         ${disabledAttr}
                                          style="padding: 12px 8px; min-height: 50px; font-size: 14px; font-weight: 600;">
                                         ${slot.name}
                                     </div>
@@ -631,6 +843,17 @@ if (authToken) {
   // Hide auth section if already authenticated
   document.getElementById("authSection").classList.add("hidden");
 }
+
+// Initialize timezone handling
+document.addEventListener("DOMContentLoaded", () => {
+  // Check if timezone was previously confirmed
+  if (!isTimezoneConfirmed) {
+    // Show timezone modal after a short delay
+    setTimeout(() => {
+      showTimezoneModal();
+    }, 1000);
+  }
+});
 
 loadData();
 

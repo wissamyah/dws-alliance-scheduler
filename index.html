@@ -24,6 +24,47 @@
 
       <div id="messageArea"></div>
 
+      <!-- Timezone Confirmation Modal -->
+      <div id="timezoneModal" class="modal-overlay">
+        <div class="modal-content">
+          <h3>🌍 Confirm Your Timezone</h3>
+          <p>We've detected your timezone automatically. Please confirm it's correct before proceeding:</p>
+          
+          <div class="timezone-info">
+            <h4>📍 Detected Information</h4>
+            <div class="timezone-comparison">
+              <div class="timezone-item">
+                <h5>Your Local Time</h5>
+                <div class="time" id="userLocalTime">--:--</div>
+                <div class="zone" id="userTimezone">Loading...</div>
+              </div>
+              <div class="timezone-item">
+                <h5>Server Time</h5>
+                <div class="time" id="serverTime">--:--</div>
+                <div class="zone">UTC-2</div>
+              </div>
+            </div>
+            
+            <div class="time-relationship">
+              <div class="relationship-text" id="timeRelationship">Calculating...</div>
+            </div>
+          </div>
+
+          <p style="margin-bottom: 25px;">
+            <strong>Important:</strong> Your time slot selections will be converted to server time (UTC-2) for coordination.
+          </p>
+
+          <div class="modal-buttons">
+            <button class="btn btn-success" onclick="confirmTimezone()">
+              ✅ Confirm & Continue
+            </button>
+            <button class="btn" onclick="changeTimezone()">
+              🔄 Change Timezone
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div id="authSection" class="auth-section">
         <h2>Authentication Required</h2>
         <p style="margin-bottom: 15px">
@@ -47,6 +88,20 @@
 
       <div class="member-form">
         <h2>Submit Your Information</h2>
+        
+        <!-- Timezone Status Display -->
+        <div id="timezoneStatus" class="timezone-status" style="display: none;">
+          <h4>✅ Timezone Confirmed</h4>
+          <p id="confirmedTimezoneText">--</p>
+          <button class="change-btn" onclick="changeTimezone()">Change Timezone</button>
+        </div>
+
+        <!-- Timezone Locked Message -->
+        <div id="timezoneLocked" class="timezone-locked-message" style="display: block;">
+          <h3>🔒 Timezone Setup Required</h3>
+          <p>Please confirm your timezone first to enable time slot selection.</p>
+        </div>
+
         <div class="form-grid">
           <div class="form-group">
             <label>In-Game Username</label>
@@ -66,7 +121,7 @@
               placeholder="1-33"
             />
           </div>
-          <div class="form-group">
+          <div class="form-group" id="manualTimezoneGroup" style="display: none;">
             <label>Timezone</label>
             <select id="timezone"></select>
             <small
@@ -77,12 +132,11 @@
         </div>
         <h3 style="margin: 20px 0 10px">Available Time Slots</h3>
         <p style="color: #888; margin-bottom: 15px; font-size: 14px">
-          Select when you're usually available (2-hour blocks in your local
-          time)
+          Select when you're usually available (2-hour blocks in your local time)
         </p>
         <div id="timeSlotHeaders"></div>
         <div id="timeSlotInputs"></div>
-        <button class="btn btn-success" onclick="submitMemberInfo()">
+        <button class="btn btn-success" onclick="submitMemberInfo()" id="submitBtn">
           Submit Information
         </button>
       </div>
