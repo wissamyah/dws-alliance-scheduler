@@ -172,7 +172,7 @@ function confirmTimezone() {
   
   document.getElementById("timezoneModal").classList.remove("active");
   updateTimezoneUI();
-  showMessage("Timezone confirmed! You can now select your available time slots.", "success");
+  showMessage(t("timezoneConfirmedMessage"), "success");
 }
 
 // Change timezone (show manual selection)
@@ -314,7 +314,7 @@ function handleManualTimezoneChange() {
     
     updateTimezoneUI();
     updateServerTimeDisplay();
-    showMessage(`Timezone set to ${selectedTz}! You can now select your available time slots.`, "success");
+    showMessage(t("timezoneSetMessage", { timezone: selectedTz }), "success");
   }
 }
 
@@ -330,14 +330,14 @@ async function loadData() {
     currentData.sha = file.sha;
     renderUI();
   } catch (error) {
-    showMessage("Error loading data: " + error.message, "error");
+    showMessage(t("errorLoadingData", { error: error.message }), "error");
   }
   showLoading(false);
 }
 
 async function saveData() {
   if (!isAuthenticated || !authToken) {
-    showMessage("You must be authenticated to save data", "error");
+    showMessage(t("mustAuthenticateToSave"), "error");
     return;
   }
   showLoading(true);
@@ -365,9 +365,9 @@ async function saveData() {
 
     const result = await response.json();
     currentData.sha = result.content.sha;
-    showMessage("Data saved successfully!", "success");
+    showMessage(t("dataSavedSuccessfully"), "success");
   } catch (error) {
-    showMessage("Error saving data: " + error.message, "error");
+    showMessage(t("errorSavingData", { error: error.message }), "error");
   }
   showLoading(false);
 }
@@ -375,7 +375,7 @@ async function saveData() {
 function authenticate() {
   const token = document.getElementById("githubToken").value;
   if (!token) {
-    showMessage("Please enter a GitHub token", "error");
+    showMessage(t("enterGithubToken"), "error");
     return;
   }
   authToken = token;
@@ -383,7 +383,7 @@ function authenticate() {
   isAuthenticated = true;
   updateAuthStatus();
   renderUI();
-  showMessage("Authentication successful!", "success");
+  showMessage(t("authenticationSuccessful"), "success");
 
   // Hide auth section after authentication
   document.getElementById("authSection").classList.add("hidden");
@@ -422,13 +422,13 @@ function updateAuthStatus() {
 function submitMemberInfo() {
   // Check if user is authenticated first
   if (!isAuthenticated) {
-    showMessage("You must authenticate with a GitHub token before submitting your information!", "error");
+    showMessage(t("mustAuthenticate"), "error");
     return;
   }
 
   // Check if timezone is confirmed
   if (!isTimezoneConfirmed || !confirmedTimezone) {
-    showMessage("Please confirm your timezone before submitting your information!", "error");
+    showMessage(t("confirmTimezoneBeforeSubmit"), "error");
     if (!isTimezoneConfirmed) {
       showTimezoneModal();
     }
@@ -440,7 +440,7 @@ function submitMemberInfo() {
   const towerLevel = document.getElementById("towerLevel").value;
 
   if (!username || !carPower || !towerLevel) {
-    showMessage("Please fill all required fields", "error");
+    showMessage(t("fillAllFields"), "error");
     return;
   }
 
@@ -516,10 +516,13 @@ function submitMemberInfo() {
       currentData.members[existingMemberIndex] = updatedMember;
       
       const updatedFields = [];
-      if (carPower.trim()) updatedFields.push("car power");
-      if (towerLevel.trim()) updatedFields.push("tower level");
+      if (carPower.trim()) updatedFields.push(t("carPower"));
+      if (towerLevel.trim()) updatedFields.push(t("towerLevel"));
       
-      showMessage(`${existingMember.username}'s ${updatedFields.join(" and ")} updated successfully!`, "success");
+      showMessage(t("carPowerUpdated", { 
+        username: existingMember.username, 
+        fields: updatedFields.join(` ${t("and")} `) 
+      }), "success");
     } else {
       // Full update mode: user selected timeslots, so update everything
       submission.id = existingMember.id; // Keep original ID
@@ -534,17 +537,17 @@ function submitMemberInfo() {
       }
       
       currentData.members[existingMemberIndex] = submission;
-      showMessage(`${existingMember.username}'s information has been fully updated!`, "success");
+      showMessage(t("memberInfoFullyUpdated", { username: existingMember.username }), "success");
     }
   } else {
     // New member - require all fields
     if (!carPower.trim() || !towerLevel.trim()) {
-      showMessage("New members must provide car power and tower level", "error");
+      showMessage(t("newMemberRequirements"), "error");
       return;
     }
     
     currentData.members.push(submission);
-    showMessage("Member information submitted successfully!", "success");
+    showMessage(t("memberInfoSubmitted"), "success");
   }
 
   saveData();
@@ -569,7 +572,7 @@ function submitMemberInfo() {
 function toggleTimeSlot(day, slotId) {
   // Check if timezone is confirmed
   if (!isTimezoneConfirmed) {
-    showMessage("Please confirm your timezone first!", "error");
+    showMessage(t("confirmTimezoneBeforeSelect"), "error");
     showTimezoneModal();
     return;
   }
@@ -605,13 +608,13 @@ function showDeleteModal(id) {
   if (password === "R5") {
     deleteMember(id);
   } else if (password !== null) { // null means user cancelled
-    showMessage("Incorrect password. Member not deleted.", "error");
+    showMessage(t("incorrectPassword"), "error");
   }
 }
 
 function deleteMember(id) {
   if (!isAuthenticated) {
-    showMessage("You must be authenticated to delete members", "error");
+    showMessage(t("mustAuthenticateToDelete"), "error");
     return;
   }
   
@@ -621,7 +624,7 @@ function deleteMember(id) {
   
   currentData.members = currentData.members.filter((m) => m.id !== id);
   saveData();
-  showMessage(`${memberName} has been removed from the alliance`, "success");
+  showMessage(t("memberRemoved", { memberName: memberName }), "success");
   
   // Immediately update the UI to remove the member and update timeline
   renderMembers();
@@ -644,13 +647,13 @@ function renderUI() {
 
   // Render time slot inputs
   const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
   ];
   const isMobile = window.innerWidth < 768;
 
@@ -663,23 +666,21 @@ function renderUI() {
                           .map(
                             (day) => `
                             <div style="margin-bottom: 25px;">
-                                <h4 style="color: #4a9eff; margin-bottom: 15px; text-align: center; font-size: 1.1em;">${day}</h4>
+                                <h4 style="color: #4a9eff; margin-bottom: 15px; text-align: center; font-size: 1.1em;">${t(day)}</h4>
                                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                                     ${TIME_SLOTS.map((slot) => {
                                       const isActive =
-                                        userSelections[day.toLowerCase()] &&
-                                        userSelections[
-                                          day.toLowerCase()
-                                        ].includes(slot.id);
+                                        userSelections[day] &&
+                                        userSelections[day].includes(slot.id);
                                       const disabledClass = !isTimezoneConfirmed ? "disabled" : "";
                                       const disabledAttr = !isTimezoneConfirmed ? 'disabled="true"' : "";
                                       return `
                                             <div class="time-slot-btn ${
                                               isActive ? "active" : ""
                                             } ${disabledClass}" 
-                                                 data-day="${day.toLowerCase()}" 
+                                                 data-day="${day}" 
                                                  data-slot="${slot.id}"
-                                                 onclick="toggleTimeSlot('${day.toLowerCase()}', '${
+                                                 onclick="toggleTimeSlot('${day}', '${
                                         slot.id
                                       }')"
                                                  ${disabledAttr}
@@ -704,12 +705,12 @@ function renderUI() {
       .map(
         (day) => `
                     <div style="margin-bottom: 20px;">
-                        <h4 style="color: #4a9eff; margin-bottom: 15px; font-size: 1.1em;">${day}</h4>
+                        <h4 style="color: #4a9eff; margin-bottom: 15px; font-size: 1.1em;">${t(day)}</h4>
                         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
                             ${TIME_SLOTS.map((slot) => {
                               const isActive =
-                                userSelections[day.toLowerCase()] &&
-                                userSelections[day.toLowerCase()].includes(
+                                userSelections[day] &&
+                                userSelections[day].includes(
                                   slot.id
                                 );
                               const disabledClass = !isTimezoneConfirmed ? "disabled" : "";
@@ -718,9 +719,9 @@ function renderUI() {
                                     <div class="time-slot-btn ${
                                       isActive ? "active" : ""
                                     } ${disabledClass}" 
-                                         data-day="${day.toLowerCase()}" 
+                                         data-day="${day}" 
                                          data-slot="${slot.id}"
-                                         onclick="toggleTimeSlot('${day.toLowerCase()}', '${
+                                         onclick="toggleTimeSlot('${day}', '${
                                 slot.id
                               }')"
                                          ${disabledAttr}
@@ -1047,7 +1048,7 @@ function changeLanguage(langCode) {
     updateAllTranslations();
     
     // Show success message
-    showMessage(t("authenticationSuccessful"), "success"); // Using existing message as placeholder
+    showMessage(t("languageChanged"), "success");
   }
 }
 

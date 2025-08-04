@@ -75,8 +75,13 @@ const translations = {
     power: "Power",
     tower: "Tower",
     
+    // Fields for member cards
+    carPower: "car power",
+    towerLevel: "tower level",
+    
     // Messages
     authenticationSuccessful: "Authentication successful!",
+    languageChanged: "Language changed successfully!",
     enterGithubToken: "Please enter a GitHub token",
     mustAuthenticate: "You must authenticate with a GitHub token before submitting your information!",
     confirmTimezoneBeforeSubmit: "Please confirm your timezone before submitting your information!",
@@ -100,6 +105,9 @@ const translations = {
     
     // Loading
     loading: "Loading...",
+    
+    // Conjunctions
+    and: "and",
     
     // Mobile timeline
     bestServerTime: "Best server time: {slots}",
@@ -182,8 +190,13 @@ const translations = {
     power: "Poder",
     tower: "Torre",
     
+    // Fields for member cards  
+    carPower: "poder do carro",
+    towerLevel: "nível da torre",
+    
     // Messages
     authenticationSuccessful: "Autenticação bem-sucedida!",
+    languageChanged: "Idioma alterado com sucesso!",
     enterGithubToken: "Por favor, digite um token GitHub",
     mustAuthenticate: "Você deve se autenticar com um token GitHub antes de enviar suas informações!",
     confirmTimezoneBeforeSubmit: "Por favor, confirme seu fuso horário antes de enviar suas informações!",
@@ -207,6 +220,9 @@ const translations = {
     
     // Loading
     loading: "Carregando...",
+    
+    // Conjunctions
+    and: "e",
     
     // Mobile timeline
     bestServerTime: "Melhor horário do servidor: {slots}",
@@ -289,8 +305,13 @@ const translations = {
     power: "Puissance",
     tower: "Tour",
     
+    // Fields for member cards
+    carPower: "puissance de voiture",
+    towerLevel: "niveau de tour",
+    
     // Messages
     authenticationSuccessful: "Authentification réussie !",
+    languageChanged: "Langue modifiée avec succès !",
     enterGithubToken: "Veuillez entrer un token GitHub",
     mustAuthenticate: "Vous devez vous authentifier avec un token GitHub avant de soumettre vos informations !",
     confirmTimezoneBeforeSubmit: "Veuillez confirmer votre fuseau horaire avant de soumettre vos informations !",
@@ -314,6 +335,9 @@ const translations = {
     
     // Loading
     loading: "Chargement...",
+    
+    // Conjunctions
+    and: "et",
     
     // Mobile timeline
     bestServerTime: "Meilleur horaire serveur : {slots}",
@@ -396,8 +420,13 @@ const translations = {
     power: "Poder",
     tower: "Torre",
     
+    // Fields for member cards
+    carPower: "poder de coche",
+    towerLevel: "nivel de torre",
+    
     // Messages
     authenticationSuccessful: "¡Autenticación exitosa!",
+    languageChanged: "¡Idioma cambiado exitosamente!",
     enterGithubToken: "Por favor ingresa un token de GitHub",
     mustAuthenticate: "¡Debes autenticarte con un token de GitHub antes de enviar tu información!",
     confirmTimezoneBeforeSubmit: "¡Por favor confirma tu zona horaria antes de enviar tu información!",
@@ -421,6 +450,9 @@ const translations = {
     
     // Loading
     loading: "Cargando...",
+    
+    // Conjunctions
+    and: "y",
     
     // Mobile timeline
     bestServerTime: "Mejor horario del servidor: {slots}",

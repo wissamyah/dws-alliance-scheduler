@@ -213,15 +213,15 @@
         
         <!-- Timezone Status Display -->
         <div id="timezoneStatus" class="timezone-status" style="display: none;">
-          <h4>✅ Timezone Confirmed</h4>
+          <h4 data-translate="timezoneConfirmed">✅ Timezone Confirmed</h4>
           <p id="confirmedTimezoneText">--</p>
-          <button class="change-btn" onclick="changeTimezone()">Change Timezone</button>
+          <button class="change-btn" onclick="changeTimezone()" data-translate="changeTimezone">Change Timezone</button>
         </div>
 
         <!-- Timezone Locked Message -->
         <div id="timezoneLocked" class="timezone-locked-message" style="display: block;">
-          <h3>🔒 Timezone Setup Required</h3>
-          <p>Please confirm your timezone first to enable time slot selection.</p>
+          <h3 data-translate="timezoneSetupRequired">🔒 Timezone Setup Required</h3>
+          <p data-translate="confirmTimezoneFirst">Please confirm your timezone first to enable time slot selection.</p>
         </div>
 
         <div class="form-grid">
