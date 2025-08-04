@@ -458,6 +458,121 @@ const translations = {
     bestServerTime: "Mejor horario del servidor: {slots}",
     membersAvailable: "{count} miembros disponibles",
     noMembersAvailable: "No hay miembros disponibles"
+  },
+  
+  it: {
+    // Header
+    title: "Alleanza Dark Creed",
+    subtitle: "Unire. Strategizzare. Dominare.",
+    logout: "Esci",
+    
+    // Timezone Modal
+    timezoneTitle: "🌍 Conferma il Tuo Fuso Orario",
+    timezoneDescription: "Abbiamo rilevato automaticamente il tuo fuso orario. Per favore conferma che sia corretto prima di procedere:",
+    detectedInfo: "📍 Informazioni Rilevate",
+    yourLocalTime: "La Tua Ora Locale",
+    serverTime: "Ora del Server",
+    timezoneImportant: "Importante: Le tue selezioni di fasce orarie verranno convertite all'ora del server (UTC-2) per il coordinamento.",
+    confirmContinue: "✅ Conferma e Continua",
+    changeTimezone: "🔄 Cambia Fuso Orario",
+    
+    // Authentication
+    authRequired: "Autenticazione Richiesta",
+    notAuthenticated: "Non autenticato",
+    authenticated: "Autenticato",
+    githubTokenPlaceholder: "Token GitHub (richiesto per tutti i membri)",
+    authenticate: "Autentica",
+    authDescription: "Tutti i membri devono autenticarsi prima di inviare informazioni.",
+    contactR4R5: "Contatta il tuo R4/R5 dell'alleanza per il token GitHub.",
+    
+    // Form Section
+    submitInfo: "Invia le Tue Informazioni",
+    howUpdatesWork: "💡 Come Funzionano gli Aggiornamenti",
+    quickUpdate: "Aggiornamento Rapido: Inserisci il tuo nome utente + nuova potenza auto e/o livello torre → le tue fasce orarie rimangono uguali",
+    fullUpdate: "Aggiornamento Completo: Inserisci il tuo nome utente + seleziona nuove fasce orarie → aggiorna tutto (potenza auto/torre opzionale)",
+    newMembersNote: "I nuovi membri devono compilare tutti i campi incluse le fasce orarie",
+    
+    // Timezone Status
+    timezoneConfirmed: "✅ Fuso Orario Confermato",
+    timezoneSetupRequired: "🔒 Configurazione Fuso Orario Richiesta",
+    confirmTimezoneFirst: "Per favore conferma prima il tuo fuso orario per abilitare la selezione delle fasce orarie.",
+    usingTimezone: "Usando fuso orario {timezone}",
+    
+    // Form Fields
+    inGameUsername: "Nome Utente nel Gioco",
+    usernamePlaceholder: "Il tuo nome utente",
+    mainCarPower: "Potenza Auto Principale",
+    carPowerPlaceholder: "es: 150000",
+    towerLevel: "Livello Torre",
+    towerLevelPlaceholder: "1-33",
+    timezone: "Fuso Orario",
+    
+    // Time Slots
+    availableTimeSlots: "Fasce Orarie Disponibili",
+    timeSlotDescription: "Seleziona quando sei solitamente disponibile (blocchi di 2 ore nel tuo orario locale)",
+    submitInformation: "Invia Informazioni",
+    
+    // Days of the week
+    monday: "Lunedì",
+    tuesday: "Martedì",
+    wednesday: "Mercoledì",
+    thursday: "Giovedì",
+    friday: "Venerdì",
+    saturday: "Sabato",
+    sunday: "Domenica",
+    
+    // Timeline
+    allianceTimeline: "Cronologia dell'Alleanza (Ora del Server UTC-2)",
+    memberAvailabilityScale: "Scala disponibilità membri (orari convertiti all'ora del server UTC-2):",
+    critical: "Critico",
+    low: "Basso",
+    moderate: "Moderato",
+    good: "Buono",
+    excellent: "Eccellente",
+    
+    // Alliance Members
+    allianceMembers: "Membri dell'Alleanza",
+    power: "Potenza",
+    tower: "Torre",
+    
+    // Fields for member cards
+    carPower: "potenza auto",
+    towerLevel: "livello torre",
+    
+    // Messages
+    authenticationSuccessful: "Autenticazione riuscita!",
+    languageChanged: "Lingua cambiata con successo!",
+    enterGithubToken: "Per favore inserisci un token GitHub",
+    mustAuthenticate: "Devi autenticarti con un token GitHub prima di inviare le tue informazioni!",
+    confirmTimezoneBeforeSubmit: "Per favore conferma il tuo fuso orario prima di inviare le tue informazioni!",
+    fillAllFields: "Per favore compila tutti i campi richiesti",
+    newMemberRequirements: "I nuovi membri devono fornire potenza auto e livello torre",
+    memberInfoSubmitted: "Informazioni membro inviate con successo!",
+    memberInfoUpdated: "Le informazioni di {username} sono state aggiornate!",
+    memberInfoFullyUpdated: "Le informazioni di {username} sono state completamente aggiornate!",
+    confirmTimezoneBeforeSelect: "Per favore conferma prima il tuo fuso orario!",
+    enterR5Password: "Inserisci la password R5 per eliminare questo membro:",
+    incorrectPassword: "Password errata. Membro non eliminato.",
+    memberRemoved: "{memberName} è stato rimosso dall'alleanza",
+    mustAuthenticateToDelete: "Devi essere autenticato per eliminare membri",
+    timezoneConfirmedMessage: "Fuso orario confermato! Ora puoi selezionare le tue fasce orarie disponibili.",
+    timezoneSetMessage: "Fuso orario impostato su {timezone}! Ora puoi selezionare le tue fasce orarie disponibili.",
+    errorLoadingData: "Errore nel caricamento dati: {error}",
+    mustAuthenticateToSave: "Devi essere autenticato per salvare i dati",
+    dataSavedSuccessfully: "Dati salvati con successo!",
+    errorSavingData: "Errore nel salvataggio dati: {error}",
+    carPowerUpdated: "{fields} di {username} aggiornato/i con successo!",
+    
+    // Loading
+    loading: "Caricamento...",
+    
+    // Conjunctions
+    and: "e",
+    
+    // Mobile timeline
+    bestServerTime: "Miglior orario server: {slots}",
+    membersAvailable: "{count} membri disponibili",
+    noMembersAvailable: "Nessun membro disponibile"
   }
 };
 
@@ -466,7 +581,8 @@ const languages = {
   en: { name: "English", flag: "🇺🇸" },
   pt: { name: "Português", flag: "🇧🇷" },
   fr: { name: "Français", flag: "🇫🇷" },
-  es: { name: "Español", flag: "🇪🇸" }
+  es: { name: "Español", flag: "🇪🇸" },
+  it: { name: "Italiano", flag: "🇮🇹" }
 };
 
 // Current language state
@@ -514,9 +630,24 @@ function updateAllTranslations() {
     element.placeholder = t(key);
   });
   
+  // Update dynamic timezone status text
+  const confirmedTimezoneText = document.getElementById("confirmedTimezoneText");
+  if (confirmedTimezoneText && window.confirmedTimezone) {
+    confirmedTimezoneText.textContent = t("usingTimezone", { timezone: window.confirmedTimezone });
+  }
+  
+  // Re-render time slots UI to update day names
+  if (typeof window.renderUI === 'function') {
+    window.renderUI();
+  }
+  
   // Re-render dynamic content
-  if (currentData) {
-    renderMembers();
-    renderTimeline();
+  if (window.currentData) {
+    if (typeof window.renderMembers === 'function') {
+      window.renderMembers();
+    }
+    if (typeof window.renderTimeline === 'function') {
+      window.renderTimeline();
+    }
   }
 }
