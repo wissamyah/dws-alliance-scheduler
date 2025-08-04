@@ -782,3 +782,123 @@ h1 {
     max-width: none;
   }
 }
+
+/* Skeleton Loading Styles */
+.skeleton {
+  background: linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+  display: block;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-member-card {
+  background: linear-gradient(135deg, #161625 0%, #1a1a2e 50%, #161625 100%);
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.skeleton-member-card .skeleton-title {
+  height: 24px;
+  width: 60%;
+  margin-bottom: 15px;
+}
+
+.skeleton-member-card .skeleton-stats {
+  height: 16px;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.skeleton-member-card .skeleton-timezone {
+  height: 16px;
+  width: 40%;
+  margin-bottom: 15px;
+}
+
+.skeleton-member-card .skeleton-availability {
+  margin-bottom: 8px;
+}
+
+.skeleton-member-card .skeleton-availability-day {
+  height: 14px;
+  width: 90%;
+  margin-bottom: 6px;
+}
+
+.skeleton-timeline {
+  background: linear-gradient(135deg, #161625 0%, #1a1a2e 50%, #161625 100%);
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.skeleton-timeline-header {
+  height: 20px;
+  width: 70%;
+  margin-bottom: 20px;
+}
+
+.skeleton-timeline-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.skeleton-timeline-day {
+  height: 16px;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.skeleton-timeline-slots {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.skeleton-timeline-slot {
+  height: 30px;
+  width: 40px;
+  border-radius: 4px;
+}
+
+.skeleton-container {
+  display: none;
+}
+
+.skeleton-container.show {
+  display: block;
+}
+
+/* Responsive skeleton styles */
+@media (max-width: 768px) {
+  .skeleton-timeline-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .skeleton-timeline-day {
+    width: 100%;
+  }
+  
+  .skeleton-timeline-slots {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

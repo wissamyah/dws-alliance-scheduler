@@ -954,9 +954,22 @@ function showMessage(text, type) {
 }
 
 function showLoading(show) {
-  document.getElementById("loadingIndicator").style.display = show
-    ? "block"
-    : "none";
+  const skeletonContainer = document.getElementById("skeletonContainer");
+  const mainContainer = document.querySelector(".container:not(.skeleton-container .container)");
+  
+  if (show) {
+    // Show skeleton loading
+    skeletonContainer.classList.add("show");
+    if (mainContainer) {
+      mainContainer.style.display = "none";
+    }
+  } else {
+    // Hide skeleton, show main content
+    skeletonContainer.classList.remove("show");
+    if (mainContainer) {
+      mainContainer.style.display = "block";
+    }
+  }
 }
 
 // Initialize
