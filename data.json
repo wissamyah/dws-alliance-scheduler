@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-04T05:36:15.139Z",
+  "lastUpdated": "2025-08-04T05:43:04.017Z",
   "members": [
     {
       "id": 1754266685726,
@@ -473,6 +473,37 @@
         ]
       },
       "submittedAt": "2025-08-04T05:36:15.134Z"
+    },
+    {
+      "id": 1754286184015,
+      "username": "DAVID ESCOBAR ",
+      "carPower": 14400,
+      "towerLevel": 27,
+      "timezone": "UTC-5",
+      "availability": {
+        "monday": [
+          "slot11"
+        ],
+        "tuesday": [
+          "slot11"
+        ],
+        "wednesday": [
+          "slot11"
+        ],
+        "thursday": [
+          "slot11"
+        ],
+        "friday": [
+          "slot11"
+        ],
+        "saturday": [
+          "slot11"
+        ],
+        "sunday": [
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-08-04T05:43:04.015Z"
     }
   ],
   "pendingSubmissions": [],
@@ -523,5 +554,5 @@
       }
     }
   },
-  "sha": "ab70256f892aa2116e818fb85c2c6221e9759e2b"
+  "sha": "69d275db58fb5dc73507f4500f0027ed92153922"
 }
