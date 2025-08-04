@@ -1031,15 +1031,15 @@ h1 {
 .mobile-settings-btn {
   display: none;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 5px;
+  right: 5px;
   background: rgba(74, 158, 255, 0.2);
   border: 1px solid rgba(74, 158, 255, 0.4);
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   color: #4a9eff;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 1002;
