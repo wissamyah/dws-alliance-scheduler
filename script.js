@@ -205,7 +205,7 @@ function updateTimezoneUI() {
     manualGroup.style.display = "none";
     
     document.getElementById("confirmedTimezoneText").textContent = 
-      `Using ${confirmedTimezone} timezone`;
+      t("usingTimezone", { timezone: confirmedTimezone });
     
     // Enable time slot selection
     enableTimeSlotSelection();
@@ -746,7 +746,7 @@ function renderUI() {
 function renderMembers() {
   const memberCount = currentData.members.length;
   const title = document.getElementById("allianceMembersTitle");
-  title.textContent = `Alliance Members (${memberCount})`;
+  title.textContent = `${t("allianceMembers")} (${memberCount})`;
 
   const grid = document.getElementById("membersGrid");
   grid.innerHTML = currentData.members
@@ -755,10 +755,10 @@ function renderMembers() {
                 <div class="member-card">
                     <h3>${member.username}</h3>
                     <div class="stats">
-                        <span class="power">Power: ${member.carPower.toLocaleString()}</span> | 
-                        <span class="tower">Tower: ${member.towerLevel}</span>
+                        <span class="power">${t("power")}: ${member.carPower.toLocaleString()}</span> | 
+                        <span class="tower">${t("tower")}: ${member.towerLevel}</span>
                     </div>
-                    <div class="stats">Timezone: ${member.timezone}</div>
+                    <div class="stats">${t("timezone")}: ${member.timezone}</div>
                     <div class="time-slots">
                         ${Object.entries(member.availability || {})
                           .map(([day, slots]) => {
@@ -768,7 +768,7 @@ function renderMembers() {
                               );
                               return slot ? slot.name : slotId;
                             });
-                            return `<div><strong>${day}:</strong> ${slotNames.join(
+                            return `<div><strong>${t(day)}:</strong> ${slotNames.join(
                               ", "
                             )}</div>`;
                           })
@@ -859,13 +859,13 @@ function renderTimeline() {
     view.innerHTML = `
                     <div style="margin-top: 20px; overflow-x: auto;">
                         <div style="text-align: center; color: #888; margin-bottom: 20px; font-size: 14px;">
-                          <p style="margin-bottom: 10px;">Member availability scale (times converted to server time UTC-2):</p>
+                          <p style="margin-bottom: 10px;">${t("memberAvailabilityScale")}</p>
                           <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                            <span style="background: #cc2936; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">0-5: Critical</span>
-                            <span style="background: #ff6b35; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">6-9: Low</span>
-                            <span style="background: #f7b32b; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">10-12: Moderate</span>
-                            <span style="background: #44ff44; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">13-15: Good</span>
-                            <span style="background: #28a745; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">16+: Excellent</span>
+                            <span style="background: #cc2936; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">0-5: ${t("critical")}</span>
+                            <span style="background: #ff6b35; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">6-9: ${t("low")}</span>
+                            <span style="background: #f7b32b; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">10-12: ${t("moderate")}</span>
+                            <span style="background: #44ff44; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">13-15: ${t("good")}</span>
+                            <span style="background: #28a745; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">16+: ${t("excellent")}</span>
                           </div>
                         </div>
                         <table style="width: 100%; border-collapse: collapse;">
@@ -880,7 +880,7 @@ function renderTimeline() {
                               .map(
                                 (day) => `
                                 <tr>
-                                    <td style="padding: 10px; text-transform: capitalize; font-weight: 500; color: #888;">${day}</td>
+                                    <td style="padding: 10px; text-transform: capitalize; font-weight: 500; color: #888;">${t(day)}</td>
                                     ${TIME_SLOTS.map((slot) => {
                                       const count = availability[day][slot.id];
                                       
@@ -998,6 +998,71 @@ function showLoading(show) {
   }
 }
 
+// Language switching functions
+function toggleLanguageMenu() {
+  const menu = document.getElementById("languageMenu");
+  const btn = document.getElementById("languageBtn");
+  
+  menu.classList.toggle("show");
+  btn.classList.toggle("active");
+  
+  // Close menu when clicking outside
+  if (menu.classList.contains("show")) {
+    setTimeout(() => {
+      document.addEventListener("click", closeLanguageMenuOnOutsideClick);
+    }, 10);
+  }
+}
+
+function closeLanguageMenuOnOutsideClick(event) {
+  const menu = document.getElementById("languageMenu");
+  const btn = document.getElementById("languageBtn");
+  
+  if (!menu.contains(event.target) && !btn.contains(event.target)) {
+    menu.classList.remove("show");
+    btn.classList.remove("active");
+    document.removeEventListener("click", closeLanguageMenuOnOutsideClick);
+  }
+}
+
+// Override the changeLanguage function from translations.js
+function changeLanguage(langCode) {
+  if (translations[langCode]) {
+    currentLanguage = langCode;
+    localStorage.setItem("selectedLanguage", langCode);
+    
+    // Update flag display
+    const flagElement = document.getElementById("currentFlag");
+    if (flagElement && languages[langCode]) {
+      flagElement.textContent = languages[langCode].flag;
+    }
+    
+    // Close menu
+    const menu = document.getElementById("languageMenu");
+    const btn = document.getElementById("languageBtn");
+    menu.classList.remove("show");
+    btn.classList.remove("active");
+    
+    // Update all translations
+    updateAllTranslations();
+    
+    // Show success message
+    showMessage(t("authenticationSuccessful"), "success"); // Using existing message as placeholder
+  }
+}
+
+// Initialize language on page load
+function initializeLanguage() {
+  // Set current language flag
+  const flagElement = document.getElementById("currentFlag");
+  if (flagElement && languages[currentLanguage]) {
+    flagElement.textContent = languages[currentLanguage].flag;
+  }
+  
+  // Apply initial translations
+  updateAllTranslations();
+}
+
 // Initialize
 if (authToken) {
   isAuthenticated = true;
@@ -1008,6 +1073,9 @@ if (authToken) {
 
 // Initialize timezone handling
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize language system
+  initializeLanguage();
+  
   // Check if timezone was previously confirmed
   if (!isTimezoneConfirmed) {
     // Show timezone modal after a short delay

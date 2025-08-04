@@ -1,0 +1,490 @@
+// Multi-language translations for The Dark Creed Alliance Scheduler
+const translations = {
+  en: {
+    // Header
+    title: "The Dark Creed Alliance",
+    subtitle: "Unite. Strategize. Dominate.",
+    logout: "Logout",
+    
+    // Timezone Modal
+    timezoneTitle: "🌍 Confirm Your Timezone",
+    timezoneDescription: "We've detected your timezone automatically. Please confirm it's correct before proceeding:",
+    detectedInfo: "📍 Detected Information",
+    yourLocalTime: "Your Local Time",
+    serverTime: "Server Time",
+    timezoneImportant: "Important: Your time slot selections will be converted to server time (UTC-2) for coordination.",
+    confirmContinue: "✅ Confirm & Continue",
+    changeTimezone: "🔄 Change Timezone",
+    
+    // Authentication
+    authRequired: "Authentication Required",
+    notAuthenticated: "Not authenticated",
+    authenticated: "Authenticated",
+    githubTokenPlaceholder: "GitHub Token (required for all members)",
+    authenticate: "Authenticate",
+    authDescription: "All members must authenticate before submitting information.",
+    contactR4R5: "Contact your alliance R4/R5 for the GitHub token.",
+    
+    // Form Section
+    submitInfo: "Submit Your Information",
+    howUpdatesWork: "💡 How Updates Work",
+    quickUpdate: "Quick Update: Enter your username + new car power and/or tower level → your time slots stay the same",
+    fullUpdate: "Full Update: Enter your username + select new time slots → update everything (car power/tower optional)",
+    newMembersNote: "New members must fill all fields including time slots",
+    
+    // Timezone Status
+    timezoneConfirmed: "✅ Timezone Confirmed",
+    timezoneSetupRequired: "🔒 Timezone Setup Required",
+    confirmTimezoneFirst: "Please confirm your timezone first to enable time slot selection.",
+    usingTimezone: "Using {timezone} timezone",
+    
+    // Form Fields
+    inGameUsername: "In-Game Username",
+    usernamePlaceholder: "Your username",
+    mainCarPower: "Main Car Power",
+    carPowerPlaceholder: "e.g., 150000",
+    towerLevel: "Tower Level",
+    towerLevelPlaceholder: "1-33",
+    timezone: "Timezone",
+    
+    // Time Slots
+    availableTimeSlots: "Available Time Slots",
+    timeSlotDescription: "Select when you're usually available (2-hour blocks in your local time)",
+    submitInformation: "Submit Information",
+    
+    // Days of the week
+    monday: "Monday",
+    tuesday: "Tuesday", 
+    wednesday: "Wednesday",
+    thursday: "Thursday",
+    friday: "Friday",
+    saturday: "Saturday",
+    sunday: "Sunday",
+    
+    // Timeline
+    allianceTimeline: "Alliance Timeline (Server Time UTC-2)",
+    memberAvailabilityScale: "Member availability scale (times converted to server time UTC-2):",
+    critical: "Critical",
+    low: "Low",
+    moderate: "Moderate",
+    good: "Good",
+    excellent: "Excellent",
+    
+    // Alliance Members
+    allianceMembers: "Alliance Members",
+    power: "Power",
+    tower: "Tower",
+    
+    // Messages
+    authenticationSuccessful: "Authentication successful!",
+    enterGithubToken: "Please enter a GitHub token",
+    mustAuthenticate: "You must authenticate with a GitHub token before submitting your information!",
+    confirmTimezoneBeforeSubmit: "Please confirm your timezone before submitting your information!",
+    fillAllFields: "Please fill all required fields",
+    newMemberRequirements: "New members must provide car power and tower level",
+    memberInfoSubmitted: "Member information submitted successfully!",
+    memberInfoUpdated: "{username}'s information has been updated!",
+    memberInfoFullyUpdated: "{username}'s information has been fully updated!",
+    confirmTimezoneBeforeSelect: "Please confirm your timezone first!",
+    enterR5Password: "Enter the R5 password to delete this member:",
+    incorrectPassword: "Incorrect password. Member not deleted.",
+    memberRemoved: "{memberName} has been removed from the alliance",
+    mustAuthenticateToDelete: "You must be authenticated to delete members",
+    timezoneConfirmedMessage: "Timezone confirmed! You can now select your available time slots.",
+    timezoneSetMessage: "Timezone set to {timezone}! You can now select your available time slots.",
+    errorLoadingData: "Error loading data: {error}",
+    mustAuthenticateToSave: "You must be authenticated to save data",
+    dataSavedSuccessfully: "Data saved successfully!",
+    errorSavingData: "Error saving data: {error}",
+    carPowerUpdated: "{username}'s {fields} updated successfully!",
+    
+    // Loading
+    loading: "Loading...",
+    
+    // Mobile timeline
+    bestServerTime: "Best server time: {slots}",
+    membersAvailable: "{count} members available",
+    noMembersAvailable: "No members available"
+  },
+  
+  pt: {
+    // Header
+    title: "Aliança Dark Creed",
+    subtitle: "Unir. Estrategizar. Dominar.",
+    logout: "Sair",
+    
+    // Timezone Modal
+    timezoneTitle: "🌍 Confirme Seu Fuso Horário",
+    timezoneDescription: "Detectamos seu fuso horário automaticamente. Por favor, confirme se está correto antes de prosseguir:",
+    detectedInfo: "📍 Informações Detectadas",
+    yourLocalTime: "Seu Horário Local",
+    serverTime: "Horário do Servidor",
+    timezoneImportant: "Importante: Suas seleções de horário serão convertidas para o horário do servidor (UTC-2) para coordenação.",
+    confirmContinue: "✅ Confirmar e Continuar",
+    changeTimezone: "🔄 Alterar Fuso Horário",
+    
+    // Authentication
+    authRequired: "Autenticação Necessária",
+    notAuthenticated: "Não autenticado",
+    authenticated: "Autenticado",
+    githubTokenPlaceholder: "Token GitHub (obrigatório para todos os membros)",
+    authenticate: "Autenticar",
+    authDescription: "Todos os membros devem se autenticar antes de enviar informações.",
+    contactR4R5: "Entre em contato com seu R4/R5 da aliança para obter o token GitHub.",
+    
+    // Form Section
+    submitInfo: "Envie Suas Informações",
+    howUpdatesWork: "💡 Como Funcionam as Atualizações",
+    quickUpdate: "Atualização Rápida: Digite seu nome de usuário + novo poder do carro e/ou nível da torre → seus horários permanecem os mesmos",
+    fullUpdate: "Atualização Completa: Digite seu nome de usuário + selecione novos horários → atualiza tudo (poder do carro/torre opcional)",
+    newMembersNote: "Novos membros devem preencher todos os campos incluindo horários",
+    
+    // Timezone Status
+    timezoneConfirmed: "✅ Fuso Horário Confirmado",
+    timezoneSetupRequired: "🔒 Configuração de Fuso Horário Necessária",
+    confirmTimezoneFirst: "Por favor, confirme seu fuso horário primeiro para habilitar a seleção de horários.",
+    usingTimezone: "Usando fuso horário {timezone}",
+    
+    // Form Fields
+    inGameUsername: "Nome de Usuário no Jogo",
+    usernamePlaceholder: "Seu nome de usuário",
+    mainCarPower: "Poder do Carro Principal",
+    carPowerPlaceholder: "ex: 150000",
+    towerLevel: "Nível da Torre",
+    towerLevelPlaceholder: "1-33",
+    timezone: "Fuso Horário",
+    
+    // Time Slots
+    availableTimeSlots: "Horários Disponíveis",
+    timeSlotDescription: "Selecione quando você geralmente está disponível (blocos de 2 horas no seu horário local)",
+    submitInformation: "Enviar Informações",
+    
+    // Days of the week
+    monday: "Segunda-feira",
+    tuesday: "Terça-feira",
+    wednesday: "Quarta-feira", 
+    thursday: "Quinta-feira",
+    friday: "Sexta-feira",
+    saturday: "Sábado",
+    sunday: "Domingo",
+    
+    // Timeline
+    allianceTimeline: "Cronograma da Aliança (Horário do Servidor UTC-2)",
+    memberAvailabilityScale: "Escala de disponibilidade dos membros (horários convertidos para horário do servidor UTC-2):",
+    critical: "Crítico",
+    low: "Baixo",
+    moderate: "Moderado",
+    good: "Bom",
+    excellent: "Excelente",
+    
+    // Alliance Members
+    allianceMembers: "Membros da Aliança",
+    power: "Poder",
+    tower: "Torre",
+    
+    // Messages
+    authenticationSuccessful: "Autenticação bem-sucedida!",
+    enterGithubToken: "Por favor, digite um token GitHub",
+    mustAuthenticate: "Você deve se autenticar com um token GitHub antes de enviar suas informações!",
+    confirmTimezoneBeforeSubmit: "Por favor, confirme seu fuso horário antes de enviar suas informações!",
+    fillAllFields: "Por favor, preencha todos os campos obrigatórios",
+    newMemberRequirements: "Novos membros devem fornecer poder do carro e nível da torre",
+    memberInfoSubmitted: "Informações do membro enviadas com sucesso!",
+    memberInfoUpdated: "Informações de {username} foram atualizadas!",
+    memberInfoFullyUpdated: "Informações de {username} foram totalmente atualizadas!",
+    confirmTimezoneBeforeSelect: "Por favor, confirme seu fuso horário primeiro!",
+    enterR5Password: "Digite a senha R5 para deletar este membro:",
+    incorrectPassword: "Senha incorreta. Membro não foi deletado.",
+    memberRemoved: "{memberName} foi removido da aliança",
+    mustAuthenticateToDelete: "Você deve estar autenticado para deletar membros",
+    timezoneConfirmedMessage: "Fuso horário confirmado! Agora você pode selecionar seus horários disponíveis.",
+    timezoneSetMessage: "Fuso horário definido para {timezone}! Agora você pode selecionar seus horários disponíveis.",
+    errorLoadingData: "Erro ao carregar dados: {error}",
+    mustAuthenticateToSave: "Você deve estar autenticado para salvar dados",
+    dataSavedSuccessfully: "Dados salvos com sucesso!",
+    errorSavingData: "Erro ao salvar dados: {error}",
+    carPowerUpdated: "{fields} de {username} atualizado(s) com sucesso!",
+    
+    // Loading
+    loading: "Carregando...",
+    
+    // Mobile timeline
+    bestServerTime: "Melhor horário do servidor: {slots}",
+    membersAvailable: "{count} membros disponíveis",
+    noMembersAvailable: "Nenhum membro disponível"
+  },
+  
+  fr: {
+    // Header
+    title: "Alliance Dark Creed",
+    subtitle: "Unir. Stratégiser. Dominer.",
+    logout: "Déconnexion",
+    
+    // Timezone Modal
+    timezoneTitle: "🌍 Confirmez Votre Fuseau Horaire",
+    timezoneDescription: "Nous avons détecté votre fuseau horaire automatiquement. Veuillez confirmer qu'il est correct avant de continuer :",
+    detectedInfo: "📍 Informations Détectées",
+    yourLocalTime: "Votre Heure Locale",
+    serverTime: "Heure du Serveur",
+    timezoneImportant: "Important : Vos sélections de créneaux horaires seront converties à l'heure du serveur (UTC-2) pour la coordination.",
+    confirmContinue: "✅ Confirmer et Continuer",
+    changeTimezone: "🔄 Changer de Fuseau Horaire",
+    
+    // Authentication
+    authRequired: "Authentification Requise",
+    notAuthenticated: "Non authentifié",
+    authenticated: "Authentifié",
+    githubTokenPlaceholder: "Token GitHub (requis pour tous les membres)",
+    authenticate: "S'authentifier",
+    authDescription: "Tous les membres doivent s'authentifier avant de soumettre des informations.",
+    contactR4R5: "Contactez votre R4/R5 d'alliance pour le token GitHub.",
+    
+    // Form Section
+    submitInfo: "Soumettez Vos Informations",
+    howUpdatesWork: "💡 Comment Fonctionnent les Mises à Jour",
+    quickUpdate: "Mise à jour rapide : Entrez votre nom d'utilisateur + nouvelle puissance de voiture et/ou niveau de tour → vos créneaux horaires restent identiques",
+    fullUpdate: "Mise à jour complète : Entrez votre nom d'utilisateur + sélectionnez de nouveaux créneaux → met tout à jour (puissance de voiture/tour facultative)",
+    newMembersNote: "Les nouveaux membres doivent remplir tous les champs y compris les créneaux horaires",
+    
+    // Timezone Status
+    timezoneConfirmed: "✅ Fuseau Horaire Confirmé",
+    timezoneSetupRequired: "🔒 Configuration du Fuseau Horaire Requise",
+    confirmTimezoneFirst: "Veuillez d'abord confirmer votre fuseau horaire pour activer la sélection de créneaux.",
+    usingTimezone: "Utilisant le fuseau horaire {timezone}",
+    
+    // Form Fields
+    inGameUsername: "Nom d'Utilisateur en Jeu",
+    usernamePlaceholder: "Votre nom d'utilisateur",
+    mainCarPower: "Puissance de Voiture Principale",
+    carPowerPlaceholder: "ex : 150000",
+    towerLevel: "Niveau de Tour",
+    towerLevelPlaceholder: "1-33",
+    timezone: "Fuseau Horaire",
+    
+    // Time Slots
+    availableTimeSlots: "Créneaux Horaires Disponibles",
+    timeSlotDescription: "Sélectionnez quand vous êtes généralement disponible (blocs de 2 heures dans votre heure locale)",
+    submitInformation: "Soumettre les Informations",
+    
+    // Days of the week
+    monday: "Lundi",
+    tuesday: "Mardi",
+    wednesday: "Mercredi",
+    thursday: "Jeudi", 
+    friday: "Vendredi",
+    saturday: "Samedi",
+    sunday: "Dimanche",
+    
+    // Timeline
+    allianceTimeline: "Chronologie de l'Alliance (Heure du Serveur UTC-2)",
+    memberAvailabilityScale: "Échelle de disponibilité des membres (heures converties à l'heure du serveur UTC-2) :",
+    critical: "Critique",
+    low: "Faible",
+    moderate: "Modéré",
+    good: "Bon",
+    excellent: "Excellent",
+    
+    // Alliance Members
+    allianceMembers: "Membres de l'Alliance",
+    power: "Puissance",
+    tower: "Tour",
+    
+    // Messages
+    authenticationSuccessful: "Authentification réussie !",
+    enterGithubToken: "Veuillez entrer un token GitHub",
+    mustAuthenticate: "Vous devez vous authentifier avec un token GitHub avant de soumettre vos informations !",
+    confirmTimezoneBeforeSubmit: "Veuillez confirmer votre fuseau horaire avant de soumettre vos informations !",
+    fillAllFields: "Veuillez remplir tous les champs requis",
+    newMemberRequirements: "Les nouveaux membres doivent fournir la puissance de voiture et le niveau de tour",
+    memberInfoSubmitted: "Informations du membre soumises avec succès !",
+    memberInfoUpdated: "Les informations de {username} ont été mises à jour !",
+    memberInfoFullyUpdated: "Les informations de {username} ont été entièrement mises à jour !",
+    confirmTimezoneBeforeSelect: "Veuillez d'abord confirmer votre fuseau horaire !",
+    enterR5Password: "Entrez le mot de passe R5 pour supprimer ce membre :",
+    incorrectPassword: "Mot de passe incorrect. Membre non supprimé.",
+    memberRemoved: "{memberName} a été retiré de l'alliance",
+    mustAuthenticateToDelete: "Vous devez être authentifié pour supprimer des membres",
+    timezoneConfirmedMessage: "Fuseau horaire confirmé ! Vous pouvez maintenant sélectionner vos créneaux disponibles.",
+    timezoneSetMessage: "Fuseau horaire défini sur {timezone} ! Vous pouvez maintenant sélectionner vos créneaux disponibles.",
+    errorLoadingData: "Erreur lors du chargement des données : {error}",
+    mustAuthenticateToSave: "Vous devez être authentifié pour sauvegarder les données",
+    dataSavedSuccessfully: "Données sauvegardées avec succès !",
+    errorSavingData: "Erreur lors de la sauvegarde des données : {error}",
+    carPowerUpdated: "{fields} de {username} mis à jour avec succès !",
+    
+    // Loading
+    loading: "Chargement...",
+    
+    // Mobile timeline
+    bestServerTime: "Meilleur horaire serveur : {slots}",
+    membersAvailable: "{count} membres disponibles",
+    noMembersAvailable: "Aucun membre disponible"
+  },
+  
+  es: {
+    // Header
+    title: "Alianza Dark Creed",
+    subtitle: "Unir. Estrategizar. Dominar.",
+    logout: "Cerrar Sesión",
+    
+    // Timezone Modal
+    timezoneTitle: "🌍 Confirma Tu Zona Horaria",
+    timezoneDescription: "Hemos detectado tu zona horaria automáticamente. Por favor confirma que es correcta antes de continuar:",
+    detectedInfo: "📍 Información Detectada",
+    yourLocalTime: "Tu Hora Local",
+    serverTime: "Hora del Servidor",
+    timezoneImportant: "Importante: Tus selecciones de franjas horarias serán convertidas a la hora del servidor (UTC-2) para coordinación.",
+    confirmContinue: "✅ Confirmar y Continuar",
+    changeTimezone: "🔄 Cambiar Zona Horaria",
+    
+    // Authentication
+    authRequired: "Autenticación Requerida",
+    notAuthenticated: "No autenticado",
+    authenticated: "Autenticado",
+    githubTokenPlaceholder: "Token de GitHub (requerido para todos los miembros)",
+    authenticate: "Autenticar",
+    authDescription: "Todos los miembros deben autenticarse antes de enviar información.",
+    contactR4R5: "Contacta a tu R4/R5 de la alianza para el token de GitHub.",
+    
+    // Form Section
+    submitInfo: "Envía Tu Información",
+    howUpdatesWork: "💡 Cómo Funcionan las Actualizaciones",
+    quickUpdate: "Actualización Rápida: Ingresa tu nombre de usuario + nuevo poder de coche y/o nivel de torre → tus franjas horarias permanecen igual",
+    fullUpdate: "Actualización Completa: Ingresa tu nombre de usuario + selecciona nuevas franjas horarias → actualiza todo (poder de coche/torre opcional)",
+    newMembersNote: "Los nuevos miembros deben llenar todos los campos incluyendo franjas horarias",
+    
+    // Timezone Status
+    timezoneConfirmed: "✅ Zona Horaria Confirmada",
+    timezoneSetupRequired: "🔒 Configuración de Zona Horaria Requerida",
+    confirmTimezoneFirst: "Por favor confirma tu zona horaria primero para habilitar la selección de franjas horarias.",
+    usingTimezone: "Usando zona horaria {timezone}",
+    
+    // Form Fields
+    inGameUsername: "Nombre de Usuario en el Juego",
+    usernamePlaceholder: "Tu nombre de usuario",
+    mainCarPower: "Poder del Coche Principal",
+    carPowerPlaceholder: "ej: 150000",
+    towerLevel: "Nivel de Torre",
+    towerLevelPlaceholder: "1-33",
+    timezone: "Zona Horaria",
+    
+    // Time Slots
+    availableTimeSlots: "Franjas Horarias Disponibles",
+    timeSlotDescription: "Selecciona cuándo estás generalmente disponible (bloques de 2 horas en tu hora local)",
+    submitInformation: "Enviar Información",
+    
+    // Days of the week
+    monday: "Lunes",
+    tuesday: "Martes",
+    wednesday: "Miércoles",
+    thursday: "Jueves",
+    friday: "Viernes",
+    saturday: "Sábado",
+    sunday: "Domingo",
+    
+    // Timeline
+    allianceTimeline: "Cronología de la Alianza (Hora del Servidor UTC-2)",
+    memberAvailabilityScale: "Escala de disponibilidad de miembros (horarios convertidos a hora del servidor UTC-2):",
+    critical: "Crítico",
+    low: "Bajo",
+    moderate: "Moderado",
+    good: "Bueno",
+    excellent: "Excelente",
+    
+    // Alliance Members
+    allianceMembers: "Miembros de la Alianza",
+    power: "Poder",
+    tower: "Torre",
+    
+    // Messages
+    authenticationSuccessful: "¡Autenticación exitosa!",
+    enterGithubToken: "Por favor ingresa un token de GitHub",
+    mustAuthenticate: "¡Debes autenticarte con un token de GitHub antes de enviar tu información!",
+    confirmTimezoneBeforeSubmit: "¡Por favor confirma tu zona horaria antes de enviar tu información!",
+    fillAllFields: "Por favor llena todos los campos requeridos",
+    newMemberRequirements: "Los nuevos miembros deben proporcionar poder de coche y nivel de torre",
+    memberInfoSubmitted: "¡Información del miembro enviada exitosamente!",
+    memberInfoUpdated: "¡La información de {username} ha sido actualizada!",
+    memberInfoFullyUpdated: "¡La información de {username} ha sido completamente actualizada!",
+    confirmTimezoneBeforeSelect: "¡Por favor confirma tu zona horaria primero!",
+    enterR5Password: "Ingresa la contraseña R5 para eliminar este miembro:",
+    incorrectPassword: "Contraseña incorrecta. Miembro no eliminado.",
+    memberRemoved: "{memberName} ha sido removido de la alianza",
+    mustAuthenticateToDelete: "Debes estar autenticado para eliminar miembros",
+    timezoneConfirmedMessage: "¡Zona horaria confirmada! Ahora puedes seleccionar tus franjas horarias disponibles.",
+    timezoneSetMessage: "¡Zona horaria establecida en {timezone}! Ahora puedes seleccionar tus franjas horarias disponibles.",
+    errorLoadingData: "Error cargando datos: {error}",
+    mustAuthenticateToSave: "Debes estar autenticado para guardar datos",
+    dataSavedSuccessfully: "¡Datos guardados exitosamente!",
+    errorSavingData: "Error guardando datos: {error}",
+    carPowerUpdated: "¡{fields} de {username} actualizado(s) exitosamente!",
+    
+    // Loading
+    loading: "Cargando...",
+    
+    // Mobile timeline
+    bestServerTime: "Mejor horario del servidor: {slots}",
+    membersAvailable: "{count} miembros disponibles",
+    noMembersAvailable: "No hay miembros disponibles"
+  }
+};
+
+// Language configuration
+const languages = {
+  en: { name: "English", flag: "🇺🇸" },
+  pt: { name: "Português", flag: "🇧🇷" },
+  fr: { name: "Français", flag: "🇫🇷" },
+  es: { name: "Español", flag: "🇪🇸" }
+};
+
+// Current language state
+let currentLanguage = localStorage.getItem("selectedLanguage") || "en";
+
+// Translation helper function
+function t(key, replacements = {}) {
+  let text = translations[currentLanguage]?.[key] || translations.en[key] || key;
+  
+  // Replace placeholders like {username}, {error}, etc.
+  Object.keys(replacements).forEach(placeholder => {
+    text = text.replace(new RegExp(`\\{${placeholder}\\}`, 'g'), replacements[placeholder]);
+  });
+  
+  return text;
+}
+
+// Change language function
+function changeLanguage(langCode) {
+  if (translations[langCode]) {
+    currentLanguage = langCode;
+    localStorage.setItem("selectedLanguage", langCode);
+    updateAllTranslations();
+    showMessage(t("languageChanged"), "success");
+  }
+}
+
+// Update all translations on the page
+function updateAllTranslations() {
+  // Update elements with data-translate attribute
+  document.querySelectorAll("[data-translate]").forEach(element => {
+    const key = element.getAttribute("data-translate");
+    element.textContent = t(key);
+  });
+  
+  // Update elements with data-translate-html attribute (for HTML content)
+  document.querySelectorAll("[data-translate-html]").forEach(element => {
+    const key = element.getAttribute("data-translate-html");
+    element.innerHTML = t(key);
+  });
+  
+  // Update placeholders
+  document.querySelectorAll("[data-translate-placeholder]").forEach(element => {
+    const key = element.getAttribute("data-translate-placeholder");
+    element.placeholder = t(key);
+  });
+  
+  // Re-render dynamic content
+  if (currentData) {
+    renderMembers();
+    renderTimeline();
+  }
+}

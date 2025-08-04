@@ -94,34 +94,63 @@
 
     <div class="container">
       <div class="header">
-        <h1>The Dark Creed Alliance</h1>
-        <p class="subtitle">Unite. Strategize. Dominate.</p>
-        <button
-          class="btn btn-danger"
-          onclick="logout()"
-          id="logoutBtn"
-          style="display: none"
-        >
-          Logout
-        </button>
+        <div class="header-content">
+          <div class="language-selector">
+            <button class="language-btn" onclick="toggleLanguageMenu()" id="languageBtn">
+              <span id="currentFlag">🇺🇸</span>
+              <span class="language-arrow">▼</span>
+            </button>
+            <div class="language-menu" id="languageMenu">
+              <div class="language-option" onclick="changeLanguage('en')">
+                <span class="flag">🇺🇸</span>
+                <span class="lang-name">English</span>
+              </div>
+              <div class="language-option" onclick="changeLanguage('pt')">
+                <span class="flag">🇧🇷</span>
+                <span class="lang-name">Português</span>
+              </div>
+              <div class="language-option" onclick="changeLanguage('fr')">
+                <span class="flag">🇫🇷</span>
+                <span class="lang-name">Français</span>
+              </div>
+              <div class="language-option" onclick="changeLanguage('es')">
+                <span class="flag">🇪🇸</span>
+                <span class="lang-name">Español</span>
+              </div>
+            </div>
+          </div>
+          <div class="header-main">
+            <h1 data-translate="title">The Dark Creed Alliance</h1>
+            <p class="subtitle" data-translate="subtitle">Unite. Strategize. Dominate.</p>
+          </div>
+          <button
+            class="btn btn-danger"
+            onclick="logout()"
+            id="logoutBtn"
+            style="display: none"
+            data-translate="logout"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       <!-- Timezone Confirmation Modal -->
       <div id="timezoneModal" class="modal-overlay">
         <div class="modal-content">
-          <h3>🌍 Confirm Your Timezone</h3>
-          <p>We've detected your timezone automatically. Please confirm it's correct before proceeding:</p>
+          <h3 data-translate="timezoneTitle">🌍 Confirm Your Timezone</h3>
+          <p data-translate="timezoneDescription">We've detected your timezone automatically. Please confirm it's correct before proceeding:</p>
           
           <div class="timezone-info">
-            <h4>📍 Detected Information</h4>
+            <h4 data-translate="detectedInfo">📍 Detected Information</h4>
             <div class="timezone-comparison">
               <div class="timezone-item">
-                <h5>Your Local Time</h5>
+                <h5 data-translate="yourLocalTime">Your Local Time</h5>
                 <div class="time" id="userLocalTime">--:--</div>
                 <div class="zone" id="userTimezone">Loading...</div>
               </div>
               <div class="timezone-item">
-                <h5>Server Time</h5>
+                <h5 data-translate="serverTime">Server Time</h5>
                 <div class="time" id="serverTime">--:--</div>
                 <div class="zone">UTC-2</div>
               </div>
@@ -133,14 +162,14 @@
           </div>
 
           <p style="margin-bottom: 25px;">
-            <strong>Important:</strong> Your time slot selections will be converted to server time (UTC-2) for coordination.
+            <strong>Important:</strong> <span data-translate="timezoneImportant">Your time slot selections will be converted to server time (UTC-2) for coordination.</span>
           </p>
 
           <div class="modal-buttons">
-            <button class="btn btn-success" onclick="confirmTimezone()">
+            <button class="btn btn-success" onclick="confirmTimezone()" data-translate="confirmContinue">
               ✅ Confirm & Continue
             </button>
-            <button class="btn" onclick="changeTimezone()">
+            <button class="btn" onclick="changeTimezone()" data-translate="changeTimezone">
               🔄 Change Timezone
             </button>
           </div>
@@ -148,36 +177,37 @@
       </div>
 
       <div id="authSection" class="auth-section">
-        <h2>Authentication Required</h2>
+        <h2 data-translate="authRequired">Authentication Required</h2>
         <p style="margin-bottom: 15px">
-          <span id="authStatus">Not authenticated</span>
+          <span id="authStatus" data-translate="notAuthenticated">Not authenticated</span>
         </p>
         <div id="authControls">
           <input
             type="password"
             id="githubToken"
+            data-translate-placeholder="githubTokenPlaceholder"
             placeholder="GitHub Token (required for all members)"
           />
-          <button class="btn" onclick="authenticate()">
+          <button class="btn" onclick="authenticate()" data-translate="authenticate">
             Authenticate
           </button>
           <p style="color: #888; font-size: 14px; margin-top: 10px;">
-            <strong>All members must authenticate before submitting information.</strong><br>
-            Contact your alliance R4/R5 for the GitHub token.
+            <strong><span data-translate="authDescription">All members must authenticate before submitting information.</span></strong><br>
+            <span data-translate="contactR4R5">Contact your alliance R4/R5 for the GitHub token.</span>
           </p>
         </div>
       </div>
 
       <div class="member-form">
-        <h2>Submit Your Information</h2>
+        <h2 data-translate="submitInfo">Submit Your Information</h2>
         
         <!-- Update Instructions -->
         <div style="background: #1a1a2e; border: 1px solid #4a9eff; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
-          <h4 style="color: #4a9eff; margin: 0 0 10px 0;">💡 How Updates Work</h4>
+          <h4 style="color: #4a9eff; margin: 0 0 10px 0;" data-translate="howUpdatesWork">💡 How Updates Work</h4>
           <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
-            <p style="margin: 0 0 8px 0;"><strong>Quick Update:</strong> Enter your username + new car power and/or tower level → your time slots stay the same</p>
-            <p style="margin: 0 0 8px 0;"><strong>Full Update:</strong> Enter your username + select new time slots → update everything (car power/tower optional)</p>
-            <p style="margin: 0; color: #888; font-size: 13px;">New members must fill all fields including time slots</p>
+            <p style="margin: 0 0 8px 0;"><strong>Quick Update:</strong> <span data-translate="quickUpdate">Enter your username + new car power and/or tower level → your time slots stay the same</span></p>
+            <p style="margin: 0 0 8px 0;"><strong>Full Update:</strong> <span data-translate="fullUpdate">Enter your username + select new time slots → update everything (car power/tower optional)</span></p>
+            <p style="margin: 0; color: #888; font-size: 13px;" data-translate="newMembersNote">New members must fill all fields including time slots</p>
           </div>
         </div>
         
@@ -196,20 +226,21 @@
 
         <div class="form-grid">
           <div class="form-group">
-            <label>In-Game Username</label>
-            <input type="text" id="username" placeholder="Your username" />
+            <label data-translate="inGameUsername">In-Game Username</label>
+            <input type="text" id="username" data-translate-placeholder="usernamePlaceholder" placeholder="Your username" />
           </div>
           <div class="form-group">
-            <label>Main Car Power</label>
-            <input type="number" id="carPower" placeholder="e.g., 150000" />
+            <label data-translate="mainCarPower">Main Car Power</label>
+            <input type="number" id="carPower" data-translate-placeholder="carPowerPlaceholder" placeholder="e.g., 150000" />
           </div>
           <div class="form-group">
-            <label>Tower Level</label>
+            <label data-translate="towerLevel">Tower Level</label>
             <input
               type="number"
               id="towerLevel"
               min="1"
               max="33"
+              data-translate-placeholder="towerLevelPlaceholder"
               placeholder="1-33"
             />
           </div>
@@ -222,19 +253,19 @@
             ></small>
           </div>
         </div>
-        <h3 style="margin: 20px 0 10px">Available Time Slots</h3>
-        <p style="color: #888; margin-bottom: 15px; font-size: 14px">
+        <h3 style="margin: 20px 0 10px" data-translate="availableTimeSlots">Available Time Slots</h3>
+        <p style="color: #888; margin-bottom: 15px; font-size: 14px" data-translate="timeSlotDescription">
           Select when you're usually available (2-hour blocks in your local time)
         </p>
         <div id="timeSlotHeaders"></div>
         <div id="timeSlotInputs"></div>
-        <button class="btn btn-success" onclick="submitMemberInfo()" id="submitBtn">
+        <button class="btn btn-success" onclick="submitMemberInfo()" id="submitBtn" data-translate="submitInformation">
           Submit Information
         </button>
       </div>
 
       <div class="timeline">
-        <h2>Alliance Timeline (Server Time UTC-2)</h2>
+        <h2 data-translate="allianceTimeline">Alliance Timeline (Server Time UTC-2)</h2>
         <div id="timelineView"></div>
       </div>
 
@@ -246,6 +277,7 @@
       </div>
     </div>
     
+    <script src="translations.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

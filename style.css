@@ -902,3 +902,129 @@ h1 {
     flex-wrap: wrap;
   }
 }
+
+/* Language Selector Styles */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.header-main {
+  flex: 1;
+  text-align: center;
+}
+
+.language-selector {
+  position: relative;
+  z-index: 1001;
+}
+
+.language-btn {
+  background: rgba(74, 158, 255, 0.2);
+  border: 1px solid rgba(74, 158, 255, 0.4);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #4a9eff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  min-width: 60px;
+}
+
+.language-btn:hover {
+  background: rgba(74, 158, 255, 0.3);
+  border-color: #4a9eff;
+}
+
+.language-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.language-btn.active .language-arrow {
+  transform: rotate(180deg);
+}
+
+.language-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(74, 158, 255, 0.4);
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.language-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #e0e0e0;
+  font-size: 14px;
+}
+
+.language-option:hover {
+  background: rgba(74, 158, 255, 0.2);
+}
+
+.language-option:first-child {
+  border-radius: 7px 7px 0 0;
+}
+
+.language-option:last-child {
+  border-radius: 0 0 7px 7px;
+}
+
+.language-option .flag {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.language-option .lang-name {
+  font-weight: 500;
+}
+
+/* Responsive language selector */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .language-selector {
+    align-self: flex-end;
+    order: -1;
+  }
+  
+  .header-main {
+    order: 0;
+  }
+  
+  #logoutBtn {
+    order: 1;
+    align-self: center;
+  }
+}
