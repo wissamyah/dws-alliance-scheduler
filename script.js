@@ -858,7 +858,16 @@ function renderTimeline() {
     // Desktop view - full grid
     view.innerHTML = `
                     <div style="margin-top: 20px; overflow-x: auto;">
-                        <p style="text-align: center; color: #888; margin-bottom: 20px;">Light green = more members available (times converted to server time UTC-2)</p>
+                        <div style="text-align: center; color: #888; margin-bottom: 20px; font-size: 14px;">
+                          <p style="margin-bottom: 10px;">Member availability scale (times converted to server time UTC-2):</p>
+                          <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                            <span style="background: #cc2936; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">0-5: Critical</span>
+                            <span style="background: #ff6b35; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">6-9: Low</span>
+                            <span style="background: #f7b32b; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">10-12: Moderate</span>
+                            <span style="background: #44ff44; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">13-15: Good</span>
+                            <span style="background: #28a745; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">16+: Excellent</span>
+                          </div>
+                        </div>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <th style="padding: 10px; text-align: left;">Day</th>
@@ -874,26 +883,43 @@ function renderTimeline() {
                                     <td style="padding: 10px; text-transform: capitalize; font-weight: 500; color: #888;">${day}</td>
                                     ${TIME_SLOTS.map((slot) => {
                                       const count = availability[day][slot.id];
-                                      const intensity = Math.min(
-                                        count * 20,
-                                        100
-                                      );
+                                      
+                                      // Multi-level color system
+                                      let backgroundColor, textColor;
+                                      if (count === 0) {
+                                        backgroundColor = "#0a0a0a";
+                                        textColor = "#666";
+                                      } else if (count <= 5) {
+                                        // Critical shortage - Red
+                                        backgroundColor = "#cc2936";
+                                        textColor = "#fff";
+                                      } else if (count <= 9) {
+                                        // Low availability - Orange
+                                        backgroundColor = "#ff6b35";
+                                        textColor = "#fff";
+                                      } else if (count <= 12) {
+                                        // Moderate availability - Yellow
+                                        backgroundColor = "#f7b32b";
+                                        textColor = "#000";
+                                      } else if (count <= 15) {
+                                        // Good availability - Light Green
+                                        backgroundColor = "#44ff44";
+                                        textColor = "#000";
+                                      } else {
+                                        // Excellent availability - Dark Green
+                                        backgroundColor = "#28a745";
+                                        textColor = "#fff";
+                                      }
+                                      
                                       return `
                                             <td style="
-                                                background: ${
-                                                  count > 0
-                                                    ? `rgba(68, 255, 68, ${
-                                                        intensity / 100
-                                                      })`
-                                                    : "#0a0a0a"
-                                                };
-                                                color: ${
-                                                  count > 0 ? "#000" : "#666"
-                                                };
+                                                background: ${backgroundColor};
+                                                color: ${textColor};
                                                 padding: 10px;
                                                 text-align: center;
                                                 border: 1px solid #333;
                                                 font-size: 12px;
+                                                font-weight: 600;
                                             ">
                                                 ${count}
                                             </td>
