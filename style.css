@@ -955,7 +955,6 @@ h1 {
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border: 1px solid rgba(74, 158, 255, 0.4);
   border-radius: 8px;
@@ -967,6 +966,8 @@ h1 {
   transform: translateY(-10px);
   transition: all 0.3s ease;
   min-width: 140px;
+  white-space: nowrap;
+  z-index: 9999;
 }
 
 .language-menu.show {
@@ -1001,6 +1002,15 @@ h1 {
 .language-option .flag {
   font-size: 18px;
   flex-shrink: 0;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", "Noto Emoji", emoji, sans-serif;
+  font-variant-emoji: emoji;
+}
+
+/* Ensure flag button emoji renders properly */
+.language-btn span:first-child {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", "Noto Emoji", emoji, sans-serif;
+  font-variant-emoji: emoji;
+  font-size: 16px;
 }
 
 .language-option .lang-name {
@@ -1012,11 +1022,22 @@ h1 {
   .header-content {
     flex-direction: column;
     gap: 15px;
+    position: relative;
   }
   
   .language-selector {
     align-self: flex-end;
     order: -1;
+    position: relative;
+    z-index: 9999;
+  }
+  
+  .language-menu {
+    /* On mobile, position dropdown to not overflow the screen */
+    right: 0;
+    left: auto;
+    min-width: 120px;
+    max-width: calc(100vw - 40px);
   }
   
   .header-main {
@@ -1026,5 +1047,23 @@ h1 {
   #logoutBtn {
     order: 1;
     align-self: center;
+  }
+  
+  /* Ensure container doesn't shift when dropdown appears */
+  .container {
+    overflow-x: visible;
+    position: relative;
+  }
+  
+  /* Prevent body overflow when dropdown appears */
+  .language-menu.show {
+    max-width: calc(100vw - 60px);
+  }
+  
+  /* Ensure header doesn't cause horizontal scroll */
+  .header {
+    overflow: visible;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
