@@ -1027,32 +1027,122 @@ h1 {
   font-weight: 500;
 }
 
+/* Mobile Settings Styles */
+.mobile-settings-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: rgba(74, 158, 255, 0.2);
+  border: 1px solid rgba(74, 158, 255, 0.4);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  color: #4a9eff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1002;
+}
+
+.mobile-settings-btn:hover {
+  background: rgba(74, 158, 255, 0.3);
+  border-color: #4a9eff;
+}
+
+.mobile-settings-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-left: 1px solid rgba(74, 158, 255, 0.4);
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  transition: right 0.4s ease;
+  z-index: 10001;
+  overflow-y: auto;
+}
+
+.mobile-settings-panel.show {
+  right: 0;
+}
+
+.mobile-settings-content {
+  padding: 60px 20px 20px;
+}
+
+.mobile-language-section {
+  margin-bottom: 30px;
+}
+
+.mobile-language-section h4 {
+  color: #4a9eff;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.mobile-language-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  background: rgba(74, 158, 255, 0.1);
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #e0e0e0;
+}
+
+.mobile-language-option:hover {
+  background: rgba(74, 158, 255, 0.2);
+  border-color: rgba(74, 158, 255, 0.4);
+}
+
+.mobile-language-option .flag {
+  font-size: 20px;
+}
+
+.mobile-logout-section {
+  padding-top: 20px;
+  border-top: 1px solid rgba(74, 158, 255, 0.3);
+}
+
+.mobile-logout-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+}
+
 /* Responsive language selector */
 @media (max-width: 768px) {
-  .header-content {
-    padding-top: 50px;
-  }
-  
-  .language-selector {
-    top: 15px;
-    left: 15px;
-  }
-  
+  /* Hide desktop language selector and logout on mobile */
+  .language-selector,
   #logoutBtn {
-    top: 15px;
-    right: 15px;
+    display: none !important;
   }
   
-  .language-menu {
-    /* On mobile, position dropdown to not overflow the screen */
-    left: 0;
-    right: auto;
-    min-width: 120px;
-    max-width: calc(100vw - 60px);
+  /* Show mobile settings button */
+  .mobile-settings-btn {
+    display: block;
   }
   
-  /* Prevent body overflow when dropdown appears */
-  .language-menu.show {
-    max-width: calc(100vw - 60px);
+  .header-content {
+    padding-top: 20px;
+  }
+  
+  .header-main {
+    position: relative;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Hide mobile settings on desktop */
+  .mobile-settings-btn,
+  .mobile-settings-panel {
+    display: none !important;
   }
 }

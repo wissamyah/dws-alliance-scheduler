@@ -74,6 +74,7 @@ const translations = {
     allianceMembers: "Alliance Members",
     power: "Power",
     tower: "Tower",
+    language: "Language",
     
     // Fields for member cards
     carPower: "car power",
@@ -189,6 +190,7 @@ const translations = {
     allianceMembers: "Membros da Aliança",
     power: "Poder",
     tower: "Torre",
+    language: "Idioma",
     
     // Fields for member cards  
     carPower: "poder do carro",
@@ -304,6 +306,7 @@ const translations = {
     allianceMembers: "Membres de l'Alliance",
     power: "Puissance",
     tower: "Tour",
+    language: "Langue",
     
     // Fields for member cards
     carPower: "puissance de voiture",
@@ -419,6 +422,7 @@ const translations = {
     allianceMembers: "Miembros de la Alianza",
     power: "Poder",
     tower: "Torre",
+    language: "Idioma",
     
     // Fields for member cards
     carPower: "poder de coche",
@@ -534,6 +538,7 @@ const translations = {
     allianceMembers: "Membri dell'Alleanza",
     power: "Potenza",
     tower: "Torre",
+    language: "Lingua",
     
     // Fields for member cards
     carPower: "potenza auto",
@@ -578,11 +583,11 @@ const translations = {
 
 // Language configuration
 const languages = {
-  en: { name: "English", flag: "🇺🇸" },
-  pt: { name: "Português", flag: "🇧🇷" },
-  fr: { name: "Français", flag: "🇫🇷" },
-  es: { name: "Español", flag: "🇪🇸" },
-  it: { name: "Italiano", flag: "🇮🇹" }
+  en: { name: "English", flag: "&#127482;&#127480;" },
+  pt: { name: "Português", flag: "&#127463;&#127479;" },
+  fr: { name: "Français", flag: "&#127467;&#127479;" },
+  es: { name: "Español", flag: "&#127466;&#127480;" },
+  it: { name: "Italiano", flag: "&#127470;&#127481;" }
 };
 
 // Current language state
@@ -600,15 +605,6 @@ function t(key, replacements = {}) {
   return text;
 }
 
-// Change language function
-function changeLanguage(langCode) {
-  if (translations[langCode]) {
-    currentLanguage = langCode;
-    localStorage.setItem("selectedLanguage", langCode);
-    updateAllTranslations();
-    showMessage(t("languageChanged"), "success");
-  }
-}
 
 // Update all translations on the page
 function updateAllTranslations() {

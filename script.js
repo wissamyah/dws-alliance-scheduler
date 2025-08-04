@@ -1035,7 +1035,7 @@ function changeLanguage(langCode) {
     // Update flag display
     const flagElement = document.getElementById("currentFlag");
     if (flagElement && languages[langCode]) {
-      flagElement.textContent = languages[langCode].flag;
+      flagElement.innerHTML = languages[langCode].flag;
     }
     
     // Close menu
@@ -1052,12 +1052,69 @@ function changeLanguage(langCode) {
   }
 }
 
+// Mobile settings panel functions
+function toggleMobileSettings() {
+  const panel = document.getElementById("mobileSettingsPanel");
+  panel.classList.toggle("show");
+  
+  // Close panel when clicking outside
+  if (panel.classList.contains("show")) {
+    setTimeout(() => {
+      document.addEventListener("click", closeMobileSettingsOnOutsideClick);
+    }, 10);
+  }
+}
+
+function closeMobileSettingsOnOutsideClick(event) {
+  const panel = document.getElementById("mobileSettingsPanel");
+  const btn = document.getElementById("mobileSettingsBtn");
+  
+  if (!panel.contains(event.target) && !btn.contains(event.target)) {
+    panel.classList.remove("show");
+    document.removeEventListener("click", closeMobileSettingsOnOutsideClick);
+  }
+}
+
+// Override changeLanguage to also close mobile panel
+function changeLanguage(langCode) {
+  if (translations[langCode]) {
+    currentLanguage = langCode;
+    localStorage.setItem("selectedLanguage", langCode);
+    
+    // Update flag display
+    const flagElement = document.getElementById("currentFlag");
+    if (flagElement && languages[langCode]) {
+      flagElement.innerHTML = languages[langCode].flag;
+    }
+    
+    // Close desktop menu
+    const menu = document.getElementById("languageMenu");
+    const btn = document.getElementById("languageBtn");
+    if (menu && btn) {
+      menu.classList.remove("show");
+      btn.classList.remove("active");
+    }
+    
+    // Close mobile panel
+    const mobilePanel = document.getElementById("mobileSettingsPanel");
+    if (mobilePanel) {
+      mobilePanel.classList.remove("show");
+    }
+    
+    // Update all translations
+    updateAllTranslations();
+    
+    // Show success message
+    showMessage(t("languageChanged"), "success");
+  }
+}
+
 // Initialize language on page load
 function initializeLanguage() {
   // Set current language flag
   const flagElement = document.getElementById("currentFlag");
   if (flagElement && languages[currentLanguage]) {
-    flagElement.textContent = languages[currentLanguage].flag;
+    flagElement.innerHTML = languages[currentLanguage].flag;
   }
   
   // Apply initial translations
