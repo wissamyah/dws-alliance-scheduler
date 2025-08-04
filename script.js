@@ -701,6 +701,10 @@ function renderUI() {
 }
 
 function renderMembers() {
+  const memberCount = currentData.members.length;
+  const title = document.getElementById("allianceMembersTitle");
+  title.textContent = `Alliance Members (${memberCount})`;
+
   const grid = document.getElementById("membersGrid");
   grid.innerHTML = currentData.members
     .map(
