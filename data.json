@@ -235,7 +235,7 @@
     {
       "id": 1754284917710,
       "username": "Kerolos-",
-      "carPower": 21,
+      "carPower": 21000000,
       "towerLevel": 27,
       "timezone": "UTC+2",
       "availability": {
@@ -369,7 +369,7 @@
     {
       "id": 1754285775134,
       "username": "TigressZoe",
-      "carPower": 452,
+      "carPower": 452000000,
       "towerLevel": 33,
       "timezone": "UTC+1",
       "availability": {
@@ -477,7 +477,7 @@
     {
       "id": 1754286184015,
       "username": "DAVID ESCOBAR ",
-      "carPower": 14400,
+      "carPower": 1440000,
       "towerLevel": 27,
       "timezone": "UTC-5",
       "availability": {
@@ -509,7 +509,7 @@
       "id": 1754286406025,
       "username": "Nobody",
       "carPower": 32,
-      "towerLevel": 28,
+      "towerLevel": 28000000,
       "timezone": "UTC+3",
       "availability": {
         "monday": [
@@ -616,7 +616,7 @@
     {
       "id": 1754290438405,
       "username": "forceful",
-      "carPower": 64,
+      "carPower": 64000000,
       "towerLevel": 31,
       "timezone": "UTC+3",
       "availability": {
@@ -753,7 +753,7 @@
     {
       "id": 1754308892918,
       "username": "breebree",
-      "carPower": 9,
+      "carPower": 9000000,
       "towerLevel": 27,
       "timezone": "UTC+10",
       "availability": {
@@ -875,7 +875,7 @@
       "id": 1754333363864,
       "username": "A7mdoove",
       "carPower": 38,
-      "towerLevel": 30,
+      "towerLevel": 30000000,
       "timezone": "UTC+3",
       "availability": {
         "monday": [
@@ -936,7 +936,7 @@
     {
       "id": 1754334529165,
       "username": "Viviannnnn",
-      "carPower": 14000,
+      "carPower": 14000000,
       "towerLevel": 26,
       "timezone": "UTC+7",
       "availability": {
