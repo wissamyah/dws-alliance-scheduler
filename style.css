@@ -68,6 +68,7 @@ h1 {
   font-weight: 300;
   position: relative;
   z-index: 1;
+  margin-bottom: 30px;
 }
 .auth-section {
   background: linear-gradient(135deg, #1a1a2e 0%, #161625 100%);
@@ -1031,8 +1032,8 @@ h1 {
 .mobile-settings-btn {
   display: none;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 15px;
+  right: 15px;
   background: rgba(74, 158, 255, 0.2);
   border: 1px solid rgba(74, 158, 255, 0.4);
   border-radius: 50%;
