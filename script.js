@@ -5,7 +5,8 @@ const DATA_FILE = "data.json";
 let authToken = localStorage.getItem("githubToken");
 let isAuthenticated = false;
 let currentData = null;
-let userSelections = JSON.parse(localStorage.getItem("timeSlotSelections")) || {};
+let userSelections =
+  JSON.parse(localStorage.getItem("timeSlotSelections")) || {};
 
 // Timezone management
 let isTimezoneConfirmed = localStorage.getItem("timezoneConfirmed") === "true";
@@ -32,17 +33,19 @@ const TIME_SLOTS = [
 function getTimezoneOffset(timezone) {
   try {
     const now = new Date();
-    
+
     // Get the current date in the specified timezone
-    const localDate = new Date(now.toLocaleString("en-US", {timeZone: timezone}));
-    
+    const localDate = new Date(
+      now.toLocaleString("en-US", { timeZone: timezone })
+    );
+
     // Get the current UTC date
-    const utcDate = new Date(now.toLocaleString("en-US", {timeZone: "UTC"}));
-    
+    const utcDate = new Date(now.toLocaleString("en-US", { timeZone: "UTC" }));
+
     // Calculate the difference in hours
     const offsetMs = localDate.getTime() - utcDate.getTime();
     const offsetHours = Math.round(offsetMs / (1000 * 60 * 60));
-    
+
     return offsetHours;
   } catch (e) {
     console.error("Error calculating timezone offset:", e);
@@ -63,13 +66,13 @@ function detectUserTimezone() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const offset = getTimezoneOffset(timezone);
     const utcString = offsetToUTCString(offset);
-    
+
     detectedTimezone = {
       iana: timezone,
       offset: offset,
-      utc: utcString
+      utc: utcString,
     };
-    
+
     console.log("Detected timezone:", detectedTimezone);
     return detectedTimezone;
   } catch (e) {
@@ -78,7 +81,7 @@ function detectUserTimezone() {
     detectedTimezone = {
       iana: "UTC",
       offset: 0,
-      utc: "UTC"
+      utc: "UTC",
     };
     return detectedTimezone;
   }
@@ -87,20 +90,20 @@ function detectUserTimezone() {
 // Update time displays in modal
 function updateTimeDisplays() {
   if (!detectedTimezone) return;
-  
+
   const now = new Date();
-  
+
   // User's local time - use the detected timezone
   try {
     const userTimeString = now.toLocaleString("en-US", {
       timeZone: detectedTimezone.iana,
       hour12: false,
-      hour: '2-digit',
-      minute: '2-digit'
+      hour: "2-digit",
+      minute: "2-digit",
     });
-    
+
     document.getElementById("userLocalTime").textContent = userTimeString;
-    
+
     // Format timezone display better
     const timezoneDisplay = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
     document.getElementById("userTimezone").textContent = timezoneDisplay;
@@ -108,39 +111,47 @@ function updateTimeDisplays() {
     console.error("Error formatting user time:", e);
     const fallbackTime = now.toTimeString().slice(0, 5);
     document.getElementById("userLocalTime").textContent = fallbackTime;
-    document.getElementById("userTimezone").textContent = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
+    document.getElementById(
+      "userTimezone"
+    ).textContent = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
   }
-  
+
   // Server time (UTC-2)
   const serverOffset = -2;
   try {
     const serverTimeString = now.toLocaleString("en-US", {
       timeZone: "Etc/GMT+2", // Note: GMT+2 means UTC-2 (confusing but correct)
       hour12: false,
-      hour: '2-digit',
-      minute: '2-digit'
+      hour: "2-digit",
+      minute: "2-digit",
     });
     document.getElementById("serverTime").textContent = serverTimeString;
   } catch (e) {
     // Fallback calculation
     const serverTime = new Date();
     serverTime.setHours(serverTime.getUTCHours() + serverOffset);
-    document.getElementById("serverTime").textContent = serverTime.toTimeString().slice(0, 5);
+    document.getElementById("serverTime").textContent = serverTime
+      .toTimeString()
+      .slice(0, 5);
   }
-  
+
   // Time relationship - this was the bug
   const timeDiff = detectedTimezone.offset - serverOffset; // User offset minus server offset
   const diff = Math.abs(timeDiff);
-  
+
   let relationshipText;
   if (timeDiff > 0) {
-    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} ahead of server time`;
+    relationshipText = `Your timezone is ${diff} hour${
+      diff !== 1 ? "s" : ""
+    } ahead of server time`;
   } else if (timeDiff < 0) {
-    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} behind server time`;
+    relationshipText = `Your timezone is ${diff} hour${
+      diff !== 1 ? "s" : ""
+    } behind server time`;
   } else {
     relationshipText = `Your timezone matches server time perfectly!`;
   }
-  
+
   document.getElementById("timeRelationship").textContent = relationshipText;
 }
 
@@ -149,7 +160,7 @@ function showTimezoneModal() {
   detectUserTimezone();
   updateTimeDisplays();
   document.getElementById("timezoneModal").classList.add("active");
-  
+
   // Update time displays every second
   const interval = setInterval(() => {
     if (document.getElementById("timezoneModal").classList.contains("active")) {
@@ -163,13 +174,13 @@ function showTimezoneModal() {
 // Confirm timezone
 function confirmTimezone() {
   if (!detectedTimezone) return;
-  
+
   isTimezoneConfirmed = true;
   confirmedTimezone = detectedTimezone.utc;
-  
+
   localStorage.setItem("timezoneConfirmed", "true");
   localStorage.setItem("confirmedTimezone", confirmedTimezone);
-  
+
   document.getElementById("timezoneModal").classList.remove("active");
   updateTimezoneUI();
   showMessage(t("timezoneConfirmedMessage"), "success");
@@ -179,16 +190,16 @@ function confirmTimezone() {
 function changeTimezone() {
   document.getElementById("timezoneModal").classList.remove("active");
   document.getElementById("manualTimezoneGroup").style.display = "block";
-  
+
   // Update timezone status
   document.getElementById("timezoneLocked").style.display = "block";
   document.getElementById("timezoneStatus").style.display = "none";
-  
+
   // Reset confirmation
   isTimezoneConfirmed = false;
   localStorage.removeItem("timezoneConfirmed");
   localStorage.removeItem("confirmedTimezone");
-  
+
   updateTimezoneUI();
 }
 
@@ -197,23 +208,25 @@ function updateTimezoneUI() {
   const timeLocked = document.getElementById("timezoneLocked");
   const timeStatus = document.getElementById("timezoneStatus");
   const manualGroup = document.getElementById("manualTimezoneGroup");
-  
+
   if (isTimezoneConfirmed && confirmedTimezone) {
     // Show confirmed status
     timeLocked.style.display = "none";
     timeStatus.style.display = "block";
     manualGroup.style.display = "none";
-    
-    document.getElementById("confirmedTimezoneText").textContent = 
-      t("usingTimezone", { timezone: confirmedTimezone });
-    
+
+    document.getElementById("confirmedTimezoneText").textContent = t(
+      "usingTimezone",
+      { timezone: confirmedTimezone }
+    );
+
     // Enable time slot selection
     enableTimeSlotSelection();
   } else {
     // Show locked message
     timeLocked.style.display = "block";
     timeStatus.style.display = "none";
-    
+
     // Disable time slot selection
     disableTimeSlotSelection();
   }
@@ -222,22 +235,22 @@ function updateTimezoneUI() {
 // Enable time slot selection
 function enableTimeSlotSelection() {
   const timeSlotButtons = document.querySelectorAll(".time-slot-btn");
-  timeSlotButtons.forEach(btn => {
+  timeSlotButtons.forEach((btn) => {
     btn.classList.remove("disabled");
     btn.removeAttribute("disabled");
   });
-  
+
   document.getElementById("submitBtn").disabled = false;
 }
 
 // Disable time slot selection
 function disableTimeSlotSelection() {
   const timeSlotButtons = document.querySelectorAll(".time-slot-btn");
-  timeSlotButtons.forEach(btn => {
+  timeSlotButtons.forEach((btn) => {
     btn.classList.add("disabled");
     btn.setAttribute("disabled", "true");
   });
-  
+
   document.getElementById("submitBtn").disabled = true;
 }
 
@@ -246,31 +259,31 @@ function convertSlotsToServerTime(memberSlots, memberTimezone) {
   const serverTimeSlots = [];
   const timezoneOffset = parseInt(memberTimezone.replace("UTC", "")) || 0;
   const serverOffset = -2; // Server is UTC-2
-  
-  memberSlots.forEach(slotId => {
-    const slot = TIME_SLOTS.find(s => s.id === slotId);
+
+  memberSlots.forEach((slotId) => {
+    const slot = TIME_SLOTS.find((s) => s.id === slotId);
     if (slot) {
       // Convert each hour in the slot from local time to server time (UTC-2)
-      slot.hours.forEach(localHour => {
+      slot.hours.forEach((localHour) => {
         // Correct conversion: subtract timezone difference
         let serverHour = localHour - (timezoneOffset - serverOffset);
-        
+
         // Handle day wrap-around
         if (serverHour < 0) {
           serverHour += 24;
         } else if (serverHour >= 24) {
           serverHour -= 24;
         }
-        
+
         // Find which server time slot this hour belongs to
-        const serverSlot = TIME_SLOTS.find(s => s.hours.includes(serverHour));
+        const serverSlot = TIME_SLOTS.find((s) => s.hours.includes(serverHour));
         if (serverSlot && !serverTimeSlots.includes(serverSlot.id)) {
           serverTimeSlots.push(serverSlot.id);
         }
       });
     }
   });
-  
+
   return serverTimeSlots;
 }
 
@@ -288,18 +301,24 @@ function updateServerTimeDisplay() {
 
   const timeDiff = tzOffset - serverOffset;
   const diff = Math.abs(timeDiff);
-  
+
   let relationshipText;
   if (timeDiff > 0) {
-    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} ahead of server time`;
+    relationshipText = `Your timezone is ${diff} hour${
+      diff !== 1 ? "s" : ""
+    } ahead of server time`;
   } else if (timeDiff < 0) {
-    relationshipText = `Your timezone is ${diff} hour${diff !== 1 ? "s" : ""} behind server time`;
+    relationshipText = `Your timezone is ${diff} hour${
+      diff !== 1 ? "s" : ""
+    } behind server time`;
   } else {
     relationshipText = `Your timezone matches server time`;
   }
 
   document.getElementById("serverTimeInfo").innerHTML = `${relationshipText}<br>
-                 Current server time: ${serverTime.toTimeString().slice(0, 5)} (UTC-2)`;
+                 Current server time: ${serverTime
+                   .toTimeString()
+                   .slice(0, 5)} (UTC-2)`;
 }
 
 // Handle manual timezone selection
@@ -308,10 +327,10 @@ function handleManualTimezoneChange() {
   if (selectedTz) {
     isTimezoneConfirmed = true;
     confirmedTimezone = selectedTz;
-    
+
     localStorage.setItem("timezoneConfirmed", "true");
     localStorage.setItem("confirmedTimezone", confirmedTimezone);
-    
+
     updateTimezoneUI();
     updateServerTimeDisplay();
     showMessage(t("timezoneSetMessage", { timezone: selectedTz }), "success");
@@ -405,15 +424,17 @@ function updateAuthStatus() {
   const authStatusEl = document.getElementById("authStatus");
   const authControlsEl = document.getElementById("authControls");
   const logoutBtnEl = document.getElementById("logoutBtn");
-  
+
   if (authStatusEl) {
-    authStatusEl.textContent = isAuthenticated ? "Authenticated" : "Not authenticated";
+    authStatusEl.textContent = isAuthenticated
+      ? "Authenticated"
+      : "Not authenticated";
   }
-  
+
   if (authControlsEl) {
     authControlsEl.style.display = isAuthenticated ? "none" : "block";
   }
-  
+
   if (logoutBtnEl) {
     logoutBtnEl.style.display = isAuthenticated ? "inline-block" : "none";
   }
@@ -436,7 +457,9 @@ function submitMemberInfo() {
   }
 
   const username = document.getElementById("username").value;
-  const carPower = document.getElementById("carPower").value.replace(/[,\s]/g, '');
+  const carPower = document
+    .getElementById("carPower")
+    .value.replace(/[,\s]/g, "");
   const towerLevel = document.getElementById("towerLevel").value;
 
   if (!username || !carPower || !towerLevel) {
@@ -482,52 +505,55 @@ function submitMemberInfo() {
 
   // Helper function to normalize username for comparison (remove spaces, convert to lowercase)
   function normalizeUsername(name) {
-    return name.replace(/\s+/g, '').toLowerCase();
+    return name.replace(/\s+/g, "").toLowerCase();
   }
 
   // Check if member with same username already exists (ignoring case and spaces)
   const normalizedInputUsername = normalizeUsername(username);
-  const existingMemberIndex = currentData.members.findIndex(member => 
-    normalizeUsername(member.username) === normalizedInputUsername
+  const existingMemberIndex = currentData.members.findIndex(
+    (member) => normalizeUsername(member.username) === normalizedInputUsername
   );
 
   if (existingMemberIndex !== -1) {
     // Existing member - use smart selective update
     const existingMember = currentData.members[existingMemberIndex];
     const hasTimeSlotsSelected = Object.keys(timeSlots).length > 0;
-    
+
     if (!hasTimeSlotsSelected) {
       // Quick update mode: only update car power and/or tower level, preserve everything else
       const updatedMember = { ...existingMember };
-      
+
       // Update car power if provided
       if (carPower.trim()) {
         updatedMember.carPower = parseInt(carPower);
       }
-      
+
       // Update tower level if provided
       if (towerLevel.trim()) {
         updatedMember.towerLevel = parseInt(towerLevel);
       }
-      
+
       // Update timestamp
       updatedMember.submittedAt = new Date().toISOString();
-      
+
       currentData.members[existingMemberIndex] = updatedMember;
-      
+
       const updatedFields = [];
       if (carPower.trim()) updatedFields.push(t("carPower"));
       if (towerLevel.trim()) updatedFields.push(t("towerLevel"));
-      
-      showMessage(t("carPowerUpdated", { 
-        username: existingMember.username, 
-        fields: updatedFields.join(` ${t("and")} `) 
-      }), "success");
+
+      showMessage(
+        t("carPowerUpdated", {
+          username: existingMember.username,
+          fields: updatedFields.join(` ${t("and")} `),
+        }),
+        "success"
+      );
     } else {
       // Full update mode: user selected timeslots, so update everything
       submission.id = existingMember.id; // Keep original ID
       submission.username = existingMember.username; // Keep original username format
-      
+
       // If car power or tower level not provided, keep existing values
       if (!carPower.trim()) {
         submission.carPower = existingMember.carPower;
@@ -535,9 +561,12 @@ function submitMemberInfo() {
       if (!towerLevel.trim()) {
         submission.towerLevel = existingMember.towerLevel;
       }
-      
+
       currentData.members[existingMemberIndex] = submission;
-      showMessage(t("memberInfoFullyUpdated", { username: existingMember.username }), "success");
+      showMessage(
+        t("memberInfoFullyUpdated", { username: existingMember.username }),
+        "success"
+      );
     }
   } else {
     // New member - require all fields
@@ -545,13 +574,13 @@ function submitMemberInfo() {
       showMessage(t("newMemberRequirements"), "error");
       return;
     }
-    
+
     currentData.members.push(submission);
     showMessage(t("memberInfoSubmitted"), "success");
   }
 
   saveData();
-  
+
   // Immediately update the UI
   renderMembers();
   renderTimeline();
@@ -580,11 +609,11 @@ function toggleTimeSlot(day, slotId) {
   const btn = document.querySelector(
     `[data-day="${day}"][data-slot="${slotId}"]`
   );
-  
+
   if (btn.classList.contains("disabled")) {
     return;
   }
-  
+
   btn.classList.toggle("active");
 
   // Save to localStorage
@@ -604,10 +633,11 @@ function toggleTimeSlot(day, slotId) {
 function showDeleteModal(id) {
   // Ask for R5 password
   const password = prompt("Enter the R5 password to delete this member:");
-  
+
   if (password === "R5") {
     deleteMember(id);
-  } else if (password !== null) { // null means user cancelled
+  } else if (password !== null) {
+    // null means user cancelled
     showMessage(t("incorrectPassword"), "error");
   }
 }
@@ -617,15 +647,15 @@ function deleteMember(id) {
     showMessage(t("mustAuthenticateToDelete"), "error");
     return;
   }
-  
+
   // Get member info before deletion for the message
-  const member = currentData.members.find(m => m.id === id);
-  const memberName = member ? member.username : 'Member';
-  
+  const member = currentData.members.find((m) => m.id === id);
+  const memberName = member ? member.username : "Member";
+
   currentData.members = currentData.members.filter((m) => m.id !== id);
   saveData();
   showMessage(t("memberRemoved", { memberName: memberName }), "success");
-  
+
   // Immediately update the UI to remove the member and update timeline
   renderMembers();
   renderTimeline();
@@ -666,14 +696,20 @@ function renderUI() {
                           .map(
                             (day) => `
                             <div style="margin-bottom: 25px;">
-                                <h4 style="color: #4a9eff; margin-bottom: 15px; text-align: center; font-size: 1.1em;">${t(day)}</h4>
+                                <h4 style="color: #4a9eff; margin-bottom: 15px; text-align: center; font-size: 1.1em;">${t(
+                                  day
+                                )}</h4>
                                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                                     ${TIME_SLOTS.map((slot) => {
                                       const isActive =
                                         userSelections[day] &&
                                         userSelections[day].includes(slot.id);
-                                      const disabledClass = !isTimezoneConfirmed ? "disabled" : "";
-                                      const disabledAttr = !isTimezoneConfirmed ? 'disabled="true"' : "";
+                                      const disabledClass = !isTimezoneConfirmed
+                                        ? "disabled"
+                                        : "";
+                                      const disabledAttr = !isTimezoneConfirmed
+                                        ? 'disabled="true"'
+                                        : "";
                                       return `
                                             <div class="time-slot-btn ${
                                               isActive ? "active" : ""
@@ -705,16 +741,20 @@ function renderUI() {
       .map(
         (day) => `
                     <div style="margin-bottom: 20px;">
-                        <h4 style="color: #4a9eff; margin-bottom: 15px; font-size: 1.1em;">${t(day)}</h4>
+                        <h4 style="color: #4a9eff; margin-bottom: 15px; font-size: 1.1em;">${t(
+                          day
+                        )}</h4>
                         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
                             ${TIME_SLOTS.map((slot) => {
                               const isActive =
                                 userSelections[day] &&
-                                userSelections[day].includes(
-                                  slot.id
-                                );
-                              const disabledClass = !isTimezoneConfirmed ? "disabled" : "";
-                              const disabledAttr = !isTimezoneConfirmed ? 'disabled="true"' : "";
+                                userSelections[day].includes(slot.id);
+                              const disabledClass = !isTimezoneConfirmed
+                                ? "disabled"
+                                : "";
+                              const disabledAttr = !isTimezoneConfirmed
+                                ? 'disabled="true"'
+                                : "";
                               return `
                                     <div class="time-slot-btn ${
                                       isActive ? "active" : ""
@@ -756,10 +796,16 @@ function renderMembers() {
                 <div class="member-card">
                     <h3>${member.username}</h3>
                     <div class="stats">
-                        <span class="power">${t("power")}: ${member.carPower.toLocaleString()}</span> | 
-                        <span class="tower">${t("tower")}: ${member.towerLevel}</span>
+                        <span class="power">${t(
+                          "power"
+                        )}: ${member.carPower.toLocaleString()}</span> | 
+                        <span class="tower">${t("tower")}: ${
+        member.towerLevel
+      }</span>
                     </div>
-                    <div class="stats">${t("timezone")}: ${member.timezone}</div>
+                    <div class="stats">${t("timezone")}: ${
+        member.timezone
+      }</div>
                     <div class="time-slots">
                         ${Object.entries(member.availability || {})
                           .map(([day, slots]) => {
@@ -769,9 +815,9 @@ function renderMembers() {
                               );
                               return slot ? slot.name : slotId;
                             });
-                            return `<div><strong>${t(day)}:</strong> ${slotNames.join(
-                              ", "
-                            )}</div>`;
+                            return `<div><strong>${t(
+                              day
+                            )}:</strong> ${slotNames.join(", ")}</div>`;
                           })
                           .join("")}
                     </div>
@@ -805,12 +851,15 @@ function renderTimeline() {
     availability[day] = {};
     TIME_SLOTS.forEach((slot) => {
       availability[day][slot.id] = 0;
-      
+
       // For each member, check if they're available in this server time slot
       currentData.members.forEach((member) => {
         if (member.availability[day]) {
           // Convert member's local slots to server time slots
-          const memberServerTimeSlots = convertSlotsToServerTime(member.availability[day], member.timezone);
+          const memberServerTimeSlots = convertSlotsToServerTime(
+            member.availability[day],
+            member.timezone
+          );
           if (memberServerTimeSlots.includes(slot.id)) {
             availability[day][slot.id]++;
           }
@@ -860,13 +909,25 @@ function renderTimeline() {
     view.innerHTML = `
                     <div style="margin-top: 20px; overflow-x: auto;">
                         <div style="text-align: center; color: #888; margin-bottom: 20px; font-size: 14px;">
-                          <p style="margin-bottom: 10px;">${t("memberAvailabilityScale")}</p>
+                          <p style="margin-bottom: 10px;">${t(
+                            "memberAvailabilityScale"
+                          )}</p>
                           <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                            <span style="background: #cc2936; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">0-5: ${t("critical")}</span>
-                            <span style="background: #ff6b35; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">6-9: ${t("low")}</span>
-                            <span style="background: #f7b32b; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">10-12: ${t("moderate")}</span>
-                            <span style="background: #44ff44; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">13-15: ${t("good")}</span>
-                            <span style="background: #28a745; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">16+: ${t("excellent")}</span>
+                            <span style="background: #cc2936; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">0-5: ${t(
+                              "critical"
+                            )}</span>
+                            <span style="background: #ff6b35; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">6-9: ${t(
+                              "low"
+                            )}</span>
+                            <span style="background: #f7b32b; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">10-12: ${t(
+                              "moderate"
+                            )}</span>
+                            <span style="background: #44ff44; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 12px;">13-15: ${t(
+                              "good"
+                            )}</span>
+                            <span style="background: #28a745; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;">16+: ${t(
+                              "excellent"
+                            )}</span>
                           </div>
                         </div>
                         <table style="width: 100%; border-collapse: collapse;">
@@ -881,10 +942,12 @@ function renderTimeline() {
                               .map(
                                 (day) => `
                                 <tr>
-                                    <td style="padding: 10px; text-transform: capitalize; font-weight: 500; color: #888;">${t(day)}</td>
+                                    <td style="padding: 10px; text-transform: capitalize; font-weight: 500; color: #888;">${t(
+                                      day
+                                    )}</td>
                                     ${TIME_SLOTS.map((slot) => {
                                       const count = availability[day][slot.id];
-                                      
+
                                       // Multi-level color system
                                       let backgroundColor, textColor;
                                       if (count === 0) {
@@ -911,7 +974,7 @@ function renderTimeline() {
                                         backgroundColor = "#28a745";
                                         textColor = "#fff";
                                       }
-                                      
+
                                       return `
                                             <td style="
                                                 background: ${backgroundColor};
@@ -949,13 +1012,13 @@ function showMessage(text, type) {
   // Create toast element
   const toast = document.createElement("div");
   toast.className = `toast ${type}`;
-  
+
   // Get appropriate icon based on type
   let icon = "ℹ️";
   if (type === "success") icon = "✅";
   else if (type === "error") icon = "❌";
   else if (type === "info") icon = "ℹ️";
-  
+
   toast.innerHTML = `
     <div class="toast-icon">${icon}</div>
     <div class="toast-message">${text}</div>
@@ -982,8 +1045,10 @@ function showMessage(text, type) {
 
 function showLoading(show) {
   const skeletonContainer = document.getElementById("skeletonContainer");
-  const mainContainer = document.querySelector(".container:not(.skeleton-container .container)");
-  
+  const mainContainer = document.querySelector(
+    ".container:not(.skeleton-container .container)"
+  );
+
   if (show) {
     // Show skeleton loading
     skeletonContainer.classList.add("show");
@@ -1003,10 +1068,10 @@ function showLoading(show) {
 function toggleLanguageMenu() {
   const menu = document.getElementById("languageMenu");
   const btn = document.getElementById("languageBtn");
-  
+
   menu.classList.toggle("show");
   btn.classList.toggle("active");
-  
+
   // Close menu when clicking outside
   if (menu.classList.contains("show")) {
     setTimeout(() => {
@@ -1018,7 +1083,7 @@ function toggleLanguageMenu() {
 function closeLanguageMenuOnOutsideClick(event) {
   const menu = document.getElementById("languageMenu");
   const btn = document.getElementById("languageBtn");
-  
+
   if (!menu.contains(event.target) && !btn.contains(event.target)) {
     menu.classList.remove("show");
     btn.classList.remove("active");
@@ -1026,37 +1091,11 @@ function closeLanguageMenuOnOutsideClick(event) {
   }
 }
 
-// Override the changeLanguage function from translations.js
-function changeLanguage(langCode) {
-  if (translations[langCode]) {
-    currentLanguage = langCode;
-    localStorage.setItem("selectedLanguage", langCode);
-    
-    // Update flag display
-    const flagElement = document.getElementById("currentFlag");
-    if (flagElement && languages[langCode]) {
-      flagElement.innerHTML = languages[langCode].flag;
-    }
-    
-    // Close menu
-    const menu = document.getElementById("languageMenu");
-    const btn = document.getElementById("languageBtn");
-    menu.classList.remove("show");
-    btn.classList.remove("active");
-    
-    // Update all translations
-    updateAllTranslations();
-    
-    // Show success message
-    showMessage(t("languageChanged"), "success");
-  }
-}
-
 // Mobile settings panel functions
 function toggleMobileSettings() {
   const panel = document.getElementById("mobileSettingsPanel");
   panel.classList.toggle("show");
-  
+
   // Close panel when clicking outside
   if (panel.classList.contains("show")) {
     setTimeout(() => {
@@ -1068,7 +1107,7 @@ function toggleMobileSettings() {
 function closeMobileSettingsOnOutsideClick(event) {
   const panel = document.getElementById("mobileSettingsPanel");
   const btn = document.getElementById("mobileSettingsBtn");
-  
+
   if (!panel.contains(event.target) && !btn.contains(event.target)) {
     panel.classList.remove("show");
     document.removeEventListener("click", closeMobileSettingsOnOutsideClick);
@@ -1080,13 +1119,13 @@ function changeLanguage(langCode) {
   if (translations[langCode]) {
     currentLanguage = langCode;
     localStorage.setItem("selectedLanguage", langCode);
-    
+
     // Update flag display
     const flagElement = document.getElementById("currentFlag");
     if (flagElement && languages[langCode]) {
       flagElement.innerHTML = languages[langCode].flag;
     }
-    
+
     // Close desktop menu
     const menu = document.getElementById("languageMenu");
     const btn = document.getElementById("languageBtn");
@@ -1094,16 +1133,16 @@ function changeLanguage(langCode) {
       menu.classList.remove("show");
       btn.classList.remove("active");
     }
-    
+
     // Close mobile panel
     const mobilePanel = document.getElementById("mobileSettingsPanel");
     if (mobilePanel) {
       mobilePanel.classList.remove("show");
     }
-    
+
     // Update all translations
     updateAllTranslations();
-    
+
     // Show success message
     showMessage(t("languageChanged"), "success");
   }
@@ -1116,7 +1155,7 @@ function initializeLanguage() {
   if (flagElement && languages[currentLanguage]) {
     flagElement.innerHTML = languages[currentLanguage].flag;
   }
-  
+
   // Apply initial translations
   updateAllTranslations();
 }
@@ -1131,9 +1170,23 @@ if (authToken) {
 
 // Initialize timezone handling
 document.addEventListener("DOMContentLoaded", () => {
+  // Add event listeners for new language dropdown
+  const langBtn = document.getElementById("languageBtn");
+  if (langBtn) {
+    langBtn.addEventListener("click", toggleLanguageMenu);
+  }
+
+  document.querySelectorAll(".language-option").forEach((option) => {
+    option.addEventListener("click", (e) => {
+      const lang = e.currentTarget.dataset.lang;
+      if (lang) {
+        changeLanguage(lang);
+      }
+    });
+  });
   // Initialize language system
   initializeLanguage();
-  
+
   // Check if timezone was previously confirmed
   if (!isTimezoneConfirmed) {
     // Show timezone modal after a short delay

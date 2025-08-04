@@ -93,10 +93,14 @@
     </div>
 
     <!-- Mobile Settings Button -->
-    <button class="mobile-settings-btn" onclick="toggleMobileSettings()" id="mobileSettingsBtn">
+    <button
+      class="mobile-settings-btn"
+      onclick="toggleMobileSettings()"
+      id="mobileSettingsBtn"
+    >
       ⚙️
     </button>
-    
+
     <!-- Mobile Settings Panel -->
     <div class="mobile-settings-panel" id="mobileSettingsPanel">
       <div class="mobile-settings-content">
@@ -126,7 +130,11 @@
           </div>
         </div>
         <div class="mobile-logout-section">
-          <button class="btn btn-danger mobile-logout-btn" onclick="logout()" data-translate="logout">
+          <button
+            class="btn btn-danger mobile-logout-btn"
+            onclick="logout()"
+            data-translate="logout"
+          >
             Logout
           </button>
         </div>
@@ -137,16 +145,37 @@
       <div class="header-content">
         <div class="header-main">
           <h1>The Dark Creed</h1>
-          <p class="subtitle" data-translate="subtitle">Unite. Strategize. Dominate.</p>
+          <p class="subtitle" data-translate="subtitle">
+            Unite. Strategize. Dominate.
+          </p>
         </div>
         <div class="language-selector">
-          <select id="languageSelect" onchange="changeLanguage(this.value)">
-            <option value="en">&#127482;&#127480; English</option>
-            <option value="pt">&#127463;&#127479; Português</option>
-            <option value="fr">&#127467;&#127479; Français</option>
-            <option value="es">&#127466;&#127480; Español</option>
-            <option value="it">&#127470;&#127481; Italiano</option>
-          </select>
+          <button class="language-btn" id="languageBtn">
+            <span id="currentFlag">&#127482;&#127480;</span>
+            <span class="language-arrow">▼</span>
+          </button>
+          <div class="language-menu" id="languageMenu">
+            <div class="language-option" data-lang="en">
+              <span class="flag">&#127482;&#127480;</span>
+              <span class="lang-name">English</span>
+            </div>
+            <div class="language-option" data-lang="pt">
+              <span class="flag">&#127463;&#127479;</span>
+              <span class="lang-name">Português</span>
+            </div>
+            <div class="language-option" data-lang="fr">
+              <span class="flag">&#127467;&#127479;</span>
+              <span class="lang-name">Français</span>
+            </div>
+            <div class="language-option" data-lang="es">
+              <span class="flag">&#127466;&#127480;</span>
+              <span class="lang-name">Español</span>
+            </div>
+            <div class="language-option" data-lang="it">
+              <span class="flag">&#127470;&#127481;</span>
+              <span class="lang-name">Italiano</span>
+            </div>
+          </div>
         </div>
         <button
           class="btn btn-danger"
@@ -163,8 +192,11 @@
       <div id="timezoneModal" class="modal-overlay">
         <div class="modal-content">
           <h3 data-translate="timezoneTitle">🌍 Confirm Your Timezone</h3>
-          <p data-translate="timezoneDescription">We've detected your timezone automatically. Please confirm it's correct before proceeding:</p>
-          
+          <p data-translate="timezoneDescription">
+            We've detected your timezone automatically. Please confirm it's
+            correct before proceeding:
+          </p>
+
           <div class="timezone-info">
             <h4 data-translate="detectedInfo">📍 Detected Information</h4>
             <div class="timezone-comparison">
@@ -179,21 +211,35 @@
                 <div class="zone">UTC-2</div>
               </div>
             </div>
-            
+
             <div class="time-relationship">
-              <div class="relationship-text" id="timeRelationship">Calculating...</div>
+              <div class="relationship-text" id="timeRelationship">
+                Calculating...
+              </div>
             </div>
           </div>
 
-          <p style="margin-bottom: 25px;">
-            <strong>Important:</strong> <span data-translate="timezoneImportant">Your time slot selections will be converted to server time (UTC-2) for coordination.</span>
+          <p style="margin-bottom: 25px">
+            <strong>Important:</strong>
+            <span data-translate="timezoneImportant"
+              >Your time slot selections will be converted to server time
+              (UTC-2) for coordination.</span
+            >
           </p>
 
           <div class="modal-buttons">
-            <button class="btn btn-success" onclick="confirmTimezone()" data-translate="confirmContinue">
+            <button
+              class="btn btn-success"
+              onclick="confirmTimezone()"
+              data-translate="confirmContinue"
+            >
               ✅ Confirm & Continue
             </button>
-            <button class="btn" onclick="changeTimezone()" data-translate="changeTimezone">
+            <button
+              class="btn"
+              onclick="changeTimezone()"
+              data-translate="changeTimezone"
+            >
               🔄 Change Timezone
             </button>
           </div>
@@ -203,7 +249,9 @@
       <div id="authSection" class="auth-section">
         <h2 data-translate="authRequired">Authentication Required</h2>
         <p style="margin-bottom: 15px">
-          <span id="authStatus" data-translate="notAuthenticated">Not authenticated</span>
+          <span id="authStatus" data-translate="notAuthenticated"
+            >Not authenticated</span
+          >
         </p>
         <div id="authControls">
           <input
@@ -212,50 +260,115 @@
             data-translate-placeholder="githubTokenPlaceholder"
             placeholder="GitHub Token (required for all members)"
           />
-          <button class="btn" onclick="authenticate()" data-translate="authenticate">
+          <button
+            class="btn"
+            onclick="authenticate()"
+            data-translate="authenticate"
+          >
             Authenticate
           </button>
-          <p style="color: #888; font-size: 14px; margin-top: 10px;">
-            <strong><span data-translate="authDescription">All members must authenticate before submitting information.</span></strong><br>
-            <span data-translate="contactR4R5">Contact your alliance R4/R5 for the GitHub token.</span>
+          <p style="color: #888; font-size: 14px; margin-top: 10px">
+            <strong
+              ><span data-translate="authDescription"
+                >All members must authenticate before submitting
+                information.</span
+              ></strong
+            ><br />
+            <span data-translate="contactR4R5"
+              >Contact your alliance R4/R5 for the GitHub token.</span
+            >
           </p>
         </div>
       </div>
 
       <div class="member-form">
         <h2 data-translate="submitInfo">Submit Your Information</h2>
-        
+
         <!-- Update Instructions -->
-        <div style="background: #1a1a2e; border: 1px solid #4a9eff; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
-          <h4 style="color: #4a9eff; margin: 0 0 10px 0;" data-translate="howUpdatesWork">💡 How Updates Work</h4>
-          <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
-            <p style="margin: 0 0 8px 0;"><strong>Quick Update:</strong> <span data-translate="quickUpdate">Enter your username + new car power and/or tower level → your time slots stay the same</span></p>
-            <p style="margin: 0 0 8px 0;"><strong>Full Update:</strong> <span data-translate="fullUpdate">Enter your username + select new time slots → update everything (car power/tower optional)</span></p>
-            <p style="margin: 0; color: #888; font-size: 13px;" data-translate="newMembersNote">New members must fill all fields including time slots</p>
+        <div
+          style="
+            background: #1a1a2e;
+            border: 1px solid #4a9eff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+          "
+        >
+          <h4
+            style="color: #4a9eff; margin: 0 0 10px 0"
+            data-translate="howUpdatesWork"
+          >
+            💡 How Updates Work
+          </h4>
+          <div style="color: #ccc; font-size: 14px; line-height: 1.5">
+            <p style="margin: 0 0 8px 0">
+              <strong>Quick Update:</strong>
+              <span data-translate="quickUpdate"
+                >Enter your username + new car power and/or tower level → your
+                time slots stay the same</span
+              >
+            </p>
+            <p style="margin: 0 0 8px 0">
+              <strong>Full Update:</strong>
+              <span data-translate="fullUpdate"
+                >Enter your username + select new time slots → update everything
+                (car power/tower optional)</span
+              >
+            </p>
+            <p
+              style="margin: 0; color: #888; font-size: 13px"
+              data-translate="newMembersNote"
+            >
+              New members must fill all fields including time slots
+            </p>
           </div>
         </div>
-        
+
         <!-- Timezone Status Display -->
-        <div id="timezoneStatus" class="timezone-status" style="display: none;">
+        <div id="timezoneStatus" class="timezone-status" style="display: none">
           <h4 data-translate="timezoneConfirmed">✅ Timezone Confirmed</h4>
           <p id="confirmedTimezoneText">--</p>
-          <button class="change-btn" onclick="changeTimezone()" data-translate="changeTimezone">Change Timezone</button>
+          <button
+            class="change-btn"
+            onclick="changeTimezone()"
+            data-translate="changeTimezone"
+          >
+            Change Timezone
+          </button>
         </div>
 
         <!-- Timezone Locked Message -->
-        <div id="timezoneLocked" class="timezone-locked-message" style="display: block;">
-          <h3 data-translate="timezoneSetupRequired">🔒 Timezone Setup Required</h3>
-          <p data-translate="confirmTimezoneFirst">Please confirm your timezone first to enable time slot selection.</p>
+        <div
+          id="timezoneLocked"
+          class="timezone-locked-message"
+          style="display: block"
+        >
+          <h3 data-translate="timezoneSetupRequired">
+            🔒 Timezone Setup Required
+          </h3>
+          <p data-translate="confirmTimezoneFirst">
+            Please confirm your timezone first to enable time slot selection.
+          </p>
         </div>
 
         <div class="form-grid">
           <div class="form-group">
             <label data-translate="inGameUsername">In-Game Username</label>
-            <input type="text" id="username" data-translate-placeholder="usernamePlaceholder" placeholder="Your username" />
+            <input
+              type="text"
+              id="username"
+              data-translate-placeholder="usernamePlaceholder"
+              placeholder="Your username"
+            />
           </div>
           <div class="form-group">
             <label data-translate="mainCarPower">Main Car Power</label>
-            <input type="number" id="carPower" data-translate-placeholder="carPowerPlaceholder" placeholder="e.g., 150000" />
+            <input
+              type="number"
+              id="carPower"
+              data-translate-placeholder="carPowerPlaceholder"
+              placeholder="e.g., 150000"
+            />
           </div>
           <div class="form-group">
             <label data-translate="towerLevel">Tower Level</label>
@@ -268,7 +381,11 @@
               placeholder="1-33"
             />
           </div>
-          <div class="form-group" id="manualTimezoneGroup" style="display: none;">
+          <div
+            class="form-group"
+            id="manualTimezoneGroup"
+            style="display: none"
+          >
             <label>Timezone</label>
             <select id="timezone"></select>
             <small
@@ -277,30 +394,46 @@
             ></small>
           </div>
         </div>
-        <h3 style="margin: 20px 0 10px" data-translate="availableTimeSlots">Available Time Slots</h3>
-        <p style="color: #888; margin-bottom: 15px; font-size: 14px" data-translate="timeSlotDescription">
-          Select when you're usually available (2-hour blocks in your local time)
+        <h3 style="margin: 20px 0 10px" data-translate="availableTimeSlots">
+          Available Time Slots
+        </h3>
+        <p
+          style="color: #888; margin-bottom: 15px; font-size: 14px"
+          data-translate="timeSlotDescription"
+        >
+          Select when you're usually available (2-hour blocks in your local
+          time)
         </p>
         <div id="timeSlotHeaders"></div>
         <div id="timeSlotInputs"></div>
-        <button class="btn btn-success" onclick="submitMemberInfo()" id="submitBtn" data-translate="submitInformation">
+        <button
+          class="btn btn-success"
+          onclick="submitMemberInfo()"
+          id="submitBtn"
+          data-translate="submitInformation"
+        >
           Submit Information
         </button>
       </div>
 
       <div class="timeline">
-        <h2 data-translate="allianceTimeline">Alliance Timeline (Server Time UTC-2)</h2>
+        <h2 data-translate="allianceTimeline">
+          Alliance Timeline (Server Time UTC-2)
+        </h2>
         <div id="timelineView"></div>
       </div>
 
       <div style="margin: 40px 0 20px">
-        <h2 id="allianceMembersTitle" style="color: #4a9eff; text-align: center; margin-bottom: 20px">
+        <h2
+          id="allianceMembersTitle"
+          style="color: #4a9eff; text-align: center; margin-bottom: 20px"
+        >
           Alliance Members
         </h2>
         <div class="members-grid" id="membersGrid"></div>
       </div>
     </div>
-    
+
     <script src="translations.js"></script>
     <script src="script.js"></script>
   </body>
