@@ -436,7 +436,7 @@ function submitMemberInfo() {
   }
 
   const username = document.getElementById("username").value;
-  const carPower = document.getElementById("carPower").value;
+  const carPower = document.getElementById("carPower").value.replace(/[,\s]/g, '');
   const towerLevel = document.getElementById("towerLevel").value;
 
   if (!username || !carPower || !towerLevel) {
@@ -492,14 +492,57 @@ function submitMemberInfo() {
   );
 
   if (existingMemberIndex !== -1) {
-    // Replace existing member's data, but keep the original ID and username format
+    // Existing member - use smart selective update
     const existingMember = currentData.members[existingMemberIndex];
-    submission.id = existingMember.id; // Keep original ID
-    submission.username = existingMember.username; // Keep original username format
-    currentData.members[existingMemberIndex] = submission;
-    showMessage(`${existingMember.username}'s information has been updated!`, "success");
+    const hasTimeSlotsSelected = Object.keys(timeSlots).length > 0;
+    
+    if (!hasTimeSlotsSelected) {
+      // Quick update mode: only update car power and/or tower level, preserve everything else
+      const updatedMember = { ...existingMember };
+      
+      // Update car power if provided
+      if (carPower.trim()) {
+        updatedMember.carPower = parseInt(carPower);
+      }
+      
+      // Update tower level if provided
+      if (towerLevel.trim()) {
+        updatedMember.towerLevel = parseInt(towerLevel);
+      }
+      
+      // Update timestamp
+      updatedMember.submittedAt = new Date().toISOString();
+      
+      currentData.members[existingMemberIndex] = updatedMember;
+      
+      const updatedFields = [];
+      if (carPower.trim()) updatedFields.push("car power");
+      if (towerLevel.trim()) updatedFields.push("tower level");
+      
+      showMessage(`${existingMember.username}'s ${updatedFields.join(" and ")} updated successfully!`, "success");
+    } else {
+      // Full update mode: user selected timeslots, so update everything
+      submission.id = existingMember.id; // Keep original ID
+      submission.username = existingMember.username; // Keep original username format
+      
+      // If car power or tower level not provided, keep existing values
+      if (!carPower.trim()) {
+        submission.carPower = existingMember.carPower;
+      }
+      if (!towerLevel.trim()) {
+        submission.towerLevel = existingMember.towerLevel;
+      }
+      
+      currentData.members[existingMemberIndex] = submission;
+      showMessage(`${existingMember.username}'s information has been fully updated!`, "success");
+    }
   } else {
-    // Add as new member
+    // New member - require all fields
+    if (!carPower.trim() || !towerLevel.trim()) {
+      showMessage("New members must provide car power and tower level", "error");
+      return;
+    }
+    
     currentData.members.push(submission);
     showMessage("Member information submitted successfully!", "success");
   }
@@ -867,9 +910,47 @@ function renderTimeline() {
 }
 
 function showMessage(text, type) {
-  const area = document.getElementById("messageArea");
-  area.innerHTML = `<div class="message ${type}">${text}</div>`;
-  setTimeout(() => (area.innerHTML = ""), 5000);
+  // Create toast container if it doesn't exist
+  let toastContainer = document.getElementById("toastContainer");
+  if (!toastContainer) {
+    toastContainer = document.createElement("div");
+    toastContainer.id = "toastContainer";
+    toastContainer.className = "toast-container";
+    document.body.appendChild(toastContainer);
+  }
+
+  // Create toast element
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  
+  // Get appropriate icon based on type
+  let icon = "ℹ️";
+  if (type === "success") icon = "✅";
+  else if (type === "error") icon = "❌";
+  else if (type === "info") icon = "ℹ️";
+  
+  toast.innerHTML = `
+    <div class="toast-icon">${icon}</div>
+    <div class="toast-message">${text}</div>
+  `;
+
+  // Add to container
+  toastContainer.appendChild(toast);
+
+  // Trigger slide-in animation
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  // Auto-remove after 2 seconds
+  setTimeout(() => {
+    toast.classList.add("hide");
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, 400); // Wait for slide-out animation
+  }, 2000);
 }
 
 function showLoading(show) {
