@@ -28,15 +28,24 @@ const TIME_SLOTS = [
   { id: "slot12", name: "10PM-12AM", hours: [22, 23] },
 ];
 
-// Helper function to convert IANA timezone to UTC offset
+// Helper function to get proper timezone offset
 function getTimezoneOffset(timezone) {
   try {
     const now = new Date();
-    const utc = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
-    const local = new Date(utc.toLocaleString("en-US", {timeZone: timezone}));
-    const diff = (local.getTime() - utc.getTime()) / (1000 * 60 * 60);
-    return Math.round(diff);
+    
+    // Get the current date in the specified timezone
+    const localDate = new Date(now.toLocaleString("en-US", {timeZone: timezone}));
+    
+    // Get the current UTC date
+    const utcDate = new Date(now.toLocaleString("en-US", {timeZone: "UTC"}));
+    
+    // Calculate the difference in hours
+    const offsetMs = localDate.getTime() - utcDate.getTime();
+    const offsetHours = Math.round(offsetMs / (1000 * 60 * 60));
+    
+    return offsetHours;
   } catch (e) {
+    console.error("Error calculating timezone offset:", e);
     return 0;
   }
 }
@@ -61,8 +70,10 @@ function detectUserTimezone() {
       utc: utcString
     };
     
+    console.log("Detected timezone:", detectedTimezone);
     return detectedTimezone;
   } catch (e) {
+    console.error("Timezone detection failed:", e);
     // Fallback to UTC if detection fails
     detectedTimezone = {
       iana: "UTC",
@@ -79,19 +90,46 @@ function updateTimeDisplays() {
   
   const now = new Date();
   
-  // User's local time
-  const userTime = new Date(now.toLocaleString("en-US", {timeZone: detectedTimezone.iana}));
-  document.getElementById("userLocalTime").textContent = userTime.toTimeString().slice(0, 5);
-  document.getElementById("userTimezone").textContent = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
+  // User's local time - use the detected timezone
+  try {
+    const userTimeString = now.toLocaleString("en-US", {
+      timeZone: detectedTimezone.iana,
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    document.getElementById("userLocalTime").textContent = userTimeString;
+    
+    // Format timezone display better
+    const timezoneDisplay = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
+    document.getElementById("userTimezone").textContent = timezoneDisplay;
+  } catch (e) {
+    console.error("Error formatting user time:", e);
+    const fallbackTime = now.toTimeString().slice(0, 5);
+    document.getElementById("userLocalTime").textContent = fallbackTime;
+    document.getElementById("userTimezone").textContent = `${detectedTimezone.iana} (${detectedTimezone.utc})`;
+  }
   
   // Server time (UTC-2)
   const serverOffset = -2;
-  const serverTime = new Date();
-  serverTime.setHours(serverTime.getUTCHours() + serverOffset);
-  document.getElementById("serverTime").textContent = serverTime.toTimeString().slice(0, 5);
+  try {
+    const serverTimeString = now.toLocaleString("en-US", {
+      timeZone: "Etc/GMT+2", // Note: GMT+2 means UTC-2 (confusing but correct)
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    document.getElementById("serverTime").textContent = serverTimeString;
+  } catch (e) {
+    // Fallback calculation
+    const serverTime = new Date();
+    serverTime.setHours(serverTime.getUTCHours() + serverOffset);
+    document.getElementById("serverTime").textContent = serverTime.toTimeString().slice(0, 5);
+  }
   
-  // Time relationship
-  const timeDiff = detectedTimezone.offset - serverOffset;
+  // Time relationship - this was the bug
+  const timeDiff = detectedTimezone.offset - serverOffset; // User offset minus server offset
   const diff = Math.abs(timeDiff);
   
   let relationshipText;
