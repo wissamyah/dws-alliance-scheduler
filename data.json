@@ -508,8 +508,8 @@
     {
       "id": 1754286406025,
       "username": "Nobody",
-      "carPower": 32,
-      "towerLevel": 28000000,
+      "carPower": 32000000,
+      "towerLevel": 28,
       "timezone": "UTC+3",
       "availability": {
         "monday": [
@@ -874,8 +874,8 @@
     {
       "id": 1754333363864,
       "username": "A7mdoove",
-      "carPower": 38,
-      "towerLevel": 30000000,
+      "carPower": 38000000,
+      "towerLevel": 30,
       "timezone": "UTC+3",
       "availability": {
         "monday": [
