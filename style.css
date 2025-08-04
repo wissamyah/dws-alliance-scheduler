@@ -906,20 +906,23 @@ h1 {
 /* Language Selector Styles */
 .header-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   position: relative;
   width: 100%;
+  gap: 20px;
 }
 
 .header-main {
   flex: 1;
   text-align: center;
+  margin-top: 10px;
 }
 
 .language-selector {
   position: relative;
   z-index: 1001;
+  flex-shrink: 0;
 }
 
 .language-btn {
@@ -953,12 +956,11 @@ h1 {
 
 .language-menu {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: calc(100% + 5px);
+  right: 0;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border: 1px solid rgba(74, 158, 255, 0.4);
   border-radius: 8px;
-  margin-top: 5px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   opacity: 0;
@@ -967,7 +969,7 @@ h1 {
   transition: all 0.3s ease;
   min-width: 140px;
   white-space: nowrap;
-  z-index: 9999;
+  z-index: 10000;
 }
 
 .language-menu.show {
@@ -1002,14 +1004,10 @@ h1 {
 .language-option .flag {
   font-size: 18px;
   flex-shrink: 0;
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", "Noto Emoji", emoji, sans-serif;
-  font-variant-emoji: emoji;
 }
 
 /* Ensure flag button emoji renders properly */
 .language-btn span:first-child {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", "Noto Emoji", emoji, sans-serif;
-  font-variant-emoji: emoji;
   font-size: 16px;
 }
 
@@ -1017,18 +1015,25 @@ h1 {
   font-weight: 500;
 }
 
+/* Add styling for logout button positioning */
+#logoutBtn {
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
 /* Responsive language selector */
 @media (max-width: 768px) {
   .header-content {
     flex-direction: column;
+    align-items: center;
     gap: 15px;
     position: relative;
   }
   
   .language-selector {
-    align-self: flex-end;
-    order: -1;
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
     z-index: 9999;
   }
   
@@ -1042,11 +1047,14 @@ h1 {
   
   .header-main {
     order: 0;
+    margin-top: 0;
+    padding-top: 40px;
   }
   
   #logoutBtn {
     order: 1;
-    align-self: center;
+    margin-top: 10px;
+    position: relative;
   }
   
   /* Ensure container doesn't shift when dropdown appears */
