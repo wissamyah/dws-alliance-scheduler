@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2025-08-05T03:40:59.909Z",
+  "lastUpdated": "2025-08-05T10:20:01.046Z",
   "members": [
     {
       "id": 1754266685726,
       "username": "Falowyn",
-      "carPower": 64200000,
+      "carPower": 67000000,
       "towerLevel": 31,
       "timezone": "UTC+1",
       "availability": {
@@ -52,7 +52,7 @@
           "slot9"
         ]
       },
-      "submittedAt": "2025-08-04T23:15:45.983Z"
+      "submittedAt": "2025-08-05T10:20:01.045Z"
     },
     {
       "id": 1754282399525,
@@ -1472,5 +1472,5 @@
       }
     }
   },
-  "sha": "fc5ce74defc04c6f887fe7ab0028ed4c741137da"
+  "sha": "8490dd99b4d6aa6d1ed8d952ec9ea2bd6a4bbd95"
 }
