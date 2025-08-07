@@ -1940,7 +1940,7 @@
     {
       "id": 1754577921266,
       "username": "MrS",
-      "carPower": 164,
+      "carPower": 164000000,
       "towerLevel": 32,
       "timezone": "UTC+1",
       "availability": {
