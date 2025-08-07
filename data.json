@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-07T13:12:24.825Z",
+  "lastUpdated": "2025-08-07T14:45:21.268Z",
   "members": [
     {
       "id": 1754285775134,
@@ -1936,6 +1936,51 @@
         ]
       },
       "submittedAt": "2025-08-04T20:26:01.427Z"
+    },
+    {
+      "id": 1754577921266,
+      "username": "MrS",
+      "carPower": 164,
+      "towerLevel": 32,
+      "timezone": "UTC+1",
+      "availability": {
+        "monday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-07T14:45:21.266Z"
     }
   ],
   "pendingSubmissions": [],
@@ -1986,5 +2031,5 @@
       }
     }
   },
-  "sha": "760d4d906745493741bd7647764803e54d52ff3a"
+  "sha": "b298bc9890adf6c277aef977b84661fb60330898"
 }
