@@ -1247,8 +1247,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 loadData();
 
-// Auto-refresh every 2 minutes to avoid disrupting user input
-setInterval(loadData, 120000);
+// Auto-refresh every 5 minutes to avoid disrupting user input
+setInterval(loadData, 300000);
 
 // Re-render on window resize for responsive layout
 let resizeTimeout;
