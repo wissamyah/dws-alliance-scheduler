@@ -369,7 +369,7 @@
     {
       "id": 1754285775134,
       "username": "TigressZoe",
-      "carPower": 480,
+      "carPower": 480000000,
       "towerLevel": 33,
       "timezone": "UTC+1",
       "availability": {
