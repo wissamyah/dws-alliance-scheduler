@@ -1752,7 +1752,7 @@
     {
       "id": 1754570620838,
       "username": "Muromets",
-      "carPower": 13,
+      "carPower": 13000000,
       "towerLevel": 26,
       "timezone": "UTC-5",
       "availability": {
@@ -1860,7 +1860,7 @@
     {
       "id": 1754570914786,
       "username": "Zuynosuy",
-      "carPower": 21600,
+      "carPower": 21600000,
       "towerLevel": 27,
       "timezone": "UTC+7",
       "availability": {
