@@ -849,6 +849,35 @@ function filterMembers() {
   });
 }
 
+// Tab switching functionality
+function switchTab(tabName) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+  
+  // Update tab content
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+  });
+  document.getElementById(`${tabName}-tab`).classList.add('active');
+  
+  // Save active tab to localStorage
+  localStorage.setItem('activeTab', tabName);
+}
+
+// Initialize tab on page load
+function initializeTabs() {
+  const savedTab = localStorage.getItem('activeTab');
+  if (savedTab && document.getElementById(`${savedTab}-tab`)) {
+    switchTab(savedTab);
+  } else {
+    // Default to submit-info tab
+    switchTab('submit-info');
+  }
+}
+
 function renderTimeline() {
   const view = document.getElementById("timelineView");
   const days = [
@@ -1203,6 +1232,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // Initialize language system
   initializeLanguage();
+
+  // Initialize tabs
+  initializeTabs();
 
   // Check if timezone was previously confirmed
   if (!isTimezoneConfirmed) {

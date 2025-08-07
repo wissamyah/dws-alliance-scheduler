@@ -188,6 +188,20 @@
         </button>
       </div>
 
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <div class="tab-container">
+          <button class="tab-btn active" data-tab="submit-info" onclick="switchTab('submit-info')">
+            <span class="tab-icon">📝</span>
+            <span class="tab-text" data-translate="submitInfoTab">Submit Info</span>
+          </button>
+          <button class="tab-btn" data-tab="view-alliance" onclick="switchTab('view-alliance')">
+            <span class="tab-icon">👥</span>
+            <span class="tab-text" data-translate="viewAllianceTab">View Alliance</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Timezone Confirmation Modal -->
       <div id="timezoneModal" class="modal-overlay">
         <div class="modal-content">
@@ -246,42 +260,44 @@
         </div>
       </div>
 
-      <div id="authSection" class="auth-section">
-        <h2 data-translate="authRequired">Authentication Required</h2>
-        <p style="margin-bottom: 15px">
-          <span id="authStatus" data-translate="notAuthenticated"
-            >Not authenticated</span
-          >
-        </p>
-        <div id="authControls">
-          <input
-            type="password"
-            id="githubToken"
-            data-translate-placeholder="githubTokenPlaceholder"
-            placeholder="GitHub Token (required for all members)"
-          />
-          <button
-            class="btn"
-            onclick="authenticate()"
-            data-translate="authenticate"
-          >
-            Authenticate
-          </button>
-          <p style="color: #888; font-size: 14px; margin-top: 10px">
-            <strong
-              ><span data-translate="authDescription"
-                >All members must authenticate before submitting
-                information.</span
-              ></strong
-            ><br />
-            <span data-translate="contactR4R5"
-              >Contact your alliance R4/R5 for the GitHub token.</span
+      <!-- Submit Info Tab Content -->
+      <div id="submit-info-tab" class="tab-content active">
+        <div id="authSection" class="auth-section">
+          <h2 data-translate="authRequired">Authentication Required</h2>
+          <p style="margin-bottom: 15px">
+            <span id="authStatus" data-translate="notAuthenticated"
+              >Not authenticated</span
             >
           </p>
+          <div id="authControls">
+            <input
+              type="password"
+              id="githubToken"
+              data-translate-placeholder="githubTokenPlaceholder"
+              placeholder="GitHub Token (required for all members)"
+            />
+            <button
+              class="btn"
+              onclick="authenticate()"
+              data-translate="authenticate"
+            >
+              Authenticate
+            </button>
+            <p style="color: #888; font-size: 14px; margin-top: 10px">
+              <strong
+                ><span data-translate="authDescription"
+                  >All members must authenticate before submitting
+                  information.</span
+                ></strong
+              ><br />
+              <span data-translate="contactR4R5"
+                >Contact your alliance R4/R5 for the GitHub token.</span
+              >
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="member-form">
+        <div class="member-form">
         <h2 data-translate="submitInfo">Submit Your Information</h2>
 
         <!-- Update Instructions -->
@@ -414,35 +430,39 @@
         >
           Submit Information
         </button>
-      </div>
-
-      <div class="timeline">
-        <h2 data-translate="allianceTimeline">
-          Alliance Timeline (Server Time UTC-2)
-        </h2>
-        <div id="timelineView"></div>
-      </div>
-
-      <div style="margin: 40px 0 20px">
-        <div class="members-header">
-          <h2
-            id="allianceMembersTitle"
-            style="color: #4a9eff; text-align: center; margin-bottom: 20px"
-          >
-            Alliance Members
-          </h2>
-          <div class="member-search-container">
-            <input
-              type="text"
-              id="memberSearchInput"
-              class="member-search-input"
-              placeholder="Search members..."
-              oninput="filterMembers()"
-            />
-            <div class="search-icon">🔍</div>
-          </div>
         </div>
-        <div class="members-grid" id="membersGrid"></div>
+      </div>
+
+      <!-- View Alliance Tab Content -->
+      <div id="view-alliance-tab" class="tab-content">
+        <div class="timeline">
+          <h2 data-translate="allianceTimeline">
+            Alliance Timeline (Server Time UTC-2)
+          </h2>
+          <div id="timelineView"></div>
+        </div>
+
+        <div style="margin: 40px 0 20px">
+          <div class="members-header">
+            <h2
+              id="allianceMembersTitle"
+              style="color: #4a9eff; text-align: center; margin-bottom: 20px"
+            >
+              Alliance Members
+            </h2>
+            <div class="member-search-container">
+              <input
+                type="text"
+                id="memberSearchInput"
+                class="member-search-input"
+                placeholder="Search members..."
+                oninput="filterMembers()"
+              />
+              <div class="search-icon">🔍</div>
+            </div>
+          </div>
+          <div class="members-grid" id="membersGrid"></div>
+        </div>
       </div>
     </div>
 
