@@ -76,6 +76,10 @@ const translations = {
     tower: "Tower",
     language: "Language",
     
+    // Tab Navigation
+    submitInfoTab: "Submit Info",
+    viewAllianceTab: "View Alliance",
+    
     // Fields for member cards
     carPower: "car power",
     towerLevel: "tower level",
@@ -191,6 +195,10 @@ const translations = {
     power: "Poder",
     tower: "Torre",
     language: "Idioma",
+    
+    // Tab Navigation
+    submitInfoTab: "Enviar Info",
+    viewAllianceTab: "Ver Aliança",
     
     // Fields for member cards  
     carPower: "poder do carro",
@@ -308,6 +316,10 @@ const translations = {
     tower: "Tour",
     language: "Langue",
     
+    // Tab Navigation
+    submitInfoTab: "Soumettre Info",
+    viewAllianceTab: "Voir Alliance",
+    
     // Fields for member cards
     carPower: "puissance de voiture",
     towerLevel: "niveau de tour",
@@ -424,6 +436,10 @@ const translations = {
     tower: "Torre",
     language: "Idioma",
     
+    // Tab Navigation
+    submitInfoTab: "Enviar Info",
+    viewAllianceTab: "Ver Alianza",
+    
     // Fields for member cards
     carPower: "poder de coche",
     towerLevel: "nivel de torre",
@@ -539,6 +555,10 @@ const translations = {
     power: "Potenza",
     tower: "Torre",
     language: "Lingua",
+    
+    // Tab Navigation
+    submitInfoTab: "Invia Info",
+    viewAllianceTab: "Vedi Alleanza",
     
     // Fields for member cards
     carPower: "potenza auto",
