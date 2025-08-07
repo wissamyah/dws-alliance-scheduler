@@ -791,6 +791,7 @@ function renderMembers() {
 
   const grid = document.getElementById("membersGrid");
   grid.innerHTML = currentData.members
+    .sort((a, b) => b.carPower - a.carPower)
     .map(
       (member) => `
                 <div class="member-card">
