@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-07T11:00:48.772Z",
+  "lastUpdated": "2025-08-07T11:07:16.653Z",
   "members": [
     {
       "id": 1754266685726,
@@ -1549,6 +1549,51 @@
         ]
       },
       "submittedAt": "2025-08-07T10:53:09.136Z"
+    },
+    {
+      "id": 1754564836650,
+      "username": "Abu majed",
+      "carPower": 75000,
+      "towerLevel": 1,
+      "timezone": "UTC+3",
+      "availability": {
+        "monday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "tuesday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "wednesday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "thursday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "friday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "saturday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "sunday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-08-07T11:07:16.650Z"
     }
   ],
   "pendingSubmissions": [],
@@ -1599,5 +1644,5 @@
       }
     }
   },
-  "sha": "d3c53cc0887ca257ebd5483f88f816200e758ea8"
+  "sha": "ba17409cc8baaa8a0f1913db2fa196e7d1a03002"
 }
