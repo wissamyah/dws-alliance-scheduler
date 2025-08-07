@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-07T09:56:10.275Z",
+  "lastUpdated": "2025-08-07T10:50:12.331Z",
   "members": [
     {
       "id": 1754266685726,
@@ -369,7 +369,7 @@
     {
       "id": 1754285775134,
       "username": "TigressZoe",
-      "carPower": 452000000,
+      "carPower": 480,
       "towerLevel": 33,
       "timezone": "UTC+1",
       "availability": {
@@ -472,7 +472,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-04T05:36:15.134Z"
+      "submittedAt": "2025-08-07T10:50:12.330Z"
     },
     {
       "id": 1754286184015,
@@ -1534,5 +1534,5 @@
       }
     }
   },
-  "sha": "3b8e7f78eccb28b2ae8074bfe1988e77fb7f0d51"
+  "sha": "ebe8bb56d758705f10555d474d934cc56450bf20"
 }
