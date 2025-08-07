@@ -790,11 +790,12 @@ function renderMembers() {
   title.textContent = `${t("allianceMembers")} (${memberCount})`;
 
   const grid = document.getElementById("membersGrid");
-  grid.innerHTML = currentData.members
-    .sort((a, b) => b.carPower - a.carPower)
+  const allMembers = currentData.members.sort((a, b) => b.carPower - a.carPower);
+  
+  grid.innerHTML = allMembers
     .map(
       (member) => `
-                <div class="member-card">
+                <div class="member-card" data-username="${member.username.toLowerCase()}">
                     <h3>${member.username}</h3>
                     <div class="stats">
                         <span class="power">${t(
@@ -831,6 +832,21 @@ function renderMembers() {
             `
     )
     .join("");
+}
+
+function filterMembers() {
+  const searchInput = document.getElementById("memberSearchInput");
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  const memberCards = document.querySelectorAll('.member-card');
+  
+  memberCards.forEach(card => {
+    const username = card.getAttribute('data-username');
+    if (username.includes(searchTerm)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 }
 
 function renderTimeline() {

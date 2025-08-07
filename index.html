@@ -424,12 +424,24 @@
       </div>
 
       <div style="margin: 40px 0 20px">
-        <h2
-          id="allianceMembersTitle"
-          style="color: #4a9eff; text-align: center; margin-bottom: 20px"
-        >
-          Alliance Members
-        </h2>
+        <div class="members-header">
+          <h2
+            id="allianceMembersTitle"
+            style="color: #4a9eff; text-align: center; margin-bottom: 20px"
+          >
+            Alliance Members
+          </h2>
+          <div class="member-search-container">
+            <input
+              type="text"
+              id="memberSearchInput"
+              class="member-search-input"
+              placeholder="Search members..."
+              oninput="filterMembers()"
+            />
+            <div class="search-icon">🔍</div>
+          </div>
+        </div>
         <div class="members-grid" id="membersGrid"></div>
       </div>
     </div>
