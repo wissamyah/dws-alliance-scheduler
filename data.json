@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-08T11:33:22.526Z",
+  "lastUpdated": "2025-08-08T14:12:54.066Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2019,6 +2019,93 @@
         ]
       },
       "submittedAt": "2025-08-04T20:26:01.427Z"
+    },
+    {
+      "id": 1754662374063,
+      "username": "raboyang",
+      "carPower": 28,
+      "towerLevel": 2850000,
+      "timezone": "UTC+9",
+      "availability": {
+        "monday": [
+          "slot1",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot1",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot1",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot2",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot1",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot1",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot1",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-08T14:12:54.063Z"
     }
   ],
   "pendingSubmissions": [],
@@ -2069,5 +2156,5 @@
       }
     }
   },
-  "sha": "3480110175e0358144f4820bcd03ccc3772510f7"
+  "sha": "a0eecb6932d85ab90e352e0d36c5e106fe1f1664"
 }
