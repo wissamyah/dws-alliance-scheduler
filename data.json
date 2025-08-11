@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-11T01:34:58.757Z",
+  "lastUpdated": "2025-08-11T01:40:17.105Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2021,6 +2021,93 @@
       "submittedAt": "2025-08-04T20:26:01.427Z"
     },
     {
+      "id": 1754876098756,
+      "username": "18maratha",
+      "carPower": 52000000,
+      "towerLevel": 30,
+      "timezone": "UTC+6",
+      "availability": {
+        "monday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-11T01:40:17.096Z"
+    },
+    {
       "id": 1754662374063,
       "username": "raboyang",
       "carPower": 28,
@@ -2106,93 +2193,6 @@
         ]
       },
       "submittedAt": "2025-08-08T14:12:54.063Z"
-    },
-    {
-      "id": 1754876098756,
-      "username": "18maratha",
-      "carPower": 52,
-      "towerLevel": 30,
-      "timezone": "UTC+6",
-      "availability": {
-        "monday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "thursday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "friday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "saturday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "sunday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ]
-      },
-      "submittedAt": "2025-08-11T01:34:58.756Z"
     }
   ],
   "pendingSubmissions": [],
@@ -2243,5 +2243,5 @@
       }
     }
   },
-  "sha": "865faded94fb006aeb1f30fa789789042401a43f"
+  "sha": "2613e34d7d48cdf8e03f97b3c5a55e2310307f35"
 }
