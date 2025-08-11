@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-09T00:52:41.830Z",
+  "lastUpdated": "2025-08-11T01:34:58.757Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2106,6 +2106,93 @@
         ]
       },
       "submittedAt": "2025-08-08T14:12:54.063Z"
+    },
+    {
+      "id": 1754876098756,
+      "username": "18maratha",
+      "carPower": 52,
+      "towerLevel": 30,
+      "timezone": "UTC+6",
+      "availability": {
+        "monday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-11T01:34:58.756Z"
     }
   ],
   "pendingSubmissions": [],
@@ -2156,5 +2243,5 @@
       }
     }
   },
-  "sha": "136a9a7682e08fc5453a52f7e4326d33fd8819ac"
+  "sha": "865faded94fb006aeb1f30fa789789042401a43f"
 }
