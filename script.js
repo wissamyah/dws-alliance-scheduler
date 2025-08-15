@@ -817,7 +817,10 @@ function renderMembers() {
                     <div class="stats">${t("timezone")}: ${
         member.timezone
       }</div>
-                    <div class="time-slots">
+                    <button class="timeslots-toggle" onclick="toggleTimeslots(${member.id})" data-member-id="${member.id}">
+                        <span class="toggle-icon">+</span>
+                    </button>
+                    <div class="time-slots collapsed" data-member-id="${member.id}">
                         ${Object.entries(member.availability || {})
                           .map(([day, slots]) => {
                             const slotNames = slots.map((slotId) => {
@@ -856,6 +859,29 @@ function filterMembers() {
       card.style.display = 'none';
     }
   });
+}
+
+// Toggle timeslots visibility for member cards
+function toggleTimeslots(memberId) {
+  const toggleButton = document.querySelector(`.timeslots-toggle[data-member-id="${memberId}"]`);
+  const timeSlotsDiv = document.querySelector(`.time-slots[data-member-id="${memberId}"]`);
+  const toggleIcon = toggleButton.querySelector('.toggle-icon');
+  
+  if (timeSlotsDiv && toggleButton) {
+    const isCollapsed = timeSlotsDiv.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+      // Expand
+      timeSlotsDiv.classList.remove('collapsed');
+      toggleButton.classList.add('expanded');
+      toggleIcon.textContent = '−';
+    } else {
+      // Collapse
+      timeSlotsDiv.classList.add('collapsed');
+      toggleButton.classList.remove('expanded');
+      toggleIcon.textContent = '+';
+    }
+  }
 }
 
 // Tab switching functionality
