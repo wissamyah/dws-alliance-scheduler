@@ -639,9 +639,12 @@ function toggleTimeSlot(day, slotId) {
   localStorage.setItem("timeSlotSelections", JSON.stringify(userSelections));
 }
 
-function showDeleteModal(id) {
-  // Ask for R5 password
-  const password = prompt("Enter the R5 password to delete this member:");
+async function showDeleteModal(id) {
+  // Ask for R5 password using custom modal
+  const password = await showCustomPrompt(
+    "🔒 Authentication Required", 
+    "Enter the R5 password to delete this member:"
+  );
 
   if (password === "R5") {
     deleteMember(id);
@@ -1252,6 +1255,153 @@ function initializeLanguage() {
 
   // Apply initial translations
   updateAllTranslations();
+}
+
+// Custom Modal Functions
+function showCustomAlert(title, message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById("customModal");
+    const titleEl = document.getElementById("customModalTitle");
+    const messageEl = document.getElementById("customModalMessage");
+    const inputContainer = document.getElementById("customModalInput");
+    const buttonsContainer = document.getElementById("customModalButtons");
+    
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    inputContainer.style.display = "none";
+    
+    buttonsContainer.innerHTML = `
+      <button class="btn btn-primary" onclick="closeCustomModal()">✅ OK</button>
+    `;
+    
+    modal.classList.add("active");
+    
+    // Close modal when clicking outside of content
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        closeCustomModal();
+      }
+    };
+    
+    // Store resolver for when modal is closed
+    modal._resolver = resolve;
+  });
+}
+
+function showCustomConfirm(title, message) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById("customModal");
+    const titleEl = document.getElementById("customModalTitle");
+    const messageEl = document.getElementById("customModalMessage");
+    const inputContainer = document.getElementById("customModalInput");
+    const buttonsContainer = document.getElementById("customModalButtons");
+    
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    inputContainer.style.display = "none";
+    
+    buttonsContainer.innerHTML = `
+      <button class="btn btn-success" onclick="resolveCustomModal(true)">✅ Yes</button>
+      <button class="btn" onclick="resolveCustomModal(false)">❌ Cancel</button>
+    `;
+    
+    modal.classList.add("active");
+    
+    // Close modal when clicking outside of content (treat as cancel)
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        resolveCustomModal(false);
+      }
+    };
+    
+    // Store resolver for when modal is closed
+    modal._resolver = resolve;
+  });
+}
+
+function showCustomPrompt(title, message, defaultValue = "") {
+  return new Promise((resolve) => {
+    const modal = document.getElementById("customModal");
+    const titleEl = document.getElementById("customModalTitle");
+    const messageEl = document.getElementById("customModalMessage");
+    const inputContainer = document.getElementById("customModalInput");
+    const inputField = document.getElementById("customModalInputField");
+    const buttonsContainer = document.getElementById("customModalButtons");
+    
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    inputContainer.style.display = "block";
+    inputField.value = defaultValue;
+    
+    buttonsContainer.innerHTML = `
+      <button class="btn btn-success" onclick="resolveCustomModalWithInput()">✅ OK</button>
+      <button class="btn" onclick="resolveCustomModal(null)">❌ Cancel</button>
+    `;
+    
+    modal.classList.add("active");
+    
+    // Close modal when clicking outside of content (treat as cancel)
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        resolveCustomModal(null);
+      }
+    };
+    
+    // Focus the input field after a brief delay for animation
+    setTimeout(() => {
+      inputField.focus();
+      inputField.select();
+    }, 100);
+    
+    // Handle Enter key for OK
+    inputField.onkeydown = (e) => {
+      if (e.key === "Enter") {
+        resolveCustomModalWithInput();
+      } else if (e.key === "Escape") {
+        resolveCustomModal(null);
+      }
+    };
+    
+    // Store resolver for when modal is closed
+    modal._resolver = resolve;
+  });
+}
+
+function closeCustomModal() {
+  const modal = document.getElementById("customModal");
+  modal.classList.remove("active");
+  modal.onclick = null; // Clean up event listener
+  
+  if (modal._resolver) {
+    modal._resolver();
+    modal._resolver = null;
+  }
+}
+
+function resolveCustomModal(result) {
+  const modal = document.getElementById("customModal");
+  modal.classList.remove("active");
+  modal.onclick = null; // Clean up event listener
+  
+  if (modal._resolver) {
+    modal._resolver(result);
+    modal._resolver = null;
+  }
+}
+
+function resolveCustomModalWithInput() {
+  const modal = document.getElementById("customModal");
+  const inputField = document.getElementById("customModalInputField");
+  const value = inputField.value;
+  
+  modal.classList.remove("active");
+  modal.onclick = null; // Clean up event listener
+  inputField.onkeydown = null; // Clean up input listener
+  
+  if (modal._resolver) {
+    modal._resolver(value);
+    modal._resolver = null;
+  }
 }
 
 // Initialize
