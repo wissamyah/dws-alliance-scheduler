@@ -462,8 +462,33 @@ function submitMemberInfo() {
     .value.replace(/[,\s]/g, "");
   const towerLevel = document.getElementById("towerLevel").value;
 
-  if (!username || !carPower || !towerLevel) {
-    showMessage(t("fillAllFields"), "error");
+  if (!username) {
+    showMessage(t("enterUsername"), "error");
+    return;
+  }
+
+  // Helper function to normalize username for comparison (remove spaces, convert to lowercase)
+  function normalizeUsername(name) {
+    return name.replace(/\s+/g, "").toLowerCase();
+  }
+
+  // Check if member with same username already exists (ignoring case and spaces)
+  const normalizedInputUsername = normalizeUsername(username);
+  const existingMemberIndex = currentData.members.findIndex(
+    (member) => normalizeUsername(member.username) === normalizedInputUsername
+  );
+
+  const isExistingMember = existingMemberIndex !== -1;
+
+  // For new members, require both car power and tower level
+  if (!isExistingMember && (!carPower || !towerLevel)) {
+    showMessage(t("newMemberRequirements"), "error");
+    return;
+  }
+
+  // For existing members, require at least one of car power or tower level (for quick updates)
+  if (isExistingMember && !carPower && !towerLevel) {
+    showMessage(t("updateRequiresAtLeastOneField"), "error");
     return;
   }
 
@@ -503,18 +528,7 @@ function submitMemberInfo() {
     submittedAt: new Date().toISOString(),
   };
 
-  // Helper function to normalize username for comparison (remove spaces, convert to lowercase)
-  function normalizeUsername(name) {
-    return name.replace(/\s+/g, "").toLowerCase();
-  }
-
-  // Check if member with same username already exists (ignoring case and spaces)
-  const normalizedInputUsername = normalizeUsername(username);
-  const existingMemberIndex = currentData.members.findIndex(
-    (member) => normalizeUsername(member.username) === normalizedInputUsername
-  );
-
-  if (existingMemberIndex !== -1) {
+  if (isExistingMember) {
     // Existing member - use smart selective update
     const existingMember = currentData.members[existingMemberIndex];
     const hasTimeSlotsSelected = Object.keys(timeSlots).length > 0;
@@ -569,12 +583,7 @@ function submitMemberInfo() {
       );
     }
   } else {
-    // New member - require all fields
-    if (!carPower.trim() || !towerLevel.trim()) {
-      showMessage(t("newMemberRequirements"), "error");
-      return;
-    }
-
+    // New member
     currentData.members.push(submission);
     showMessage(t("memberInfoSubmitted"), "success");
   }
