@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-15T08:55:49.867Z",
+  "lastUpdated": "2025-08-15T10:09:20.573Z",
   "members": [
     {
       "id": 1754285775134,
@@ -112,47 +112,54 @@
     {
       "id": 1754577921266,
       "username": "MrS",
-      "carPower": 164000000,
-      "towerLevel": 32,
+      "carPower": 194,
+      "towerLevel": 33,
       "timezone": "UTC+1",
       "availability": {
         "monday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "tuesday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "wednesday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "thursday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "friday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "saturday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "sunday": [
+          "slot9",
           "slot10",
           "slot11",
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-07T14:45:21.266Z"
+      "submittedAt": "2025-08-15T10:09:20.569Z"
     },
     {
       "id": 1754312886706,
@@ -1739,6 +1746,64 @@
       "submittedAt": "2025-08-07T11:59:55.312Z"
     },
     {
+      "id": 1755248149865,
+      "username": "Coyote2paris",
+      "carPower": 22300000,
+      "towerLevel": 28,
+      "timezone": "UTC+2",
+      "availability": {
+        "monday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot1",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-08-15T08:55:49.865Z"
+    },
+    {
       "id": 1754570914786,
       "username": "Zuynosuy",
       "carPower": 21600000,
@@ -2738,64 +2803,6 @@
         ]
       },
       "submittedAt": "2025-08-14T04:13:50.300Z"
-    },
-    {
-      "id": 1755248149865,
-      "username": "Coyote2paris",
-      "carPower": 22300000,
-      "towerLevel": 28,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "thursday": [
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "friday": [
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "saturday": [
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "sunday": [
-          "slot1",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ]
-      },
-      "submittedAt": "2025-08-15T08:55:49.865Z"
     }
   ],
   "pendingSubmissions": [],
@@ -2846,5 +2853,5 @@
       }
     }
   },
-  "sha": "2cebd6987b275145dc5bef362ae84491d2d0056c"
+  "sha": "3660d744b61864a4f54ba862f626096a2768358a"
 }
