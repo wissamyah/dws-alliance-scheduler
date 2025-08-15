@@ -818,7 +818,10 @@ function renderMembers() {
         member.timezone
       }</div>
                     <button class="timeslots-toggle" onclick="toggleTimeslots(${member.id})" data-member-id="${member.id}">
-                        <span class="toggle-icon">+</span>
+                        <svg class="toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
                     </button>
                     <div class="time-slots collapsed" data-member-id="${member.id}">
                         ${Object.entries(member.availability || {})
@@ -837,7 +840,12 @@ function renderMembers() {
                     </div>
                     ${
                       isAuthenticated
-                        ? `<button class="delete-btn" onclick="showDeleteModal(${member.id})">&times;</button>`
+                        ? `<button class="delete-btn" onclick="showDeleteModal(${member.id})">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                           </button>`
                         : ""
                     }
                 </div>
@@ -871,15 +879,20 @@ function toggleTimeslots(memberId) {
     const isCollapsed = timeSlotsDiv.classList.contains('collapsed');
     
     if (isCollapsed) {
-      // Expand
+      // Expand - show minus icon (remove horizontal line)
       timeSlotsDiv.classList.remove('collapsed');
       toggleButton.classList.add('expanded');
-      toggleIcon.textContent = '−';
+      toggleIcon.innerHTML = `
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      `;
     } else {
-      // Collapse
+      // Collapse - show plus icon (restore both lines)
       timeSlotsDiv.classList.add('collapsed');
       toggleButton.classList.remove('expanded');
-      toggleIcon.textContent = '+';
+      toggleIcon.innerHTML = `
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      `;
     }
   }
 }
