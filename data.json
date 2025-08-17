@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-17T16:44:27.910Z",
+  "lastUpdated": "2025-08-17T19:36:50.812Z",
   "members": [
     {
       "id": 1754285775134,
@@ -1614,6 +1614,60 @@
       "submittedAt": "2025-08-17T01:05:16.603Z"
     },
     {
+      "id": 1755449067898,
+      "username": "Oneponchis",
+      "carPower": 27880000,
+      "towerLevel": 28,
+      "timezone": "UTC-3",
+      "availability": {
+        "monday": [
+          "slot1",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot1",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot1",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot1",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot1",
+          "slot2",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot1",
+          "slot2",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot1",
+          "slot2",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-17T16:44:27.899Z"
+    },
+    {
       "id": 1754335429450,
       "username": "IMPERIO LTD",
       "carPower": 25400000,
@@ -1958,8 +2012,8 @@
     {
       "id": 1754333264210,
       "username": "Ch1mb0mb0",
-      "carPower": 19500000,
-      "towerLevel": 28,
+      "carPower": 26500000,
+      "towerLevel": 30,
       "timezone": "UTC-4",
       "availability": {
         "monday": [
@@ -1991,7 +2045,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-04T18:47:44.210Z"
+      "submittedAt": "2025-08-17T19:36:50.810Z"
     },
     {
       "id": 1754563989136,
@@ -2852,60 +2906,6 @@
         ]
       },
       "submittedAt": "2025-08-14T04:13:50.300Z"
-    },
-    {
-      "id": 1755449067898,
-      "username": "Oneponchis",
-      "carPower": 27880000,
-      "towerLevel": 28,
-      "timezone": "UTC-3",
-      "availability": {
-        "monday": [
-          "slot1",
-          "slot11",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot1",
-          "slot11",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot1",
-          "slot11",
-          "slot12"
-        ],
-        "thursday": [
-          "slot1",
-          "slot11",
-          "slot12"
-        ],
-        "friday": [
-          "slot1",
-          "slot2",
-          "slot11",
-          "slot12"
-        ],
-        "saturday": [
-          "slot1",
-          "slot2",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "sunday": [
-          "slot1",
-          "slot2",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ]
-      },
-      "submittedAt": "2025-08-17T16:44:27.899Z"
     }
   ],
   "pendingSubmissions": [],
@@ -2956,5 +2956,5 @@
       }
     }
   },
-  "sha": "0f5a659483d614aeee3018a15c481cd3ce3749b5"
+  "sha": "7577cb9145cffbf3eb2df83703d71df719e2e426"
 }
