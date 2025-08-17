@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-17T01:10:34.909Z",
+  "lastUpdated": "2025-08-17T03:37:45.369Z",
   "members": [
     {
       "id": 1754285775134,
@@ -660,7 +660,7 @@
     {
       "id": 1754876098756,
       "username": "18maratha",
-      "carPower": 52000000,
+      "carPower": 60000000,
       "towerLevel": 30,
       "timezone": "UTC+6",
       "availability": {
@@ -742,7 +742,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-11T01:40:17.096Z"
+      "submittedAt": "2025-08-17T03:37:45.368Z"
     },
     {
       "id": 1754567470980,
@@ -951,6 +951,37 @@
         ]
       },
       "submittedAt": "2025-08-04T18:49:23.864Z"
+    },
+    {
+      "id": 1755144541525,
+      "username": "Varl",
+      "carPower": 36700000,
+      "towerLevel": 30,
+      "timezone": "UTC+7",
+      "availability": {
+        "monday": [
+          "slot10"
+        ],
+        "tuesday": [
+          "slot10"
+        ],
+        "wednesday": [
+          "slot10"
+        ],
+        "thursday": [
+          "slot10"
+        ],
+        "friday": [
+          "slot10"
+        ],
+        "saturday": [
+          "slot10"
+        ],
+        "sunday": [
+          "slot10"
+        ]
+      },
+      "submittedAt": "2025-08-17T01:10:34.906Z"
     },
     {
       "id": 1754339827474,
@@ -2657,37 +2688,6 @@
       "submittedAt": "2025-08-15T10:09:20.569Z"
     },
     {
-      "id": 1755144541525,
-      "username": "Varl",
-      "carPower": 36700000,
-      "towerLevel": 30,
-      "timezone": "UTC+7",
-      "availability": {
-        "monday": [
-          "slot10"
-        ],
-        "tuesday": [
-          "slot10"
-        ],
-        "wednesday": [
-          "slot10"
-        ],
-        "thursday": [
-          "slot10"
-        ],
-        "friday": [
-          "slot10"
-        ],
-        "saturday": [
-          "slot10"
-        ],
-        "sunday": [
-          "slot10"
-        ]
-      },
-      "submittedAt": "2025-08-17T01:10:34.906Z"
-    },
-    {
       "id": 1754662374063,
       "username": "raboyang",
       "carPower": 28,
@@ -2902,5 +2902,5 @@
       }
     }
   },
-  "sha": "2a5101cc4ad0f01d8b7c313738d789f3600d8c2d"
+  "sha": "8f313a9c30adb8f5f95ba63e3a85f9157c16c90c"
 }
