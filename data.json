@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-15T17:55:27.940Z",
+  "lastUpdated": "2025-08-17T01:05:16.604Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2323,6 +2323,55 @@
       "submittedAt": "2025-08-04T19:08:49.165Z"
     },
     {
+      "id": 1755280527939,
+      "username": "HerrGohan",
+      "carPower": 13000000,
+      "towerLevel": 30,
+      "timezone": "UTC-4",
+      "availability": {
+        "monday": [
+          "slot5",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot5",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot5",
+          "slot9"
+        ],
+        "thursday": [
+          "slot5",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot5",
+          "slot10",
+          "slot11"
+        ],
+        "saturday": [
+          "slot5",
+          "slot6",
+          "slot10",
+          "slot11"
+        ],
+        "sunday": [
+          "slot5",
+          "slot6",
+          "slot10",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-08-15T17:55:27.939Z"
+    },
+    {
       "id": 1754285266494,
       "username": "SaLoOoM",
       "carPower": 9500000,
@@ -2425,9 +2474,9 @@
     {
       "id": 1754336189329,
       "username": "P00Perstar ",
-      "carPower": 7100000,
-      "towerLevel": 28,
-      "timezone": "UTC-7",
+      "carPower": 30000000,
+      "towerLevel": 29,
+      "timezone": "UTC-5",
       "availability": {
         "monday": [
           "slot10",
@@ -2483,7 +2532,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-04T19:36:29.329Z"
+      "submittedAt": "2025-08-17T01:05:16.603Z"
     },
     {
       "id": 1755245161447,
@@ -2803,55 +2852,6 @@
         ]
       },
       "submittedAt": "2025-08-14T04:13:50.300Z"
-    },
-    {
-      "id": 1755280527939,
-      "username": "HerrGohan",
-      "carPower": 13000000,
-      "towerLevel": 30,
-      "timezone": "UTC-4",
-      "availability": {
-        "monday": [
-          "slot5",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot5",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot5",
-          "slot9"
-        ],
-        "thursday": [
-          "slot5",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "friday": [
-          "slot5",
-          "slot10",
-          "slot11"
-        ],
-        "saturday": [
-          "slot5",
-          "slot6",
-          "slot10",
-          "slot11"
-        ],
-        "sunday": [
-          "slot5",
-          "slot6",
-          "slot10",
-          "slot11"
-        ]
-      },
-      "submittedAt": "2025-08-15T17:55:27.939Z"
     }
   ],
   "pendingSubmissions": [],
@@ -2902,5 +2902,5 @@
       }
     }
   },
-  "sha": "483c3b9c402256c4498466282db749225f10de76"
+  "sha": "4b4edb69cb7bd3bc6e0a5e2e0f228ad1eae01798"
 }
