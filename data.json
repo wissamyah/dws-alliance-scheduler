@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-18T05:06:45.873Z",
+  "lastUpdated": "2025-08-18T09:34:59.506Z",
   "members": [
     {
       "id": 1754285775134,
@@ -150,7 +150,7 @@
     {
       "id": 1754581324121,
       "username": "Sandro38",
-      "carPower": 127000000,
+      "carPower": 143000000,
       "towerLevel": 32,
       "timezone": "UTC+2",
       "availability": {
@@ -183,7 +183,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-07T15:42:04.121Z"
+      "submittedAt": "2025-08-18T09:34:59.504Z"
     },
     {
       "id": 1754282399525,
@@ -891,6 +891,37 @@
       "submittedAt": "2025-08-15T07:55:01.642Z"
     },
     {
+      "id": 1755144541525,
+      "username": "Varl",
+      "carPower": 38380000,
+      "towerLevel": 30,
+      "timezone": "UTC+7",
+      "availability": {
+        "monday": [
+          "slot11"
+        ],
+        "tuesday": [
+          "slot11"
+        ],
+        "wednesday": [
+          "slot11"
+        ],
+        "thursday": [
+          "slot11"
+        ],
+        "friday": [
+          "slot11"
+        ],
+        "saturday": [
+          "slot11"
+        ],
+        "sunday": [
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-08-18T05:06:45.872Z"
+    },
+    {
       "id": 1754333363864,
       "username": "A7mdoove",
       "carPower": 38000000,
@@ -951,37 +982,6 @@
         ]
       },
       "submittedAt": "2025-08-04T18:49:23.864Z"
-    },
-    {
-      "id": 1755144541525,
-      "username": "Varl",
-      "carPower": 38380000,
-      "towerLevel": 30,
-      "timezone": "UTC+7",
-      "availability": {
-        "monday": [
-          "slot11"
-        ],
-        "tuesday": [
-          "slot11"
-        ],
-        "wednesday": [
-          "slot11"
-        ],
-        "thursday": [
-          "slot11"
-        ],
-        "friday": [
-          "slot11"
-        ],
-        "saturday": [
-          "slot11"
-        ],
-        "sunday": [
-          "slot11"
-        ]
-      },
-      "submittedAt": "2025-08-18T05:06:45.872Z"
     },
     {
       "id": 1754339827474,
@@ -2956,5 +2956,5 @@
       }
     }
   },
-  "sha": "723ca966f882b260ec3e919461b5f311f6884a69"
+  "sha": "c4ec45b222653ec8175fd54d6a668dc98e9db47f"
 }
