@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-19T08:46:53.294Z",
+  "lastUpdated": "2025-08-19T12:17:19.916Z",
   "members": [
     {
       "id": 1754285775134,
@@ -1035,27 +1035,27 @@
     {
       "id": 1754339827474,
       "username": "Darkwilist",
-      "carPower": 36300000,
+      "carPower": 39300000,
       "towerLevel": 28,
       "timezone": "UTC+2",
       "availability": {
-        "monday": [
-          "slot11",
-          "slot12"
-        ],
         "tuesday": [
+          "slot10",
           "slot11",
           "slot12"
         ],
         "wednesday": [
+          "slot10",
           "slot11",
           "slot12"
         ],
         "thursday": [
+          "slot10",
           "slot11",
           "slot12"
         ],
         "friday": [
+          "slot10",
           "slot11",
           "slot12"
         ],
@@ -1088,7 +1088,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-08T10:16:54.697Z"
+      "submittedAt": "2025-08-19T12:17:19.914Z"
     },
     {
       "id": 1755148343090,
@@ -3036,5 +3036,5 @@
       }
     }
   },
-  "sha": "464f72aba2104afd26b2540955ba8de8e0cf8010"
+  "sha": "e9af31ac0c53b8fc8b3c9df9caa7d72752d964ea"
 }
