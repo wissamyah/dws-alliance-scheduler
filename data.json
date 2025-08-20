@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-20T21:30:55.567Z",
+  "lastUpdated": "2025-08-20T22:13:10.829Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3036,7 +3036,7 @@
       }
     }
   },
-  "sha": "48b05854008dd170990120d1432062ebc101f1ea",
+  "sha": "b5f3a1dff7d5bc321bcf73927241d6e1bc566e57",
   "registrations": [
     {
       "id": 1755725455567,
@@ -3049,6 +3049,19 @@
       "whyJoin": "You guys are awesome",
       "motivation": "Beating Zoe",
       "submittedAt": "2025-08-20T21:30:55.567Z",
+      "status": "pending"
+    },
+    {
+      "id": 1755727990829,
+      "username": "Test2",
+      "carPower": 50000000,
+      "towerLevel": 30,
+      "dailyPoints": 500000,
+      "exAlliances": "",
+      "whyLeft": "",
+      "whyJoin": "ABCDE",
+      "motivation": "FGHIJ",
+      "submittedAt": "2025-08-20T22:13:10.829Z",
       "status": "pending"
     }
   ]
