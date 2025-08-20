@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-20T22:13:45.780Z",
+  "lastUpdated": "2025-08-20T22:13:56.371Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3036,7 +3036,7 @@
       }
     }
   },
-  "sha": "ff3a15e8fdef5beb2a920b7b9be28f1ca9cb3089",
+  "sha": "53ceeb49cdfc34cc39f8ec4074008c587b20a0bd",
   "registrations": [
     {
       "id": 1755725455567,
@@ -3049,7 +3049,8 @@
       "whyJoin": "You guys are awesome",
       "motivation": "Beating Zoe",
       "submittedAt": "2025-08-20T21:30:55.567Z",
-      "status": "pending"
+      "status": "approved",
+      "reviewedAt": "2025-08-20T22:13:56.371Z"
     },
     {
       "id": 1755727990829,
