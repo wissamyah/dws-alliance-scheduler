@@ -2,6 +2,16 @@ const REPO_OWNER = "wissamyah";
 const REPO_NAME = "dws-alliance-scheduler";
 const DATA_FILE = "data.json";
 
+// Registration system constants  
+const ADMIN_PASSWORD = "ZOE";
+
+// Get registration token (you need to set this up securely)
+function getRegistrationToken() {
+  // For now, this will use the authenticated user's token
+  // In production, you would want to use GitHub Actions or a backend service
+  return authToken || prompt("Enter registration token (contact admin):");
+}
+
 let authToken = localStorage.getItem("githubToken");
 let isAuthenticated = false;
 let currentData = null;
@@ -1456,3 +1466,262 @@ window.addEventListener("resize", () => {
     if (currentData) renderUI();
   }, 250);
 });
+
+// ===== REGISTRATION SYSTEM FUNCTIONS =====
+
+// Handle registration form submission
+async function handleRegistrationSubmit(event) {
+  event.preventDefault();
+  
+  // Collect form data
+  const formData = {
+    username: document.getElementById('regUsername').value.trim(),
+    carPower: parseInt(document.getElementById('regCarPower').value),
+    towerLevel: parseInt(document.getElementById('regTowerLevel').value),
+    dailyPoints: parseInt(document.getElementById('regDailyPoints').value),
+    exAlliances: document.getElementById('regExAlliances').value.trim(),
+    whyLeft: document.getElementById('regWhyLeft').value.trim(),
+    whyJoin: document.getElementById('regWhyJoin').value.trim(),
+    motivation: document.getElementById('regMotivation').value.trim()
+  };
+
+  // Validate required fields
+  if (!formData.username || !formData.carPower || !formData.towerLevel || 
+      !formData.dailyPoints || !formData.whyJoin || !formData.motivation) {
+    showMessage(t("fillAllFields"), "error");
+    return;
+  }
+
+  // Show confirmation modal
+  const confirmed = await showRegistrationConfirmation(formData);
+  if (!confirmed) return;
+
+  // Submit registration
+  await submitRegistration(formData);
+}
+
+// Show registration confirmation modal
+function showRegistrationConfirmation(formData) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById("customModal");
+    const titleEl = document.getElementById("customModalTitle");
+    const messageEl = document.getElementById("customModalMessage");
+    const inputContainer = document.getElementById("customModalInput");
+    const buttonsContainer = document.getElementById("customModalButtons");
+    
+    titleEl.textContent = "📋 Confirm Registration Application";
+    messageEl.innerHTML = `
+      <div style="text-align: left; background: rgba(10, 10, 10, 0.5); padding: 20px; border-radius: 10px; margin: 15px 0;">
+        <h4 style="color: #4a9eff; margin-bottom: 15px;">Review Your Information:</h4>
+        <p><strong>Username:</strong> ${formData.username}</p>
+        <p><strong>Car Power:</strong> ${formData.carPower.toLocaleString()}</p>
+        <p><strong>Tower Level:</strong> ${formData.towerLevel}</p>
+        <p><strong>Daily VS Points:</strong> ${formData.dailyPoints.toLocaleString()}</p>
+        <p><strong>Previous Alliances:</strong> ${formData.exAlliances || 'None specified'}</p>
+        <p><strong>Reason for leaving:</strong> ${formData.whyLeft || 'N/A'}</p>
+        <p><strong>Why join TDC:</strong> ${formData.whyJoin}</p>
+        <p><strong>Motivation:</strong> ${formData.motivation}</p>
+      </div>
+      <p style="color: #ffcc00; font-weight: bold;">Are you sure you want to submit this application?</p>
+    `;
+    inputContainer.style.display = "none";
+    
+    buttonsContainer.innerHTML = `
+      <button class="btn btn-success" onclick="resolveCustomModal(true)">✅ Submit Application</button>
+      <button class="btn" onclick="resolveCustomModal(false)">❌ Cancel</button>
+    `;
+    
+    modal.classList.add("active");
+    
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        resolveCustomModal(false);
+      }
+    };
+    
+    modal._resolver = resolve;
+  });
+}
+
+// Submit registration to GitHub
+async function submitRegistration(formData) {
+  showLoading(true);
+  
+  try {
+    // Prepare registration data
+    const registrationData = {
+      id: Date.now(),
+      ...formData,
+      submittedAt: new Date().toISOString(),
+      status: 'pending' // pending, approved, declined
+    };
+
+    // Initialize registrations array if it doesn't exist
+    if (!currentData.registrations) {
+      currentData.registrations = [];
+    }
+
+    // Add to registrations
+    currentData.registrations.push(registrationData);
+    
+    // Save to GitHub using the hardcoded token
+    await saveRegistrationData();
+    
+    showMessage("Registration application submitted successfully! You will be notified once it's reviewed.", "success");
+    
+    // Clear form
+    document.getElementById('registrationForm').reset();
+    
+  } catch (error) {
+    showMessage(`Error submitting registration: ${error.message}`, "error");
+  }
+  
+  showLoading(false);
+}
+
+// Save registration data to GitHub
+async function saveRegistrationData() {
+  try {
+    const token = getRegistrationToken();
+    if (!token) {
+      throw new Error("Registration token is required");
+    }
+
+    currentData.lastUpdated = new Date().toISOString();
+    const content = btoa(JSON.stringify(currentData, null, 2));
+
+    const response = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_FILE}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `token ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: "Add new registration application",
+          content: content,
+          sha: currentData.sha,
+        }),
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to save registration");
+
+    const result = await response.json();
+    currentData.sha = result.content.sha;
+  } catch (error) {
+    throw new Error(`Failed to save registration: ${error.message}`);
+  }
+}
+
+// Request admin access
+async function requestAdminAccess() {
+  const password = await showCustomPrompt(
+    "🔒 Admin Access Required",
+    "Enter the admin password to view pending applications:"
+  );
+
+  if (password === ADMIN_PASSWORD) {
+    showPendingApplications();
+  } else if (password !== null) {
+    showMessage("Incorrect admin password", "error");
+  }
+}
+
+// Show pending applications
+function showPendingApplications() {
+  const listContainer = document.getElementById("pendingApplicationsList");
+  const grid = document.getElementById("applicationsGrid");
+  
+  if (!currentData.registrations) {
+    currentData.registrations = [];
+  }
+  
+  const pendingApps = currentData.registrations.filter(app => app.status === 'pending');
+  
+  if (pendingApps.length === 0) {
+    grid.innerHTML = `
+      <div style="text-align: center; color: #888; padding: 20px;">
+        <p>No pending applications</p>
+      </div>
+    `;
+  } else {
+    grid.innerHTML = pendingApps.map(app => `
+      <div class="member-card" style="position: relative;">
+        <h3>${app.username}</h3>
+        <div class="stats">
+          <span class="power">Power: ${app.carPower.toLocaleString()}</span> | 
+          <span class="tower">Tower: ${app.towerLevel}</span>
+        </div>
+        <div class="stats">Daily VS Points: ${app.dailyPoints.toLocaleString()}</div>
+        <div style="background: rgba(10, 10, 10, 0.6); padding: 10px; border-radius: 5px; margin: 10px 0; font-size: 12px;">
+          <p><strong>Previous Alliances:</strong> ${app.exAlliances || 'None'}</p>
+          <p><strong>Reason for leaving:</strong> ${app.whyLeft || 'N/A'}</p>
+          <p><strong>Why join TDC:</strong> ${app.whyJoin}</p>
+          <p><strong>Motivation:</strong> ${app.motivation}</p>
+        </div>
+        <div class="stats" style="font-size: 11px; color: #888;">
+          Submitted: ${new Date(app.submittedAt).toLocaleDateString()}
+        </div>
+        <div style="margin-top: 15px; display: flex; gap: 10px;">
+          <button 
+            class="btn btn-success" 
+            style="flex: 1; padding: 8px 12px; font-size: 12px;"
+            onclick="handleApplicationAction(${app.id}, 'approved')"
+          >
+            ✅ Approve
+          </button>
+          <button 
+            class="btn btn-danger" 
+            style="flex: 1; padding: 8px 12px; font-size: 12px;"
+            onclick="handleApplicationAction(${app.id}, 'declined')"
+          >
+            ❌ Decline
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  listContainer.style.display = 'block';
+}
+
+// Handle approve/decline actions
+async function handleApplicationAction(appId, action) {
+  // Request admin password again for security
+  const password = await showCustomPrompt(
+    "🔒 Confirm Action",
+    `Enter admin password to ${action === 'approved' ? 'approve' : 'decline'} this application:`
+  );
+
+  if (password !== ADMIN_PASSWORD) {
+    if (password !== null) {
+      showMessage("Incorrect admin password", "error");
+    }
+    return;
+  }
+
+  showLoading(true);
+  
+  try {
+    // Find and update the application
+    const appIndex = currentData.registrations.findIndex(app => app.id === appId);
+    if (appIndex !== -1) {
+      currentData.registrations[appIndex].status = action;
+      currentData.registrations[appIndex].reviewedAt = new Date().toISOString();
+      
+      // Save changes
+      await saveRegistrationData();
+      
+      showMessage(`Application ${action === 'approved' ? 'approved' : 'declined'} successfully!`, "success");
+      
+      // Refresh the applications list
+      showPendingApplications();
+    }
+  } catch (error) {
+    showMessage(`Error updating application: ${error.message}`, "error");
+  }
+  
+  showLoading(false);
+}
