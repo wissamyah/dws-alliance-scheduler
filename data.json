@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-20T22:13:10.829Z",
+  "lastUpdated": "2025-08-20T22:13:45.780Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3036,7 +3036,7 @@
       }
     }
   },
-  "sha": "b5f3a1dff7d5bc321bcf73927241d6e1bc566e57",
+  "sha": "ff3a15e8fdef5beb2a920b7b9be28f1ca9cb3089",
   "registrations": [
     {
       "id": 1755725455567,
@@ -3062,7 +3062,8 @@
       "whyJoin": "ABCDE",
       "motivation": "FGHIJ",
       "submittedAt": "2025-08-20T22:13:10.829Z",
-      "status": "pending"
+      "status": "declined",
+      "reviewedAt": "2025-08-20T22:13:45.780Z"
     }
   ]
 }
