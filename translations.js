@@ -78,6 +78,8 @@ const translations = {
     
     // Tab Navigation
     submitInfoTab: "Submit Info",
+    registrationFormTab: "Registration Form",
+    registrationForm: "Registration Form",
     viewAllianceTab: "View Alliance",
     
     // Fields for member cards
@@ -200,6 +202,8 @@ const translations = {
     
     // Tab Navigation
     submitInfoTab: "Enviar Info",
+    registrationFormTab: "Formulário de Registro",
+    registrationForm: "Formulário de Registro",
     viewAllianceTab: "Ver Aliança",
     
     // Fields for member cards  
@@ -322,6 +326,8 @@ const translations = {
     
     // Tab Navigation
     submitInfoTab: "Soumettre Info",
+    registrationFormTab: "Formulaire d'Inscription",
+    registrationForm: "Formulaire d'Inscription",
     viewAllianceTab: "Voir Alliance",
     
     // Fields for member cards
@@ -444,6 +450,8 @@ const translations = {
     
     // Tab Navigation
     submitInfoTab: "Enviar Info",
+    registrationFormTab: "Formulario de Registro",
+    registrationForm: "Formulario de Registro",
     viewAllianceTab: "Ver Alianza",
     
     // Fields for member cards
@@ -566,6 +574,8 @@ const translations = {
     
     // Tab Navigation
     submitInfoTab: "Invia Info",
+    registrationFormTab: "Modulo di Registrazione",
+    registrationForm: "Modulo di Registrazione",
     viewAllianceTab: "Vedi Alleanza",
     
     // Fields for member cards
