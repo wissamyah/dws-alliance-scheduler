@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-21T14:06:02.075Z",
+  "lastUpdated": "2025-08-21T15:05:42.353Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2130,7 +2130,7 @@
     {
       "id": 1754570620838,
       "username": "Muromets",
-      "carPower": 19200000,
+      "carPower": 20000000,
       "towerLevel": 27,
       "timezone": "UTC-5",
       "availability": {
@@ -2233,7 +2233,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-20T13:06:19.193Z"
+      "submittedAt": "2025-08-21T15:05:42.351Z"
     },
     {
       "id": 1754563989136,
@@ -3036,7 +3036,7 @@
       }
     }
   },
-  "sha": "0e23f0a917dce538bc679d953a1ffb4a61cbe291",
+  "sha": "93fd141cbfb48ddf2563079c9337e4ac5a3157e4",
   "registrations": [
     {
       "id": 1755725455567,
