@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-21T17:46:45.329Z",
+  "lastUpdated": "2025-08-22T07:19:05.139Z",
   "members": [
     {
       "id": 1754285775134,
@@ -738,6 +738,114 @@
         ]
       },
       "submittedAt": "2025-08-17T03:37:45.368Z"
+    },
+    {
+      "id": 1755798405328,
+      "username": "Mrnobody",
+      "carPower": 60000000,
+      "towerLevel": 30,
+      "timezone": "UTC+3",
+      "availability": {
+        "monday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot1",
+          "slot2",
+          "slot3",
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-21T17:46:45.328Z"
     },
     {
       "id": 1754567470980,
@@ -2988,112 +3096,46 @@
       "submittedAt": "2025-08-14T04:13:50.300Z"
     },
     {
-      "id": 1755798405328,
-      "username": "Mrnobody",
-      "carPower": 60000000,
-      "towerLevel": 30,
-      "timezone": "UTC+3",
+      "id": 1755847145138,
+      "username": "Swedefence",
+      "carPower": 11400000,
+      "towerLevel": 29,
+      "timezone": "UTC+2",
       "availability": {
         "monday": [
-          "slot1",
-          "slot2",
-          "slot3",
-          "slot4",
           "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot6"
         ],
         "tuesday": [
-          "slot1",
-          "slot2",
-          "slot3",
-          "slot4",
           "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot6"
         ],
         "wednesday": [
-          "slot1",
-          "slot2",
-          "slot3",
-          "slot4",
           "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot6"
         ],
         "thursday": [
-          "slot1",
-          "slot2",
-          "slot3",
-          "slot4",
           "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot6"
         ],
         "friday": [
-          "slot1",
-          "slot2",
-          "slot3",
-          "slot4",
           "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot6"
         ],
         "saturday": [
-          "slot1",
-          "slot2",
-          "slot3",
           "slot4",
           "slot5",
           "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot7"
         ],
         "sunday": [
-          "slot1",
-          "slot2",
-          "slot3",
           "slot4",
           "slot5",
           "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
+          "slot7"
         ]
       },
-      "submittedAt": "2025-08-21T17:46:45.328Z"
+      "submittedAt": "2025-08-22T07:19:05.138Z"
     }
   ],
   "pendingSubmissions": [],
@@ -3144,7 +3186,7 @@
       }
     }
   },
-  "sha": "8781a3e50c3d182071bc627c11aaba1de0aa7c76",
+  "sha": "6c89a9cbac8c62a743a0c7210a5d94ab0c0444ab",
   "registrations": [
     {
       "id": 1755725455567,
