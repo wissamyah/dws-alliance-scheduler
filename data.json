@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-22T14:56:33.260Z",
+  "lastUpdated": "2025-08-23T12:31:48.864Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3126,6 +3126,68 @@
         ]
       },
       "submittedAt": "2025-08-14T04:13:50.300Z"
+    },
+    {
+      "id": 1755952308863,
+      "username": "BluNorth",
+      "carPower": 107000000,
+      "towerLevel": 31,
+      "timezone": "UTC-4",
+      "availability": {
+        "monday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-23T12:31:48.863Z"
     }
   ],
   "pendingSubmissions": [],
@@ -3176,7 +3238,7 @@
       }
     }
   },
-  "sha": "ad1ae2ba88d5d98999c9b8e77be4a497cf341ff0",
+  "sha": "ce2b0beca9d674a5de604b21e345b4a8d911487f",
   "registrations": [
     {
       "id": 1755725455567,
