@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-25T12:09:11.941Z",
+  "lastUpdated": "2025-08-25T14:51:01.073Z",
   "members": [
     {
       "id": 1754285775134,
@@ -423,7 +423,7 @@
     {
       "id": 1754266685726,
       "username": "Falowyn",
-      "carPower": 95200000,
+      "carPower": 106000000,
       "towerLevel": 31,
       "timezone": "UTC+1",
       "availability": {
@@ -471,7 +471,7 @@
           "slot9"
         ]
       },
-      "submittedAt": "2025-08-19T08:46:53.293Z"
+      "submittedAt": "2025-08-25T14:51:01.072Z"
     },
     {
       "id": 1755245161447,
@@ -1332,6 +1332,44 @@
       "submittedAt": "2025-08-04T18:49:23.864Z"
     },
     {
+      "id": 1754333264210,
+      "username": "Ch1mb0mb0",
+      "carPower": 37000000,
+      "towerLevel": 30,
+      "timezone": "UTC-4",
+      "availability": {
+        "monday": [
+          "slot8",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot8",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot8",
+          "slot12"
+        ],
+        "thursday": [
+          "slot8",
+          "slot12"
+        ],
+        "friday": [
+          "slot8",
+          "slot12"
+        ],
+        "saturday": [
+          "slot8",
+          "slot12"
+        ],
+        "sunday": [
+          "slot8",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-25T12:09:11.940Z"
+    },
+    {
       "id": 1755148343090,
       "username": "Lisa1984",
       "carPower": 36100000,
@@ -2003,44 +2041,6 @@
         ]
       },
       "submittedAt": "2025-08-17T01:05:16.603Z"
-    },
-    {
-      "id": 1754333264210,
-      "username": "Ch1mb0mb0",
-      "carPower": 37000000,
-      "towerLevel": 30,
-      "timezone": "UTC-4",
-      "availability": {
-        "monday": [
-          "slot8",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot8",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot8",
-          "slot12"
-        ],
-        "thursday": [
-          "slot8",
-          "slot12"
-        ],
-        "friday": [
-          "slot8",
-          "slot12"
-        ],
-        "saturday": [
-          "slot8",
-          "slot12"
-        ],
-        "sunday": [
-          "slot8",
-          "slot12"
-        ]
-      },
-      "submittedAt": "2025-08-25T12:09:11.940Z"
     },
     {
       "id": 1754339161427,
@@ -3233,7 +3233,7 @@
       }
     }
   },
-  "sha": "a3b1b23ba9ae5904f088566e316873d92a6e18f1",
+  "sha": "bb5d88e59f412aab25be104b460c775f733acd5d",
   "registrations": [
     {
       "id": 1755725455567,
