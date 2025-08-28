@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-28T16:41:40.266Z",
+  "lastUpdated": "2025-08-28T16:48:06.129Z",
   "members": [
     {
       "id": 1754285775134,
@@ -144,44 +144,6 @@
       "submittedAt": "2025-08-28T16:16:42.500Z"
     },
     {
-      "id": 1754312886706,
-      "username": "SaBri",
-      "carPower": 135000000,
-      "towerLevel": 32,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot8",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot8",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot8",
-          "slot12"
-        ],
-        "thursday": [
-          "slot8",
-          "slot12"
-        ],
-        "friday": [
-          "slot8",
-          "slot12"
-        ],
-        "saturday": [
-          "slot8",
-          "slot12"
-        ],
-        "sunday": [
-          "slot8",
-          "slot12"
-        ]
-      },
-      "submittedAt": "2025-08-04T13:08:06.706Z"
-    },
-    {
       "id": 1754282399525,
       "username": "The 699",
       "carPower": 142000000,
@@ -237,6 +199,44 @@
         ]
       },
       "submittedAt": "2025-08-28T16:41:40.260Z"
+    },
+    {
+      "id": 1754312886706,
+      "username": "SaBri",
+      "carPower": 135000000,
+      "towerLevel": 32,
+      "timezone": "UTC+2",
+      "availability": {
+        "monday": [
+          "slot8",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot8",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot8",
+          "slot12"
+        ],
+        "thursday": [
+          "slot8",
+          "slot12"
+        ],
+        "friday": [
+          "slot8",
+          "slot12"
+        ],
+        "saturday": [
+          "slot8",
+          "slot12"
+        ],
+        "sunday": [
+          "slot8",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-04T13:08:06.706Z"
     },
     {
       "id": 1754284341413,
@@ -1530,7 +1530,7 @@
     {
       "id": 1755147090675,
       "username": "SiG",
-      "carPower": 35000000,
+      "carPower": 42000000,
       "towerLevel": 30,
       "timezone": "UTC+2",
       "availability": {
@@ -1582,7 +1582,7 @@
           "slot11"
         ]
       },
-      "submittedAt": "2025-08-14T04:51:30.676Z"
+      "submittedAt": "2025-08-28T16:48:06.129Z"
     },
     {
       "id": 1755246721970,
@@ -3234,7 +3234,7 @@
       }
     }
   },
-  "sha": "369a7e591b1cba57a0e79c8071ec3fbfc9e525ba",
+  "sha": "d8b21b9a4f8c38f7a98d35ea821b5199f759d72e",
   "registrations": [
     {
       "id": 1755725455567,
