@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-28T16:06:29.066Z",
+  "lastUpdated": "2025-08-28T16:16:42.501Z",
   "members": [
     {
       "id": 1754285775134,
@@ -112,7 +112,7 @@
     {
       "id": 1754581324121,
       "username": "Sandro38",
-      "carPower": 165000000,
+      "carPower": 177000000,
       "towerLevel": 33,
       "timezone": "UTC+2",
       "availability": {
@@ -121,10 +121,6 @@
           "slot12"
         ],
         "tuesday": [
-          "slot11",
-          "slot12"
-        ],
-        "wednesday": [
           "slot11",
           "slot12"
         ],
@@ -145,7 +141,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-21T14:06:02.074Z"
+      "submittedAt": "2025-08-28T16:16:42.500Z"
     },
     {
       "id": 1754312886706,
@@ -3233,7 +3229,7 @@
       }
     }
   },
-  "sha": "8abb54dccc0f1f4b33dfbc5e93884fd7aae00636",
+  "sha": "916c23bfea4a770a6081e80ceb57449caaffd23a",
   "registrations": [
     {
       "id": 1755725455567,
