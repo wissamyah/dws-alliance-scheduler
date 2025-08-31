@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-30T00:39:28.458Z",
+  "lastUpdated": "2025-08-31T07:00:59.784Z",
   "members": [
     {
       "id": 1754285775134,
@@ -634,6 +634,93 @@
       "submittedAt": "2025-08-07T11:07:16.650Z"
     },
     {
+      "id": 1754876098756,
+      "username": "18maratha",
+      "carPower": 71000000,
+      "towerLevel": 31,
+      "timezone": "UTC+6",
+      "availability": {
+        "monday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "thursday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "friday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "saturday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ],
+        "sunday": [
+          "slot4",
+          "slot5",
+          "slot6",
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-08-30T00:39:28.457Z"
+    },
+    {
       "id": 1754290438405,
       "username": "forceful",
       "carPower": 64000000,
@@ -780,93 +867,6 @@
         ]
       },
       "submittedAt": "2025-08-05T03:40:59.909Z"
-    },
-    {
-      "id": 1754876098756,
-      "username": "18maratha",
-      "carPower": 71000000,
-      "towerLevel": 31,
-      "timezone": "UTC+6",
-      "availability": {
-        "monday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "thursday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "friday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "saturday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ],
-        "sunday": [
-          "slot4",
-          "slot5",
-          "slot6",
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11",
-          "slot12"
-        ]
-      },
-      "submittedAt": "2025-08-30T00:39:28.457Z"
     },
     {
       "id": 1755798405328,
@@ -1199,7 +1199,7 @@
     {
       "id": 1754333264210,
       "username": "Ch1mb0mb0",
-      "carPower": 42000000,
+      "carPower": 45000000,
       "towerLevel": 30,
       "timezone": "UTC-4",
       "availability": {
@@ -1232,7 +1232,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-26T06:51:17.595Z"
+      "submittedAt": "2025-08-31T07:00:59.783Z"
     },
     {
       "id": 1755147090675,
@@ -3234,7 +3234,7 @@
       }
     }
   },
-  "sha": "49baa33c45cdb4d1b17f25a0783f2eaa5ee77ca0",
+  "sha": "d5e9b26ea575472912c38b8cce360901ac6bdd26",
   "registrations": [
     {
       "id": 1755725455567,
