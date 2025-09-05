@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-05T13:50:16.193Z",
+  "lastUpdated": "2025-09-05T19:31:13.246Z",
   "members": [
     {
       "id": 1754285775134,
@@ -1237,6 +1237,44 @@
       "submittedAt": "2025-08-21T17:46:45.328Z"
     },
     {
+      "id": 1754333264210,
+      "username": "Ch1mb0mb0",
+      "carPower": 54000000,
+      "towerLevel": 31,
+      "timezone": "UTC-4",
+      "availability": {
+        "monday": [
+          "slot8",
+          "slot12"
+        ],
+        "tuesday": [
+          "slot8",
+          "slot12"
+        ],
+        "wednesday": [
+          "slot8",
+          "slot12"
+        ],
+        "thursday": [
+          "slot8",
+          "slot12"
+        ],
+        "friday": [
+          "slot8",
+          "slot12"
+        ],
+        "saturday": [
+          "slot8",
+          "slot12"
+        ],
+        "sunday": [
+          "slot8",
+          "slot12"
+        ]
+      },
+      "submittedAt": "2025-09-05T19:31:13.246Z"
+    },
+    {
       "id": 1756937095546,
       "username": "kàveh",
       "carPower": 48000000,
@@ -1315,44 +1353,6 @@
         ]
       },
       "submittedAt": "2025-09-03T22:04:55.546Z"
-    },
-    {
-      "id": 1754333264210,
-      "username": "Ch1mb0mb0",
-      "carPower": 45000000,
-      "towerLevel": 30,
-      "timezone": "UTC-4",
-      "availability": {
-        "monday": [
-          "slot8",
-          "slot12"
-        ],
-        "tuesday": [
-          "slot8",
-          "slot12"
-        ],
-        "wednesday": [
-          "slot8",
-          "slot12"
-        ],
-        "thursday": [
-          "slot8",
-          "slot12"
-        ],
-        "friday": [
-          "slot8",
-          "slot12"
-        ],
-        "saturday": [
-          "slot8",
-          "slot12"
-        ],
-        "sunday": [
-          "slot8",
-          "slot12"
-        ]
-      },
-      "submittedAt": "2025-08-31T07:00:59.783Z"
     },
     {
       "id": 1754339827474,
@@ -3394,7 +3394,7 @@
       }
     }
   },
-  "sha": "58acf7244b05478b0303eca0a93270227b7b83c5",
+  "sha": "a9bec84205f2ba9e2c98358d2a1aa44a074bbc43",
   "registrations": [
     {
       "id": 1755725455567,
