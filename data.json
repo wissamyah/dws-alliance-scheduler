@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-14T20:29:44.773Z",
+  "lastUpdated": "2025-09-15T19:39:55.570Z",
   "members": [
     {
       "id": 1754285775134,
@@ -637,6 +637,55 @@
       "submittedAt": "2025-09-05T19:48:58.587Z"
     },
     {
+      "id": 1754572099393,
+      "username": "Szotty",
+      "carPower": 81500000,
+      "towerLevel": 31,
+      "timezone": "UTC+2",
+      "availability": {
+        "monday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "tuesday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "wednesday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "thursday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "friday": [
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "saturday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ],
+        "sunday": [
+          "slot7",
+          "slot8",
+          "slot9",
+          "slot10",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-09-14T20:29:44.761Z"
+    },
+    {
       "id": 1755245161447,
       "username": "Crossgar",
       "carPower": 75800000,
@@ -874,55 +923,6 @@
       "submittedAt": "2025-09-03T05:59:21.522Z"
     },
     {
-      "id": 1754572099393,
-      "username": "Szotty",
-      "carPower": 81500000,
-      "towerLevel": 31,
-      "timezone": "UTC+2",
-      "availability": {
-        "monday": [
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "tuesday": [
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "wednesday": [
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "thursday": [
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "friday": [
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "saturday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ],
-        "sunday": [
-          "slot7",
-          "slot8",
-          "slot9",
-          "slot10",
-          "slot11"
-        ]
-      },
-      "submittedAt": "2025-09-14T20:29:44.761Z"
-    },
-    {
       "id": 1754876098756,
       "username": "18maratha",
       "carPower": 71000000,
@@ -1123,45 +1123,35 @@
     {
       "id": 1754365259909,
       "username": "Jirni",
-      "carPower": 62980000,
-      "towerLevel": 30,
+      "carPower": 98000000,
+      "towerLevel": 32,
       "timezone": "UTC-7",
       "availability": {
         "monday": [
-          "slot1",
-          "slot6",
           "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "tuesday": [
-          "slot1",
-          "slot6",
           "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "wednesday": [
-          "slot1",
-          "slot6",
           "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "thursday": [
-          "slot1",
-          "slot6",
           "slot9",
           "slot10",
           "slot11",
           "slot12"
         ],
         "friday": [
-          "slot1",
-          "slot6",
           "slot9",
           "slot10",
           "slot11",
@@ -1169,6 +1159,7 @@
         ],
         "saturday": [
           "slot1",
+          "slot2",
           "slot6",
           "slot7",
           "slot8",
@@ -1179,6 +1170,7 @@
         ],
         "sunday": [
           "slot1",
+          "slot2",
           "slot6",
           "slot7",
           "slot8",
@@ -1188,7 +1180,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-08-05T03:40:59.909Z"
+      "submittedAt": "2025-09-15T19:39:55.570Z"
     },
     {
       "id": 1755798405328,
@@ -3399,7 +3391,7 @@
       }
     }
   },
-  "sha": "6d907c43a056ee3948c3f120cea2bf9ca316d0a8",
+  "sha": "e70994251c9a09c863df2e53022b5534173da66e",
   "registrations": [
     {
       "id": 1755725455567,
