@@ -22,6 +22,7 @@ const State = (function() {
     activeTab: 'submit-info',
     isLoading: false,
     timelineCollapsed: false,
+    timeSlotsCollapsed: true,  // Default to collapsed
 
     // Cache
     lastDataFetch: null,
@@ -62,6 +63,10 @@ const State = (function() {
 
     // Load timeline collapsed state
     state.timelineCollapsed = localStorage.getItem('timelineCollapsed') === 'true';
+
+    // Load time slots collapsed state (default to true if not set)
+    const storedTimeSlotsState = localStorage.getItem('timeSlotsCollapsed');
+    state.timeSlotsCollapsed = storedTimeSlotsState === null ? true : storedTimeSlotsState === 'true';
   }
 
   // Notify listeners of state changes
@@ -212,6 +217,17 @@ const State = (function() {
 
     isTimelineCollapsed() {
       return state.timelineCollapsed;
+    },
+
+    // Time slots collapsed state
+    setTimeSlotsCollapsed(collapsed) {
+      state.timeSlotsCollapsed = collapsed;
+      localStorage.setItem('timeSlotsCollapsed', collapsed.toString());
+      notifyListeners('ui', { timeSlotsCollapsed: collapsed });
+    },
+
+    isTimeSlotsCollapsed() {
+      return state.timeSlotsCollapsed;
     },
 
     // Event subscription methods

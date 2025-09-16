@@ -428,23 +428,37 @@
             ></small>
           </div>
         </div>
-        <h3 style="margin: 20px 0 10px" data-translate="availableTimeSlots">
-          Available Time Slots
-        </h3>
-        <p
-          style="color: #888; margin-bottom: 15px; font-size: 14px"
-          data-translate="timeSlotDescription"
-        >
-          Select when you're usually available (2-hour blocks in your local
-          time)
-        </p>
-        <div id="timeSlotHeaders"></div>
-        <div id="timeSlotInputs"></div>
+        <div class="time-slots-section">
+          <div class="time-slots-header">
+            <div>
+              <h3 style="margin: 0" data-translate="availableTimeSlots">
+                Available Time Slots
+              </h3>
+              <p
+                style="color: #888; margin: 5px 0 0; font-size: 14px"
+                data-translate="timeSlotDescription"
+              >
+                Select when you're usually available (2-hour blocks in your local
+                time)
+              </p>
+            </div>
+            <button class="time-slots-toggle-btn" onclick="App.toggleTimeSlots()" id="timeSlotsToggleBtn">
+              <svg class="time-slots-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 15 12 9 18 15"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="time-slots-container collapsed" id="timeSlotsContainer">
+            <div id="timeSlotHeaders"></div>
+            <div id="timeSlotInputs"></div>
+          </div>
+        </div>
         <button
           class="btn btn-success"
           onclick="App.submitMemberInfo()"
           id="submitBtn"
           data-translate="submitInformation"
+          style="margin-top: 20px"
         >
           Submit Information
         </button>

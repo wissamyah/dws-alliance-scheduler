@@ -24,8 +24,9 @@ const App = (function() {
       // Initialize tabs
       initializeTabs();
 
-      // Initialize timeline state
+      // Initialize collapsible states
       initializeTimelineState();
+      initializeTimeSlotsState();
 
       // Check timezone
       checkTimezone();
@@ -881,6 +882,32 @@ const App = (function() {
     }
   }
 
+  // Toggle time slots visibility
+  function toggleTimeSlots() {
+    const isCollapsed = State.isTimeSlotsCollapsed();
+    const container = document.getElementById('timeSlotsContainer');
+    const toggleBtn = document.getElementById('timeSlotsToggleBtn');
+    const toggleIcon = toggleBtn?.querySelector('.time-slots-toggle-icon');
+
+    if (container) {
+      if (isCollapsed) {
+        // Expand
+        container.classList.remove('collapsed');
+        State.setTimeSlotsCollapsed(false);
+        if (toggleIcon) {
+          toggleIcon.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+        }
+      } else {
+        // Collapse
+        container.classList.add('collapsed');
+        State.setTimeSlotsCollapsed(true);
+        if (toggleIcon) {
+          toggleIcon.innerHTML = '<polyline points="6 15 12 9 18 15"></polyline>';
+        }
+      }
+    }
+  }
+
   // Initialize timeline collapsed state on load
   function initializeTimelineState() {
     const isCollapsed = State.isTimelineCollapsed();
@@ -895,6 +922,30 @@ const App = (function() {
     }
   }
 
+  // Initialize time slots collapsed state on load
+  function initializeTimeSlotsState() {
+    // Wait for DOM to be ready
+    setTimeout(() => {
+      const isCollapsed = State.isTimeSlotsCollapsed();
+      const container = document.getElementById('timeSlotsContainer');
+      const toggleIcon = document.querySelector('.time-slots-toggle-icon');
+
+      if (container) {
+        if (isCollapsed) {
+          container.classList.add('collapsed');
+          if (toggleIcon) {
+            toggleIcon.innerHTML = '<polyline points="6 15 12 9 18 15"></polyline>';
+          }
+        } else {
+          container.classList.remove('collapsed');
+          if (toggleIcon) {
+            toggleIcon.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+          }
+        }
+      }
+    }, 100);
+  }
+
   // Public API
   return {
     init: initialize,
@@ -905,6 +956,7 @@ const App = (function() {
     toggleTimeSlot,
     toggleMemberTimeslots,
     toggleTimeline,
+    toggleTimeSlots,
     switchTab,
     changeLanguage,
     toggleMobileSettings,
