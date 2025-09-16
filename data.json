@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-16T18:59:49.543Z",
+  "lastUpdated": "2025-09-16T20:24:55.298Z",
   "members": [
     {
       "id": 1754285775134,
@@ -524,8 +524,8 @@
     {
       "id": 1754266685726,
       "username": "Falowyn",
-      "carPower": 106000000,
-      "towerLevel": 31,
+      "carPower": 127000000,
+      "towerLevel": 32,
       "timezone": "UTC+1",
       "availability": {
         "monday": [
@@ -3391,7 +3391,6 @@
       }
     }
   },
-  "sha": "2487984a547e02f61a9022751964c4a9fbbf1444",
   "registrations": [
     {
       "id": 1755725455567,
