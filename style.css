@@ -638,8 +638,8 @@ h1 {
 }
 
 .time-slots-container {
-  max-height: 2000px;
-  overflow: hidden;
+  max-height: 3000px;
+  overflow: visible;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.3s ease;
   opacity: 1;
@@ -648,6 +648,39 @@ h1 {
 .time-slots-container.collapsed {
   max-height: 0;
   opacity: 0;
+  overflow: hidden;
+}
+
+/* Mobile specific fixes for time slots container */
+@media (max-width: 768px) {
+  .time-slots-container {
+    max-height: none;
+    height: auto;
+  }
+
+  .time-slots-container:not(.collapsed) {
+    overflow: visible;
+    padding-bottom: 10px;
+  }
+
+  .time-slots-container.collapsed {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+
+  /* Ensure time slot grids are fully visible on mobile */
+  #timeSlotHeaders,
+  #timeSlotInputs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 5px;
+  }
+
+  /* Add some margin to prevent cutoff */
+  .time-slots-section {
+    margin: 20px 10px;
+  }
 }
 
 /* Old timeline-header style for grid */
@@ -696,12 +729,21 @@ h1 {
   gap: 5px;
   margin-bottom: 10px;
   align-items: stretch;
+  width: 100%;
+  min-width: 0;
 }
 @media (min-width: 768px) {
   .time-slot-grid {
     grid-template-columns: 100px repeat(6, 1fr);
     gap: 10px;
     margin-bottom: 15px;
+  }
+}
+@media (max-width: 480px) {
+  .time-slot-grid {
+    grid-template-columns: 50px repeat(2, minmax(80px, 1fr));
+    gap: 3px;
+    font-size: 11px;
   }
 }
 .time-slot-header {
@@ -740,11 +782,21 @@ h1 {
   justify-content: center;
   font-weight: 500;
   backdrop-filter: blur(10px);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 @media (min-width: 768px) {
   .time-slot-btn {
     padding: 12px;
     font-size: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .time-slot-btn {
+    padding: 8px 4px;
+    min-height: 40px;
+    font-size: 10px;
   }
 }
 .time-slot-btn:hover {
