@@ -102,6 +102,19 @@ const State = (function() {
       };
     },
 
+    isAuthenticated() {
+      return state.isAuthenticated;
+    },
+
+    setAuthenticated(authenticated, token = null) {
+      state.isAuthenticated = authenticated;
+      if (token) {
+        state.authToken = token;
+        localStorage.setItem(Config.STORAGE.TOKEN, token);
+      }
+      notifyListeners('auth', { token: state.authToken, isAuthenticated: authenticated });
+    },
+
     // Data methods
     setData(data) {
       state.currentData = data;

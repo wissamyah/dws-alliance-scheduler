@@ -28,14 +28,38 @@ const UI = (function() {
     authStatus() {
       const { isAuthenticated } = State.getAuth();
 
+      // Update auth status text
       if (elements.authStatus) {
         elements.authStatus.textContent = isAuthenticated ?
           t("authenticated") : t("notAuthenticated");
       }
 
-      Utils.dom.setVisible(elements.authControls, !isAuthenticated);
-      Utils.dom.setVisible(elements.logoutBtn, isAuthenticated);
-      Utils.dom.toggleClass(elements.authSection, 'hidden', isAuthenticated);
+      // Update auth section visibility
+      const authSection = document.getElementById('authSection');
+      if (authSection) {
+        if (isAuthenticated) {
+          authSection.classList.add('hidden');
+        } else {
+          authSection.classList.remove('hidden');
+        }
+      }
+
+      // Update logout button visibility
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
+      }
+
+      // Update mobile logout section
+      const mobileLogoutSection = document.querySelector('.mobile-logout-section');
+      if (mobileLogoutSection) {
+        mobileLogoutSection.style.display = isAuthenticated ? 'block' : 'none';
+      }
+
+      // Update auth controls
+      if (elements.authControls) {
+        elements.authControls.style.display = !isAuthenticated ? 'block' : 'none';
+      }
     },
 
     // Render time slots

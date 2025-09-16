@@ -28,6 +28,17 @@ const App = (function() {
       initializeTimelineState();
       initializeTimeSlotsState();
 
+      // Initialize floating auth button
+      updateFloatingAuthButton();
+
+      // Hide notification after 5 seconds
+      setTimeout(() => {
+        const notification = document.getElementById('fabNotification');
+        if (notification && !State.isAuthenticated()) {
+          notification.classList.add('hidden');
+        }
+      }, 5000);
+
       // Check timezone
       checkTimezone();
 
@@ -164,6 +175,9 @@ const App = (function() {
       // Update UI with authenticated state
       UI.updateAll();
 
+      // Update floating button
+      updateFloatingAuthButton();
+
       UI.toast.show(t('authenticationSuccessful'), 'success');
 
       // Clear input and hide auth section
@@ -178,11 +192,215 @@ const App = (function() {
     }
   }
 
-  function logout() {
-    State.setAuth(null, false);
-    document.getElementById('githubToken').value = '';
-    document.getElementById('authSection').classList.remove('hidden');
-    UI.render.authStatus();
+  // Modal authentication functions
+  function openAuthModal() {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+      modal.classList.add('active');
+      // Hide notification when modal opens
+      const notification = document.getElementById('fabNotification');
+      if (notification) {
+        notification.classList.add('hidden');
+      }
+      // Focus on token input
+      setTimeout(() => {
+        const tokenInput = document.getElementById('modalGithubToken');
+        if (tokenInput) tokenInput.focus();
+      }, 300);
+    }
+  }
+
+  function closeAuthModal() {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+      modal.classList.remove('active');
+    }
+  }
+
+  async function authenticateFromModal() {
+    const tokenInput = document.getElementById('modalGithubToken');
+    const token = tokenInput.value.trim();
+
+    if (!token) {
+      UI.toast.show(t('enterGithubToken'), 'error');
+      return;
+    }
+
+    try {
+      State.setLoading(true);
+
+      // Test authentication
+      await API.testAuth(token);
+
+      // Set auth state
+      State.setAuthenticated(true, token);
+
+      // Update modal UI to show success
+      const authControls = document.getElementById('modalAuthControls');
+      const authSuccess = document.getElementById('modalAuthSuccess');
+      const statusBadge = document.getElementById('modalAuthStatusBadge');
+
+      if (authControls && authSuccess) {
+        authControls.style.display = 'none';
+        authSuccess.style.display = 'block';
+
+        // Update status badge
+        if (statusBadge) {
+          statusBadge.innerHTML = `
+            <span class="status-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </span>
+            <span data-translate="authenticated">${t('authenticated', 'Authenticated')}</span>
+          `;
+          statusBadge.style.background = 'rgba(68, 255, 68, 0.1)';
+          statusBadge.style.borderColor = 'rgba(68, 255, 68, 0.3)';
+          statusBadge.style.color = '#44ff44';
+        }
+      }
+
+      // Load fresh data after authentication
+      await API.loadData(false); // Force refresh
+
+      // Update UI with authenticated state
+      UI.updateAll();
+
+      // Update floating button
+      updateFloatingAuthButton();
+
+      UI.toast.show(t('authenticationSuccessful'), 'success');
+
+      // Clear token input
+      tokenInput.value = '';
+
+      // Hide auth section
+      document.getElementById('authSection').classList.add('hidden');
+
+      // Close modal after a delay
+      setTimeout(() => {
+        closeAuthModal();
+        // Reset modal state for next use
+        if (authControls && authSuccess) {
+          authControls.style.display = 'block';
+          authSuccess.style.display = 'none';
+        }
+        if (statusBadge) {
+          statusBadge.innerHTML = `
+            <span class="status-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </span>
+            <span data-translate="notAuthenticated">${t('notAuthenticated', 'Not authenticated')}</span>
+          `;
+          statusBadge.style.background = 'rgba(255, 68, 68, 0.1)';
+          statusBadge.style.borderColor = 'rgba(255, 68, 68, 0.3)';
+          statusBadge.style.color = '#ff6b6b';
+        }
+      }, 2000);
+
+    } catch (error) {
+      Utils.error.log('Authentication', error);
+      UI.toast.show(t('invalidToken'), 'error');
+    } finally {
+      State.setLoading(false);
+    }
+  }
+
+  function updateFloatingAuthButton() {
+    const floatingBtn = document.getElementById('floatingAuthBtn');
+    if (!floatingBtn) return;
+
+    const isAuthenticated = State.isAuthenticated();
+
+    if (isAuthenticated) {
+      // Change button to green checkmark
+      floatingBtn.classList.add('authenticated');
+      floatingBtn.innerHTML = `
+        <svg class="fab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      `;
+      // Hide button after animation
+      setTimeout(() => {
+        floatingBtn.classList.add('hide');
+      }, 2000);
+    } else {
+      // Show auth button with lock icon
+      floatingBtn.classList.remove('authenticated', 'hide');
+      floatingBtn.innerHTML = `
+        <div class="fab-notification" id="fabNotification">
+          <span data-translate="clickToAuth">${t('clickToAuth', 'Click to authenticate')}</span>
+          <div class="notification-arrow"></div>
+        </div>
+        <svg class="fab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <div class="fab-ripple"></div>
+      `;
+    }
+  }
+
+  async function logout() {
+    try {
+      // Clear authentication state
+      State.setAuth(null, false);
+
+      // Clear the token input field
+      const tokenInput = document.getElementById('githubToken');
+      if (tokenInput) {
+        tokenInput.value = '';
+      }
+
+      // Show auth section
+      const authSection = document.getElementById('authSection');
+      if (authSection) {
+        authSection.classList.remove('hidden');
+      }
+
+      // Hide logout buttons
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.style.display = 'none';
+      }
+
+      // Hide mobile logout button
+      const mobileLogoutSection = document.querySelector('.mobile-logout-section');
+      if (mobileLogoutSection) {
+        mobileLogoutSection.style.display = 'none';
+      }
+
+      // Clear any cached data
+      State.setData(null);
+
+      // Reload data without authentication
+      await API.loadData();
+
+      // Refresh entire UI
+      UI.updateAll();
+
+      // Update floating button
+      updateFloatingAuthButton();
+
+      // Show success message
+      UI.toast.show(t('loggedOut') || 'Successfully logged out', 'success');
+
+      // Switch to submit-info tab if on a restricted tab
+      const activeTab = State.getActiveTab();
+      if (activeTab === 'view-alliance') {
+        switchTab('submit-info');
+      }
+
+    } catch (error) {
+      console.error('Logout error:', error);
+      UI.toast.show('Logout completed', 'info');
+    }
   }
 
   // Timezone functions
@@ -613,21 +831,66 @@ const App = (function() {
     });
   }
 
-  // Tab management
+  // Tab management with smooth animations
   function switchTab(tabName) {
+    const currentTab = document.querySelector('.tab-content.active');
+    const newTab = document.getElementById(`${tabName}-tab`);
+
+    // If same tab, do nothing
+    if (currentTab === newTab) return;
+
+    // Get tab indices for slide direction
+    const tabs = ['submit-info', 'registration-form', 'view-alliance'];
+    const currentIndex = currentTab ? tabs.indexOf(currentTab.id.replace('-tab', '')) : -1;
+    const newIndex = tabs.indexOf(tabName);
+
+    // Determine animation direction
+    const slideDirection = newIndex > currentIndex ? 'slide-left' : 'slide-right';
+
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.classList.remove('active');
     });
-    document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active');
 
-    // Update tab content
-    document.querySelectorAll('.tab-content').forEach(content => {
-      content.classList.remove('active');
-    });
-    document.getElementById(`${tabName}-tab`)?.classList.add('active');
+    // Activate new tab button
+    const newTabBtn = document.querySelector(`[data-tab="${tabName}"]`);
+    if (newTabBtn) {
+      newTabBtn.classList.add('active');
+    }
 
+    // Clean tab transition without double animation
+    if (currentTab) {
+      // Remove all classes and hide current tab
+      currentTab.classList.remove('active', 'slide-left', 'slide-right');
+      currentTab.style.display = 'none';
+    }
+
+    // Show new tab with animation
+    if (newTab) {
+      // Reset classes first
+      newTab.classList.remove('slide-left', 'slide-right');
+
+      if (currentTab) {
+        // Apply animation for tab switching
+        newTab.style.display = 'block';
+        newTab.classList.add('active', slideDirection);
+      } else {
+        // Initial load - no animation
+        newTab.style.display = 'block';
+        newTab.classList.add('active');
+      }
+    }
+
+    // Save state
     State.setActiveTab(tabName);
+
+    // Refresh content if needed
+    if (tabName === 'view-alliance') {
+      setTimeout(() => {
+        UI.render.members();
+        UI.render.timeline();
+      }, 100);
+    }
   }
 
   function initializeTabs() {
@@ -950,6 +1213,9 @@ const App = (function() {
   return {
     init: initialize,
     authenticate,
+    authenticateFromModal,
+    openAuthModal,
+    closeAuthModal,
     logout,
     submitMemberInfo,
     deleteMember,

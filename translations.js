@@ -5,6 +5,7 @@ const translations = {
     title: "The Dark Creed Alliance",
     subtitle: "Unite. Strategize. Dominate.",
     logout: "Logout",
+    loggedOut: "Successfully logged out",
     
     // Timezone Modal
     timezoneTitle: "🌍 Confirm Your Timezone",
@@ -18,9 +19,12 @@ const translations = {
     
     // Authentication
     authRequired: "Authentication Required",
+    authSubtitle: "Secure access to alliance coordination tools",
+    tokenLabel: "Access Token",
     notAuthenticated: "Not authenticated",
     authenticated: "Authenticated",
-    githubTokenPlaceholder: "GitHub Token (required for all members)",
+    clickToAuth: "Click to authenticate",
+    githubTokenPlaceholder: "Access Token (required for all members)",
     authenticate: "Authenticate",
     authDescription: "All members must authenticate before submitting information.",
     contactR4R5: "Contact your alliance R4/R5 for the GitHub token.",
@@ -155,6 +159,7 @@ const translations = {
     title: "Aliança Dark Creed",
     subtitle: "Unir. Estrategizar. Dominar.",
     logout: "Sair",
+    loggedOut: "Desconectado com sucesso",
     
     // Timezone Modal
     timezoneTitle: "🌍 Confirme Seu Fuso Horário",
@@ -168,8 +173,11 @@ const translations = {
     
     // Authentication
     authRequired: "Autenticação Necessária",
+    authSubtitle: "Acesso seguro às ferramentas de coordenação da aliança",
+    tokenLabel: "Token de Acesso Pessoal do GitHub",
     notAuthenticated: "Não autenticado",
     authenticated: "Autenticado",
+    clickToAuth: "Clique para autenticar",
     githubTokenPlaceholder: "Token GitHub (obrigatório para todos os membros)",
     authenticate: "Autenticar",
     authDescription: "Todos os membros devem se autenticar antes de enviar informações.",
@@ -305,6 +313,7 @@ const translations = {
     title: "Alliance Dark Creed",
     subtitle: "Unir. Stratégiser. Dominer.",
     logout: "Déconnexion",
+    loggedOut: "Déconnecté avec succès",
     
     // Timezone Modal
     timezoneTitle: "🌍 Confirmez Votre Fuseau Horaire",
@@ -318,8 +327,11 @@ const translations = {
     
     // Authentication
     authRequired: "Authentification Requise",
+    authSubtitle: "Accès sécurisé aux outils de coordination de l'alliance",
+    tokenLabel: "Jeton d'accès personnel GitHub",
     notAuthenticated: "Non authentifié",
     authenticated: "Authentifié",
+    clickToAuth: "Cliquez pour vous authentifier",
     githubTokenPlaceholder: "Token GitHub (requis pour tous les membres)",
     authenticate: "S'authentifier",
     authDescription: "Tous les membres doivent s'authentifier avant de soumettre des informations.",
@@ -455,6 +467,7 @@ const translations = {
     title: "Alianza Dark Creed",
     subtitle: "Unir. Estrategizar. Dominar.",
     logout: "Cerrar Sesión",
+    loggedOut: "Sesión cerrada correctamente",
     
     // Timezone Modal
     timezoneTitle: "🌍 Confirma Tu Zona Horaria",
@@ -468,8 +481,11 @@ const translations = {
     
     // Authentication
     authRequired: "Autenticación Requerida",
+    authSubtitle: "Acceso seguro a las herramientas de coordinación de la alianza",
+    tokenLabel: "Token de Acceso Personal de GitHub",
     notAuthenticated: "No autenticado",
     authenticated: "Autenticado",
+    clickToAuth: "Haga clic para autenticar",
     githubTokenPlaceholder: "Token de GitHub (requerido para todos los miembros)",
     authenticate: "Autenticar",
     authDescription: "Todos los miembros deben autenticarse antes de enviar información.",
@@ -605,6 +621,7 @@ const translations = {
     title: "Alleanza Dark Creed",
     subtitle: "Unire. Strategizzare. Dominare.",
     logout: "Esci",
+    loggedOut: "Disconnesso con successo",
     
     // Timezone Modal
     timezoneTitle: "🌍 Conferma il Tuo Fuso Orario",
@@ -618,8 +635,11 @@ const translations = {
     
     // Authentication
     authRequired: "Autenticazione Richiesta",
+    authSubtitle: "Accesso sicuro agli strumenti di coordinamento dell'alleanza",
+    tokenLabel: "Token di Accesso Personale GitHub",
     notAuthenticated: "Non autenticato",
     authenticated: "Autenticato",
+    clickToAuth: "Clicca per autenticarti",
     githubTokenPlaceholder: "Token GitHub (richiesto per tutti i membri)",
     authenticate: "Autentica",
     authDescription: "Tutti i membri devono autenticarsi prima di inviare informazioni.",
