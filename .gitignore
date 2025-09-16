@@ -1,5 +1,5 @@
-# Data files (NEVER commit these)
-data.json
+# Data files
+# data.json - Now tracked in repository
 
 # Dependencies
 node_modules/
