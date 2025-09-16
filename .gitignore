@@ -1,5 +1,5 @@
-# Data files
-# data.json - Now tracked in repository
+# Data files (DO NOT commit local version - GitHub version is updated via GitHub Pages)
+data.json
 
 # Dependencies
 node_modules/
