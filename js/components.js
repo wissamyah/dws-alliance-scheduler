@@ -68,7 +68,7 @@ const Components = (function() {
 
     renderDeleteButton(memberId) {
       return `
-        <button class="delete-btn" onclick="App.deleteMember(${memberId})">
+        <button class="delete-btn" onclick="(async () => await App.deleteMember(${memberId}))()">
           <svg width="14" height="14" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">

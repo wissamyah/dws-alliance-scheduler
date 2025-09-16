@@ -21,6 +21,7 @@ const State = (function() {
     currentLanguage: 'en',
     activeTab: 'submit-info',
     isLoading: false,
+    timelineCollapsed: false,
 
     // Cache
     lastDataFetch: null,
@@ -58,6 +59,9 @@ const State = (function() {
 
     // Load active tab
     state.activeTab = localStorage.getItem(Config.STORAGE.ACTIVE_TAB) || 'submit-info';
+
+    // Load timeline collapsed state
+    state.timelineCollapsed = localStorage.getItem('timelineCollapsed') === 'true';
   }
 
   // Notify listeners of state changes
@@ -197,6 +201,17 @@ const State = (function() {
 
     isLoading() {
       return state.isLoading;
+    },
+
+    // Timeline collapsed state
+    setTimelineCollapsed(collapsed) {
+      state.timelineCollapsed = collapsed;
+      localStorage.setItem('timelineCollapsed', collapsed.toString());
+      notifyListeners('ui', { timelineCollapsed: collapsed });
+    },
+
+    isTimelineCollapsed() {
+      return state.timelineCollapsed;
     },
 
     // Event subscription methods

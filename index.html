@@ -658,10 +658,19 @@
       <!-- View Alliance Tab Content -->
       <div id="view-alliance-tab" class="tab-content">
         <div class="timeline">
-          <h2 data-translate="allianceTimeline">
-            Alliance Timeline (Server Time UTC-2)
-          </h2>
-          <div id="timelineView"></div>
+          <div class="timeline-header">
+            <h2 data-translate="allianceTimeline" style="margin: 0;">
+              Alliance Timeline (Server Time UTC-2)
+            </h2>
+            <button class="timeline-toggle-btn" onclick="App.toggleTimeline()" id="timelineToggleBtn">
+              <svg class="timeline-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="timeline-container" id="timelineContainer">
+            <div id="timelineView"></div>
+          </div>
         </div>
 
         <div style="margin: 40px 0 20px">

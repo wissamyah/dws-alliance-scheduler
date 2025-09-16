@@ -548,7 +548,57 @@ h1 {
     padding: 20px;
   }
 }
+
+/* Timeline Collapsible Styles */
 .timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(74, 158, 255, 0.2);
+}
+
+.timeline-toggle-btn {
+  background: rgba(74, 158, 255, 0.1);
+  border: 1px solid rgba(74, 158, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4a9eff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.timeline-toggle-btn:hover {
+  background: rgba(74, 158, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+}
+
+.timeline-toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.timeline-container {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  opacity: 1;
+}
+
+.timeline-container.collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Old timeline-header style for grid */
+.timeline-grid-header {
   display: grid;
   grid-template-columns: 100px repeat(24, 40px);
   font-size: 12px;

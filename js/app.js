@@ -24,6 +24,9 @@ const App = (function() {
       // Initialize tabs
       initializeTabs();
 
+      // Initialize timeline state
+      initializeTimelineState();
+
       // Check timezone
       checkTimezone();
 
@@ -47,7 +50,7 @@ const App = (function() {
     // Authentication
     const authenticateBtn = document.querySelector('[onclick="authenticate()"]');
     if (authenticateBtn) {
-      authenticateBtn.onclick = authenticate;
+      authenticateBtn.onclick = async () => await authenticate();
     }
 
     // Language dropdown
@@ -72,24 +75,24 @@ const App = (function() {
     // Form submission
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
-      submitBtn.onclick = submitMemberInfo;
+      submitBtn.onclick = async () => await submitMemberInfo();
     }
 
     // Registration form
     const regForm = document.getElementById('registrationForm');
     if (regForm) {
-      regForm.onsubmit = handleRegistrationSubmit;
+      regForm.onsubmit = async (e) => await handleRegistrationSubmit(e);
     }
 
     // Timezone modal buttons
     const confirmTimezoneBtn = document.querySelector('[onclick="confirmTimezone()"]');
     if (confirmTimezoneBtn) {
-      confirmTimezoneBtn.onclick = confirmTimezone;
+      confirmTimezoneBtn.onclick = async () => await confirmTimezone();
     }
 
     const changeTimezoneBtn = document.querySelector('[onclick="changeTimezone()"]');
     if (changeTimezoneBtn) {
-      changeTimezoneBtn.onclick = changeTimezone;
+      changeTimezoneBtn.onclick = async () => await changeTimezone();
     }
 
     // Manual timezone select
@@ -147,9 +150,19 @@ const App = (function() {
 
     try {
       State.setLoading(true);
+
+      // Test authentication
       await API.testAuth(token);
 
+      // Set auth state
       State.setAuth(token, true);
+
+      // Load fresh data after authentication
+      await API.loadData(false); // Force refresh
+
+      // Update UI with authenticated state
+      UI.updateAll();
+
       UI.toast.show(t('authenticationSuccessful'), 'success');
 
       // Clear input and hide auth section
@@ -238,21 +251,30 @@ const App = (function() {
     }
   }
 
-  function confirmTimezone() {
+  async function confirmTimezone() {
     const { detected } = State.getTimezone();
     if (!detected) return;
 
     State.setTimezone(true, detected.utc, detected);
     document.getElementById('timezoneModal').classList.remove('active');
+
+    // Ensure UI updates after timezone confirmation
+    await new Promise(resolve => setTimeout(resolve, 100));
+    UI.updateAll();
+
     UI.toast.show(t('timezoneConfirmedMessage'), 'success');
   }
 
-  function changeTimezone() {
+  async function changeTimezone() {
     document.getElementById('timezoneModal').classList.remove('active');
     document.getElementById('manualTimezoneGroup').style.display = 'block';
 
     State.setTimezone(false, null);
+
+    // Ensure UI updates after timezone change
+    await new Promise(resolve => setTimeout(resolve, 100));
     updateServerTimeDisplay();
+    UI.updateAll();
   }
 
   function handleManualTimezoneChange() {
@@ -369,7 +391,15 @@ const App = (function() {
 
     try {
       State.setLoading(true);
+
+      // Submit and wait for backend to complete
       const result = await API.submitMemberInfo(memberData);
+
+      // Reload data to ensure UI shows latest from backend
+      await API.loadData(false); // Force refresh, no cache
+
+      // Now update UI with fresh data
+      UI.updateAll();
 
       // Show success message
       if (result.isUpdate) {
@@ -423,7 +453,16 @@ const App = (function() {
     if (password === Config.AUTH.R5_PASSWORD) {
       try {
         State.setLoading(true);
+
+        // Delete and wait for backend to complete
         const member = await API.deleteMember(memberId);
+
+        // Reload data to ensure UI shows latest from backend
+        await API.loadData(false); // Force refresh, no cache
+
+        // Now update UI with fresh data
+        UI.updateAll();
+
         UI.toast.show(t('memberRemoved', { memberName: member.username }), 'success');
       } catch (error) {
         Utils.error.log('Delete member', error);
@@ -469,7 +508,16 @@ const App = (function() {
     // Submit
     try {
       State.setLoading(true);
+
+      // Submit registration and wait for backend
       await API.submitRegistration(formData);
+
+      // Reload data to ensure UI shows latest
+      await API.loadData(false); // Force refresh
+
+      // Update UI with fresh data
+      UI.updateAll();
+
       UI.toast.show('Registration application submitted successfully!', 'success');
 
       // Clear form
@@ -785,14 +833,65 @@ const App = (function() {
 
     try {
       State.setLoading(true);
+
+      // Handle application and wait for backend
       await API.handleApplication(appId, action);
+
+      // Reload data to ensure UI shows latest
+      await API.loadData(false); // Force refresh
+
+      // Update UI with fresh data
+      UI.updateAll();
+
       UI.toast.show(`Application ${action === 'approved' ? 'approved' : 'declined'} successfully!`, 'success');
+
+      // Refresh the applications display
       showPendingApplications();
     } catch (error) {
       Utils.error.log('Handle application', error);
       UI.toast.show(`Error updating application: ${Utils.error.getMessage(error)}`, 'error');
     } finally {
       State.setLoading(false);
+    }
+  }
+
+  // Toggle timeline visibility
+  function toggleTimeline() {
+    const isCollapsed = State.isTimelineCollapsed();
+    const container = document.getElementById('timelineContainer');
+    const toggleBtn = document.getElementById('timelineToggleBtn');
+    const toggleIcon = toggleBtn?.querySelector('.timeline-toggle-icon');
+
+    if (container) {
+      if (isCollapsed) {
+        // Expand
+        container.classList.remove('collapsed');
+        State.setTimelineCollapsed(false);
+        if (toggleIcon) {
+          toggleIcon.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+        }
+      } else {
+        // Collapse
+        container.classList.add('collapsed');
+        State.setTimelineCollapsed(true);
+        if (toggleIcon) {
+          toggleIcon.innerHTML = '<polyline points="6 15 12 9 18 15"></polyline>';
+        }
+      }
+    }
+  }
+
+  // Initialize timeline collapsed state on load
+  function initializeTimelineState() {
+    const isCollapsed = State.isTimelineCollapsed();
+    const container = document.getElementById('timelineContainer');
+    const toggleIcon = document.querySelector('.timeline-toggle-icon');
+
+    if (container && isCollapsed) {
+      container.classList.add('collapsed');
+      if (toggleIcon) {
+        toggleIcon.innerHTML = '<polyline points="6 15 12 9 18 15"></polyline>';
+      }
     }
   }
 
@@ -805,6 +904,7 @@ const App = (function() {
     deleteMember,
     toggleTimeSlot,
     toggleMemberTimeslots,
+    toggleTimeline,
     switchTab,
     changeLanguage,
     toggleMobileSettings,
