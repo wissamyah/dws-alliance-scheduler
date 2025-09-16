@@ -766,14 +766,17 @@ let currentLanguage = localStorage.getItem("selectedLanguage") || "en";
 // Translation helper function
 function t(key, replacements = {}) {
   let text = translations[currentLanguage]?.[key] || translations.en[key] || key;
-  
+
   // Replace placeholders like {username}, {error}, etc.
   Object.keys(replacements).forEach(placeholder => {
     text = text.replace(new RegExp(`\\{${placeholder}\\}`, 'g'), replacements[placeholder]);
   });
-  
+
   return text;
 }
+
+// Make translation function globally available
+window.t = t;
 
 
 // Update all translations on the page
@@ -798,22 +801,21 @@ function updateAllTranslations() {
   
   // Update dynamic timezone status text
   const confirmedTimezoneText = document.getElementById("confirmedTimezoneText");
-  if (confirmedTimezoneText && window.confirmedTimezone) {
-    confirmedTimezoneText.textContent = t("usingTimezone", { timezone: window.confirmedTimezone });
-  }
-  
-  // Re-render time slots UI to update day names
-  if (typeof window.renderUI === 'function') {
-    window.renderUI();
-  }
-  
-  // Re-render dynamic content
-  if (window.currentData) {
-    if (typeof window.renderMembers === 'function') {
-      window.renderMembers();
+  if (confirmedTimezoneText && window.State) {
+    const { confirmed } = window.State.getTimezone();
+    if (confirmed) {
+      confirmedTimezoneText.textContent = t("usingTimezone", { timezone: confirmed });
     }
-    if (typeof window.renderTimeline === 'function') {
-      window.renderTimeline();
-    }
+  }
+
+  // Re-render UI if modules are available
+  if (window.State && window.UI) {
+    window.UI.render.timeSlots();
+    window.UI.render.members();
+    window.UI.render.timeline();
   }
 }
+
+// Make functions globally available
+window.updateAllTranslations = updateAllTranslations;
+window.languages = languages;

@@ -95,7 +95,7 @@
     <!-- Mobile Settings Button -->
     <button
       class="mobile-settings-btn"
-      onclick="toggleMobileSettings()"
+      onclick="App.toggleMobileSettings()"
       id="mobileSettingsBtn"
     >
       ⚙️
@@ -107,23 +107,23 @@
         <div class="mobile-language-section">
           <h4 data-translate="language">Language</h4>
           <div class="mobile-language-options">
-            <div class="mobile-language-option" onclick="changeLanguage('en')">
+            <div class="mobile-language-option" onclick="App.changeLanguage('en')">
               <span class="flag">&#127482;&#127480;</span>
               <span class="lang-name">English</span>
             </div>
-            <div class="mobile-language-option" onclick="changeLanguage('pt')">
+            <div class="mobile-language-option" onclick="App.changeLanguage('pt')">
               <span class="flag">&#127463;&#127479;</span>
               <span class="lang-name">Português</span>
             </div>
-            <div class="mobile-language-option" onclick="changeLanguage('fr')">
+            <div class="mobile-language-option" onclick="App.changeLanguage('fr')">
               <span class="flag">&#127467;&#127479;</span>
               <span class="lang-name">Français</span>
             </div>
-            <div class="mobile-language-option" onclick="changeLanguage('es')">
+            <div class="mobile-language-option" onclick="App.changeLanguage('es')">
               <span class="flag">&#127466;&#127480;</span>
               <span class="lang-name">Español</span>
             </div>
-            <div class="mobile-language-option" onclick="changeLanguage('it')">
+            <div class="mobile-language-option" onclick="App.changeLanguage('it')">
               <span class="flag">&#127470;&#127481;</span>
               <span class="lang-name">Italiano</span>
             </div>
@@ -132,7 +132,7 @@
         <div class="mobile-logout-section">
           <button
             class="btn btn-danger mobile-logout-btn"
-            onclick="logout()"
+            onclick="App.logout()"
             data-translate="logout"
           >
             Logout
@@ -179,7 +179,7 @@
         </div>
         <button
           class="btn btn-danger"
-          onclick="logout()"
+          onclick="App.logout()"
           id="logoutBtn"
           style="display: none"
           data-translate="logout"
@@ -191,15 +191,15 @@
       <!-- Tab Navigation -->
       <div class="tab-navigation">
         <div class="tab-container">
-          <button class="tab-btn active" data-tab="submit-info" onclick="switchTab('submit-info')">
+          <button class="tab-btn active" data-tab="submit-info" onclick="App.switchTab('submit-info')">
             <span class="tab-icon">📝</span>
             <span class="tab-text" data-translate="submitInfoTab">Submit Info</span>
           </button>
-          <button class="tab-btn" data-tab="registration-form" onclick="switchTab('registration-form')">
+          <button class="tab-btn" data-tab="registration-form" onclick="App.switchTab('registration-form')">
             <span class="tab-icon">📋</span>
             <span class="tab-text" data-translate="registrationFormTab">Registration Form</span>
           </button>
-          <button class="tab-btn" data-tab="view-alliance" onclick="switchTab('view-alliance')">
+          <button class="tab-btn" data-tab="view-alliance" onclick="App.switchTab('view-alliance')">
             <span class="tab-icon">👥</span>
             <span class="tab-text" data-translate="viewAllianceTab">View Alliance</span>
           </button>
@@ -248,14 +248,14 @@
           <div class="modal-buttons">
             <button
               class="btn btn-success"
-              onclick="confirmTimezone()"
+              onclick="App.confirmTimezone()"
               data-translate="confirmContinue"
             >
               ✅ Confirm & Continue
             </button>
             <button
               class="btn"
-              onclick="changeTimezone()"
+              onclick="App.changeTimezone()"
               data-translate="changeTimezone"
             >
               🔄 Change Timezone
@@ -296,7 +296,7 @@
             />
             <button
               class="btn"
-              onclick="authenticate()"
+              onclick="App.authenticate()"
               data-translate="authenticate"
             >
               Authenticate
@@ -364,7 +364,7 @@
           <p id="confirmedTimezoneText">--</p>
           <button
             class="change-btn"
-            onclick="changeTimezone()"
+            onclick="App.changeTimezone()"
             data-translate="changeTimezone"
           >
             Change Timezone
@@ -442,7 +442,7 @@
         <div id="timeSlotInputs"></div>
         <button
           class="btn btn-success"
-          onclick="submitMemberInfo()"
+          onclick="App.submitMemberInfo()"
           id="submitBtn"
           data-translate="submitInformation"
         >
@@ -481,7 +481,7 @@
             </div>
           </div>
 
-          <form id="registrationForm" onsubmit="handleRegistrationSubmit(event)">
+          <form id="registrationForm" onsubmit="App.handleRegistrationSubmit(event)">
             <div class="form-grid">
               <!-- Basic Info -->
               <div class="form-group">
@@ -636,7 +636,7 @@
             <div style="text-align: center;">
               <button 
                 class="btn" 
-                onclick="requestAdminAccess()" 
+                onclick="App.requestAdminAccess()" 
                 data-translate="viewPendingApplications"
                 style="background: linear-gradient(135deg, #ff6b35 0%, #cc5429 100%);"
               >
@@ -678,7 +678,7 @@
                 id="memberSearchInput"
                 class="member-search-input"
                 placeholder="Search members..."
-                oninput="filterMembers()"
+                oninput="App.filterMembers()"
               />
               <div class="search-icon">🔍</div>
             </div>
@@ -688,7 +688,18 @@
       </div>
     </div>
 
+    <!-- Core modules -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/ui.js"></script>
+
+    <!-- Translation system -->
     <script src="translations.js"></script>
-    <script src="script.js"></script>
+
+    <!-- Main application -->
+    <script src="js/app.js"></script>
   </body>
 </html>
