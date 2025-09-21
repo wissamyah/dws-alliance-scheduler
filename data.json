@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-21T14:30:32.420Z",
+  "lastUpdated": "2025-09-21T16:13:58.236Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3297,6 +3297,42 @@
       },
       "submittedAt": "2025-09-21T14:30:32.412Z",
       "id": 1758465032419
+    },
+    {
+      "username": "Zoe84",
+      "carPower": 107000000,
+      "towerLevel": 31,
+      "timezone": "UTC+1",
+      "availability": {
+        "monday": [
+          "slot11"
+        ],
+        "tuesday": [
+          "slot6",
+          "slot7"
+        ],
+        "wednesday": [
+          "slot6",
+          "slot7",
+          "slot11"
+        ],
+        "thursday": [
+          "slot6",
+          "slot7"
+        ],
+        "friday": [
+          "slot11"
+        ],
+        "saturday": [
+          "slot11"
+        ],
+        "sunday": [
+          "slot7",
+          "slot11"
+        ]
+      },
+      "submittedAt": "2025-09-21T16:13:58.232Z",
+      "id": 1758471238233
     }
   ],
   "pendingSubmissions": [],
