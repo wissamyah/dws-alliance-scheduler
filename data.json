@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-21T19:17:56.299Z",
+  "lastUpdated": "2025-09-21T19:38:31.974Z",
   "members": [
     {
       "id": 1754285775134,
@@ -1426,8 +1426,8 @@
     {
       "id": 1755147090675,
       "username": "SiG",
-      "carPower": 42000000,
-      "towerLevel": 30,
+      "carPower": 61000000,
+      "towerLevel": 31,
       "timezone": "UTC+2",
       "availability": {
         "monday": [
