@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-21T19:38:31.974Z",
+  "lastUpdated": "2025-09-21T19:44:13.791Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2360,8 +2360,8 @@
     {
       "id": 1754570620838,
       "username": "Muromets",
-      "carPower": 20100000,
-      "towerLevel": 27,
+      "carPower": 32300000,
+      "towerLevel": 28,
       "timezone": "UTC-5",
       "availability": {
         "monday": [
