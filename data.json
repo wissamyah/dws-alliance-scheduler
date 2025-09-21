@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-21T17:50:26.034Z",
+  "lastUpdated": "2025-09-21T17:58:41.004Z",
   "members": [
     {
       "id": 1754285775134,
@@ -2045,8 +2045,8 @@
     {
       "id": 1754335429450,
       "username": "IMPERIO LTD",
-      "carPower": 25400000,
-      "towerLevel": 29,
+      "carPower": 75000000,
+      "towerLevel": 31,
       "timezone": "UTC-3",
       "availability": {
         "monday": [
