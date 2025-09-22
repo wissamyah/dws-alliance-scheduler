@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-22T18:49:29.049Z",
+  "lastUpdated": "2025-09-22T18:55:10.743Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3477,6 +3477,15 @@
       },
       "submittedAt": "2025-09-22T18:43:39.905Z",
       "id": 1758566619916
+    },
+    {
+      "username": "Anton Lavey",
+      "carPower": 83000000,
+      "towerLevel": 29,
+      "timezone": "UTC+1",
+      "availability": {},
+      "submittedAt": "2025-09-22T18:55:10.742Z",
+      "id": 1758567310743
     }
   ],
   "pendingSubmissions": [],
