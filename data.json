@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-22T18:57:50.100Z",
+  "lastUpdated": "2025-09-22T18:59:37.913Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3576,6 +3576,19 @@
       "motivation": "Fun",
       "id": 1758567470098,
       "submittedAt": "2025-09-22T18:57:50.098Z",
+      "status": "pending"
+    },
+    {
+      "username": "Birker",
+      "carPower": 18300000,
+      "towerLevel": 28,
+      "dailyPoints": 1300000,
+      "exAlliances": "Tnf",
+      "whyLeft": "Not enough players",
+      "whyJoin": "Because gixx asked me to join",
+      "motivation": "To have fun",
+      "id": 1758567577913,
+      "submittedAt": "2025-09-22T18:59:37.913Z",
       "status": "pending"
     }
   ]
