@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-22T19:20:27.729Z",
+  "lastUpdated": "2025-09-22T19:21:59.468Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3494,21 +3494,20 @@
       "timezone": "UTC+2",
       "availability": {
         "monday": [
-          "slot6",
+          "slot7",
+          "slot8",
           "slot9",
           "slot10",
           "slot11"
         ],
         "tuesday": [
-          "slot5",
+          "slot7",
           "slot8",
           "slot9",
           "slot10",
           "slot11"
         ],
         "wednesday": [
-          "slot5",
-          "slot6",
           "slot10",
           "slot11"
         ],
@@ -3522,7 +3521,6 @@
           "slot11"
         ],
         "friday": [
-          "slot6",
           "slot7",
           "slot8",
           "slot9",
@@ -3530,7 +3528,7 @@
           "slot11"
         ]
       },
-      "submittedAt": "2025-09-22T19:13:27.822Z",
+      "submittedAt": "2025-09-22T19:21:59.466Z",
       "id": 1758568407823
     }
   ],
