@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-27T04:56:55.718Z",
+  "lastUpdated": "2025-09-27T10:50:18.661Z",
   "members": [
     {
       "id": 1754285775134,
@@ -1385,8 +1385,8 @@
     {
       "id": 1754339827474,
       "username": "Darkwilist",
-      "carPower": 47200000,
-      "towerLevel": 29,
+      "carPower": 75000000,
+      "towerLevel": 30,
       "timezone": "UTC+2",
       "availability": {
         "monday": [
