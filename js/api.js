@@ -16,7 +16,9 @@ const API = (function() {
   // Get headers for API requests
   function getHeaders(token) {
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache'
     };
 
     if (token) {
@@ -118,7 +120,10 @@ const API = (function() {
       }
 
       const request = async () => {
-        const response = await fetch(buildUrl());
+        const response = await fetch(buildUrl(), {
+          cache: 'no-store',
+          headers: getHeaders()
+        });
         const file = await processResponse(response);
 
         const content = atob(file.content);
@@ -138,7 +143,8 @@ const API = (function() {
     async testAuth(token) {
       const request = async () => {
         const response = await fetch(`${GITHUB_API_BASE}/user`, {
-          headers: getHeaders(token)
+          headers: getHeaders(token),
+          cache: 'no-store'
         });
 
         if (response.status === 401) {
@@ -163,9 +169,10 @@ const API = (function() {
 
       // Use request queue to ensure atomic operation
       const request = async () => {
-        // Fetch LATEST data from GitHub
+        // Fetch LATEST data from GitHub (no cache)
         const currentFileResponse = await fetch(buildUrl(), {
-          headers: getHeaders(auth.token)
+          headers: getHeaders(auth.token),
+          cache: 'no-store'
         });
 
         const currentFile = await processResponse(currentFileResponse);
@@ -244,9 +251,10 @@ const API = (function() {
 
       // Use request queue to ensure atomic operation
       const request = async () => {
-        // Fetch LATEST data from GitHub
+        // Fetch LATEST data from GitHub (no cache)
         const currentFileResponse = await fetch(buildUrl(), {
-          headers: getHeaders(auth.token)
+          headers: getHeaders(auth.token),
+          cache: 'no-store'
         });
 
         const currentFile = await processResponse(currentFileResponse);
@@ -370,9 +378,10 @@ const API = (function() {
 
       // Use request queue to ensure atomic operation
       const request = async () => {
-        // Fetch LATEST data from GitHub
+        // Fetch LATEST data from GitHub (no cache)
         const currentFileResponse = await fetch(buildUrl(), {
-          headers: getHeaders(auth.token)
+          headers: getHeaders(auth.token),
+          cache: 'no-store'
         });
 
         const currentFile = await processResponse(currentFileResponse);
@@ -422,7 +431,8 @@ const API = (function() {
     async checkRateLimit(token) {
       const request = async () => {
         const response = await fetch(`${GITHUB_API_BASE}/rate_limit`, {
-          headers: getHeaders(token)
+          headers: getHeaders(token),
+          cache: 'no-store'
         });
 
         return processResponse(response);
