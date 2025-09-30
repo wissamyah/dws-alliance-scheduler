@@ -1,0 +1,79 @@
+<!-- Authentication Modal -->
+<div id="authModal" class="auth-modal">
+  <div class="auth-modal-content">
+    <button class="auth-modal-close" onclick="App.closeAuthModal()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="auth-card-modal">
+      <div class="auth-card-header">
+        <div class="auth-icon-container">
+          <svg class="auth-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h2 class="auth-title" data-translate="authRequired">Authentication Required</h2>
+        <p class="auth-subtitle" data-translate="authSubtitle">Secure access to alliance coordination tools</p>
+      </div>
+      <div class="auth-card-body">
+        <div class="auth-status-badge" id="modalAuthStatusBadge">
+          <span class="status-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </span>
+          <span id="modalAuthStatus" data-translate="notAuthenticated">Not authenticated</span>
+        </div>
+        <div id="modalAuthControls">
+          <form onsubmit="App.authenticateFromModal(); return false;" autocomplete="off">
+            <div class="auth-input-group">
+              <label class="auth-label" for="modalGithubToken" data-translate="tokenLabel">
+                Access Token
+              </label>
+              <div class="auth-input-wrapper">
+                <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                </svg>
+                <input
+                  type="password"
+                  id="modalGithubToken"
+                  class="auth-input"
+                  placeholder="Enter your GitHub personal access token"
+                  data-translate-placeholder="githubTokenPlaceholder"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="auth-btn"
+              data-translate="authenticate"
+            >
+              <span class="btn-text">Authenticate</span>
+              <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+        <div class="auth-success" id="modalAuthSuccess" style="display: none;">
+          <div class="success-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="success-title" data-translate="authenticationSuccessful">Authentication Successful!</h3>
+          <p class="success-message" data-translate="authSuccessMessage">
+            You can now submit your alliance information.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,237 @@
+      <!-- Submit Info Tab Content -->
+      <div id="submit-info-tab" class="tab-content active">
+        <div id="authSection" class="auth-section" style="display: none;">
+          <div class="auth-card">
+            <div class="auth-card-header">
+              <div class="auth-icon-container">
+                <svg class="auth-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h2 class="auth-title" data-translate="authRequired">Authentication Required</h2>
+              <p class="auth-subtitle" data-translate="authSubtitle">Secure access to alliance coordination tools</p>
+            </div>
+
+            <div class="auth-card-body">
+              <div class="auth-status-badge">
+                <span class="status-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </span>
+                <span id="authStatus" data-translate="notAuthenticated">Not authenticated</span>
+              </div>
+
+              <div id="authControls">
+                <form onsubmit="App.authenticate(); return false;" autocomplete="off">
+                  <div class="auth-input-group">
+                    <label class="auth-label" for="githubToken" data-translate="tokenLabel">
+                      Access Token
+                    </label>
+                    <div class="auth-input-wrapper">
+                      <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                      </svg>
+                      <input
+                        type="password"
+                        id="githubToken"
+                        class="auth-input"
+                        data-translate-placeholder="githubTokenPlaceholder"
+                        placeholder="Enter your token"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    class="auth-btn"
+                    data-translate="authenticate"
+                  >
+                  <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10 17 15 12 10 7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                  </svg>
+                  Authenticate
+                </button>
+
+                <div class="auth-help-text">
+                  <svg class="help-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  <span data-translate="authDescription">All members must authenticate before submitting information</span>
+                </div>
+
+                <div class="auth-divider">
+                  <span>Need help?</span>
+                </div>
+
+                <div class="auth-contact-info">
+                  <svg class="contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  <span data-translate="contactR4R5">Contact your alliance R4/R5 for the token</span>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="member-form">
+        <h2 data-translate="submitInfo">Submit Your Information</h2>
+
+        <!-- Update Instructions -->
+        <div
+          style="
+            background: #1a1a2e;
+            border: 1px solid #4a9eff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+          "
+        >
+          <h4
+            style="color: #4a9eff; margin: 0 0 10px 0"
+            data-translate="howUpdatesWork"
+          >
+            💡 How Updates Work
+          </h4>
+          <div style="color: #ccc; font-size: 14px; line-height: 1.5">
+            <p style="margin: 0 0 8px 0">
+              <strong>Quick Update:</strong>
+              <span data-translate="quickUpdate"
+                >Enter your username + new car power and/or tower level → your
+                time slots stay the same</span
+              >
+            </p>
+            <p style="margin: 0 0 8px 0">
+              <strong>Full Update:</strong>
+              <span data-translate="fullUpdate"
+                >Enter your username + select new time slots → update everything
+                (car power/tower optional)</span
+              >
+            </p>
+            <p
+              style="margin: 0; color: #888; font-size: 13px"
+              data-translate="newMembersNote"
+            >
+              New members must fill all fields including time slots
+            </p>
+          </div>
+        </div>
+
+        <!-- Timezone Status Display -->
+        <div id="timezoneStatus" class="timezone-status" style="display: none">
+          <h4 data-translate="timezoneConfirmed">✅ Timezone Confirmed</h4>
+          <p id="confirmedTimezoneText">--</p>
+          <button
+            class="change-btn"
+            onclick="App.changeTimezone()"
+            data-translate="changeTimezone"
+          >
+            Change Timezone
+          </button>
+        </div>
+
+        <!-- Timezone Locked Message -->
+        <div
+          id="timezoneLocked"
+          class="timezone-locked-message"
+          style="display: block"
+        >
+          <h3 data-translate="timezoneSetupRequired">
+            🔒 Timezone Setup Required
+          </h3>
+          <p data-translate="confirmTimezoneFirst">
+            Please confirm your timezone first to enable time slot selection.
+          </p>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label data-translate="inGameUsername">In-Game Username</label>
+            <input
+              type="text"
+              id="username"
+              data-translate-placeholder="usernamePlaceholder"
+              placeholder="Your username"
+            />
+          </div>
+          <div class="form-group">
+            <label data-translate="mainCarPower">Main Car Power</label>
+            <input
+              type="number"
+              id="carPower"
+              data-translate-placeholder="carPowerPlaceholder"
+              placeholder="e.g., 150000"
+            />
+          </div>
+          <div class="form-group">
+            <label data-translate="towerLevel">Tower Level</label>
+            <input
+              type="number"
+              id="towerLevel"
+              min="1"
+              max="33"
+              data-translate-placeholder="towerLevelPlaceholder"
+              placeholder="1-33"
+            />
+          </div>
+          <div
+            class="form-group"
+            id="manualTimezoneGroup"
+            style="display: none"
+          >
+            <label>Timezone</label>
+            <select id="timezone"></select>
+            <small
+              id="serverTimeInfo"
+              style="color: #888; display: block; margin-top: 5px"
+            ></small>
+          </div>
+        </div>
+        <div class="time-slots-section">
+          <div class="time-slots-header">
+            <div>
+              <h3 style="margin: 0" data-translate="availableTimeSlots">
+                Available Time Slots
+              </h3>
+              <p
+                style="color: #888; margin: 5px 0 0; font-size: 14px"
+                data-translate="timeSlotDescription"
+              >
+                Select when you're usually available (2-hour blocks in your local
+                time)
+              </p>
+            </div>
+            <button class="time-slots-toggle-btn" onclick="App.toggleTimeSlots()" id="timeSlotsToggleBtn">
+              <svg class="time-slots-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 15 12 9 18 15"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="time-slots-container collapsed" id="timeSlotsContainer">
+            <div id="timeSlotHeaders"></div>
+            <div id="timeSlotInputs"></div>
+          </div>
+        </div>
+        <button
+          class="btn btn-success"
+          onclick="App.submitMemberInfo()"
+          id="submitBtn"
+          data-translate="submitInformation"
+          style="margin-top: 20px"
+        >
+          Submit Information
+        </button>
+        </div>
+      </div>
+

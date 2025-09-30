@@ -1,0 +1,21 @@
+<!-- Floating Auth Button -->
+<button id="floatingAuthBtn" class="floating-auth-btn" onclick="App.openAuthModal()">
+  <div class="fab-notification" id="fabNotification">
+    <span data-translate="clickToAuth">Click to authenticate</span>
+    <div class="notification-arrow"></div>
+  </div>
+  <svg class="fab-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+  </svg>
+  <div class="fab-ripple"></div>
+</button>
+
+<!-- Mobile Settings Button -->
+<button
+  class="mobile-settings-btn"
+  onclick="App.toggleMobileSettings()"
+  id="mobileSettingsBtn"
+>
+  ⚙️
+</button>

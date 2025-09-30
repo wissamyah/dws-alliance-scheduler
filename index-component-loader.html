@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Dark Creed Alliance</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Component Placeholders - Dynamically loaded -->
+    <div id="component-skeleton-loader"></div>
+    <div id="component-auth-modal"></div>
+    <div id="component-floating-buttons"></div>
+    <div id="component-mobile-settings"></div>
+
+    <div class="container">
+      <!-- Header Component -->
+      <div id="component-header"></div>
+
+      <!-- Modals -->
+      <div id="component-timezone-modal"></div>
+      <div id="component-custom-modal"></div>
+
+      <!-- Tab Navigation -->
+      <div id="component-tab-navigation"></div>
+
+      <!-- Tab Contents -->
+      <div id="component-submit-info-tab"></div>
+      <div id="component-registration-tab"></div>
+      <div id="component-view-alliance-tab"></div>
+    </div>
+
+    <!-- Component Loader - Load first! -->
+    <script src="js/componentLoader.js"></script>
+
+    <!-- Core modules -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/ui.js"></script>
+
+    <!-- Translation system -->
+    <script src="translations.js"></script>
+
+    <!-- Main application -->
+    <script src="js/app.js"></script>
+
+    <!-- Initialize component loading -->
+    <script>
+      // Load all components when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeComponents);
+      } else {
+        initializeComponents();
+      }
+
+      async function initializeComponents() {
+        try {
+          await ComponentLoader.loadAll();
+          console.log('✅ All components loaded successfully');
+        } catch (error) {
+          console.error('❌ Error loading components:', error);
+        }
+      }
+    </script>
+  </body>
+</html>

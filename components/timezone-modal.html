@@ -1,0 +1,57 @@
+<!-- Timezone Confirmation Modal -->
+<div id="timezoneModal" class="modal-overlay">
+  <div class="modal-content">
+    <h3 data-translate="timezoneTitle">🌍 Confirm Your Timezone</h3>
+    <p data-translate="timezoneDescription">
+      We've detected your timezone automatically. Please confirm it's
+      correct before proceeding:
+    </p>
+
+    <div class="timezone-info">
+      <h4 data-translate="detectedInfo">📍 Detected Information</h4>
+      <div class="timezone-comparison">
+        <div class="timezone-item">
+          <h5 data-translate="yourLocalTime">Your Local Time</h5>
+          <div class="time" id="userLocalTime">--:--</div>
+          <div class="zone" id="userTimezone">Loading...</div>
+        </div>
+        <div class="timezone-item">
+          <h5 data-translate="serverTime">Server Time</h5>
+          <div class="time" id="serverTime">--:--</div>
+          <div class="zone">UTC-2</div>
+        </div>
+      </div>
+
+      <div class="time-relationship">
+        <div class="relationship-text" id="timeRelationship">
+          Calculating...
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-bottom: 25px">
+      <strong>Important:</strong>
+      <span data-translate="timezoneImportant"
+        >Your time slot selections will be converted to server time
+        (UTC-2) for coordination.</span
+      >
+    </p>
+
+    <div class="modal-buttons">
+      <button
+        class="btn btn-success"
+        onclick="App.confirmTimezone()"
+        data-translate="confirmContinue"
+      >
+        ✅ Confirm & Continue
+      </button>
+      <button
+        class="btn"
+        onclick="App.changeTimezone()"
+        data-translate="changeTimezone"
+      >
+        🔄 Change Timezone
+      </button>
+    </div>
+  </div>
+</div>

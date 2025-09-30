@@ -645,7 +645,15 @@ const App = (function() {
 
     } catch (error) {
       Utils.error.log('Submit member info', error);
-      UI.toast.show(t('errorSavingData', { error: Utils.error.getMessage(error) }), 'error');
+
+      // Handle authentication errors specifically
+      if (error.requiresAuth || error.status === 401 || error.status === 403) {
+        UI.toast.show(t('sessionExpired') || 'Your session has expired. Please authenticate again.', 'error');
+        // Show auth modal
+        openAuthModal();
+      } else {
+        UI.toast.show(t('errorSavingData', { error: Utils.error.getMessage(error) }), 'error');
+      }
     } finally {
       State.setLoading(false);
     }
@@ -685,7 +693,14 @@ const App = (function() {
         UI.toast.show(t('memberRemoved', { memberName: member.username }), 'success');
       } catch (error) {
         Utils.error.log('Delete member', error);
-        UI.toast.show(t('errorSavingData', { error: Utils.error.getMessage(error) }), 'error');
+
+        // Handle authentication errors specifically
+        if (error.requiresAuth || error.status === 401 || error.status === 403) {
+          UI.toast.show(t('sessionExpired') || 'Your session has expired. Please authenticate again.', 'error');
+          openAuthModal();
+        } else {
+          UI.toast.show(t('errorSavingData', { error: Utils.error.getMessage(error) }), 'error');
+        }
       } finally {
         State.setLoading(false);
       }
@@ -744,7 +759,14 @@ const App = (function() {
 
     } catch (error) {
       Utils.error.log('Submit registration', error);
-      UI.toast.show(`Error submitting registration: ${Utils.error.getMessage(error)}`, 'error');
+
+      // Handle authentication errors specifically
+      if (error.requiresAuth || error.status === 401 || error.status === 403) {
+        UI.toast.show(t('sessionExpired') || 'Your session has expired. Please authenticate again.', 'error');
+        openAuthModal();
+      } else {
+        UI.toast.show(`Error submitting registration: ${Utils.error.getMessage(error)}`, 'error');
+      }
     } finally {
       State.setLoading(false);
     }
@@ -1113,7 +1135,14 @@ const App = (function() {
       showPendingApplications();
     } catch (error) {
       Utils.error.log('Handle application', error);
-      UI.toast.show(`Error updating application: ${Utils.error.getMessage(error)}`, 'error');
+
+      // Handle authentication errors specifically
+      if (error.requiresAuth || error.status === 401 || error.status === 403) {
+        UI.toast.show(t('sessionExpired') || 'Your session has expired. Please authenticate again.', 'error');
+        openAuthModal();
+      } else {
+        UI.toast.show(`Error updating application: ${Utils.error.getMessage(error)}`, 'error');
+      }
     } finally {
       State.setLoading(false);
     }

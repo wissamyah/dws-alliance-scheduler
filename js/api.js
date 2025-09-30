@@ -64,6 +64,13 @@ const API = (function() {
         // Ignore JSON parsing errors for error response
       }
 
+      // Handle 401/403 specifically - clear invalid authentication
+      if (error.status === 401 || error.status === 403) {
+        State.setAuth(null, false);
+        error.message = "Authentication expired or invalid. Please log in again.";
+        error.requiresAuth = true;
+      }
+
       throw error;
     }
 
@@ -127,92 +134,6 @@ const API = (function() {
       return retryRequest(request);
     },
 
-    // Save data to GitHub
-    async saveData(data, message = "Update alliance data") {
-      const auth = State.getAuth();
-
-      if (!auth.isAuthenticated || !auth.token) {
-        throw new Error("Authentication required to save data");
-      }
-
-      const request = async () => {
-        // Prepare data for saving
-        const saveData = { ...data };
-        saveData.lastUpdated = new Date().toISOString();
-
-        // Don't include sha in the content
-        const sha = saveData.sha;
-        delete saveData.sha;
-
-        const content = btoa(JSON.stringify(saveData, null, 2));
-
-        const response = await fetch(buildUrl(), {
-          method: 'PUT',
-          headers: getHeaders(auth.token),
-          body: JSON.stringify({
-            message,
-            content,
-            sha
-          })
-        });
-
-        const result = await processResponse(response);
-
-        // Update sha for next save
-        data.sha = result.content.sha;
-
-        // Update state with saved data
-        State.setData(data);
-
-        return result;
-      };
-
-      return addToQueue(() => retryRequest(request));
-    },
-
-    // Save registration data (using registration token)
-    async saveRegistrationData(data, message = "Add new registration application") {
-      const token = State.getAuth().token || Config.getRegistrationToken();
-
-      if (!token) {
-        throw new Error("Registration token is required");
-      }
-
-      const request = async () => {
-        // Prepare data for saving
-        const saveData = { ...data };
-        saveData.lastUpdated = new Date().toISOString();
-
-        // Don't include sha in the content
-        const sha = saveData.sha;
-        delete saveData.sha;
-
-        const content = btoa(JSON.stringify(saveData, null, 2));
-
-        const response = await fetch(buildUrl(), {
-          method: 'PUT',
-          headers: getHeaders(token),
-          body: JSON.stringify({
-            message,
-            content,
-            sha
-          })
-        });
-
-        const result = await processResponse(response);
-
-        // Update sha for next save
-        data.sha = result.content.sha;
-
-        // Update state with saved data
-        State.setData(data);
-
-        return result;
-      };
-
-      return addToQueue(() => retryRequest(request));
-    },
-
     // Test authentication
     async testAuth(token) {
       const request = async () => {
@@ -232,115 +153,269 @@ const API = (function() {
 
     // Submit member info
     async submitMemberInfo(memberData) {
-      const data = State.getData();
-
-      if (!data) {
-        throw new Error("No data loaded");
+      // CRITICAL: Validate authentication BEFORE any processing
+      const auth = State.getAuth();
+      if (!auth.isAuthenticated || !auth.token) {
+        const error = new Error("Authentication required to submit data");
+        error.requiresAuth = true;
+        throw error;
       }
 
-      // Check if member exists
-      const existingIndex = Utils.data.getMemberIndex(data.members, memberData.username);
+      // Use request queue to ensure atomic operation
+      const request = async () => {
+        // Fetch LATEST data from GitHub
+        const currentFileResponse = await fetch(buildUrl(), {
+          headers: getHeaders(auth.token)
+        });
 
-      if (existingIndex !== -1) {
-        // Update existing member
-        const existing = data.members[existingIndex];
+        const currentFile = await processResponse(currentFileResponse);
+        const latestSha = currentFile.sha;
 
-        // Smart update logic
-        const hasTimeSlotsSelected = Object.keys(memberData.availability || {}).length > 0;
+        // Parse the LATEST content
+        const content = atob(currentFile.content);
+        const freshData = JSON.parse(content);
 
-        if (!hasTimeSlotsSelected) {
-          // Quick update mode
-          if (memberData.carPower) existing.carPower = memberData.carPower;
-          if (memberData.towerLevel) existing.towerLevel = memberData.towerLevel;
-        } else {
-          // Full update mode
-          memberData.id = existing.id;
-          memberData.username = existing.username; // Keep original format
-          if (!memberData.carPower) memberData.carPower = existing.carPower;
-          if (!memberData.towerLevel) memberData.towerLevel = existing.towerLevel;
-          data.members[existingIndex] = memberData;
+        if (!freshData || !freshData.members) {
+          throw new Error("Failed to load current data from GitHub");
         }
-      } else {
-        // Add new member
-        memberData.id = Date.now();
-        data.members.push(memberData);
-      }
 
-      // Save to GitHub
-      await this.saveData(data);
+        // Check if member exists in the FRESH data
+        const existingIndex = Utils.data.getMemberIndex(freshData.members, memberData.username);
 
-      return { isUpdate: existingIndex !== -1, member: memberData };
+        if (existingIndex !== -1) {
+          // Update existing member
+          const existing = freshData.members[existingIndex];
+
+          // Smart update logic
+          const hasTimeSlotsSelected = Object.keys(memberData.availability || {}).length > 0;
+
+          if (!hasTimeSlotsSelected) {
+            // Quick update mode
+            if (memberData.carPower) existing.carPower = memberData.carPower;
+            if (memberData.towerLevel) existing.towerLevel = memberData.towerLevel;
+          } else {
+            // Full update mode
+            memberData.id = existing.id;
+            memberData.username = existing.username; // Keep original format
+            if (!memberData.carPower) memberData.carPower = existing.carPower;
+            if (!memberData.towerLevel) memberData.towerLevel = existing.towerLevel;
+            freshData.members[existingIndex] = memberData;
+          }
+        } else {
+          // Add new member
+          memberData.id = Date.now();
+          freshData.members.push(memberData);
+        }
+
+        // Update timestamp
+        freshData.lastUpdated = new Date().toISOString();
+
+        // Save with the SAME SHA we just fetched (atomic operation)
+        const newContent = btoa(JSON.stringify(freshData, null, 2));
+
+        const response = await fetch(buildUrl(), {
+          method: 'PUT',
+          headers: getHeaders(auth.token),
+          body: JSON.stringify({
+            message: `Update member: ${memberData.username}`,
+            content: newContent,
+            sha: latestSha  // Use the SHA from THIS fetch
+          })
+        });
+
+        const result = await processResponse(response);
+
+        // DO NOT update State here - caller must reload from GitHub
+        return { isUpdate: existingIndex !== -1, member: memberData };
+      };
+
+      return addToQueue(() => retryRequest(request));
     },
 
     // Delete member
     async deleteMember(memberId) {
-      const data = State.getData();
-
-      if (!data) {
-        throw new Error("No data loaded");
+      // CRITICAL: Validate authentication BEFORE any processing
+      const auth = State.getAuth();
+      if (!auth.isAuthenticated || !auth.token) {
+        const error = new Error("Authentication required to delete data");
+        error.requiresAuth = true;
+        throw error;
       }
 
-      const member = data.members.find(m => m.id === memberId);
-      if (!member) {
-        throw new Error("Member not found");
-      }
+      // Use request queue to ensure atomic operation
+      const request = async () => {
+        // Fetch LATEST data from GitHub
+        const currentFileResponse = await fetch(buildUrl(), {
+          headers: getHeaders(auth.token)
+        });
 
-      // Remove member from array
-      data.members = data.members.filter(m => m.id !== memberId);
+        const currentFile = await processResponse(currentFileResponse);
+        const latestSha = currentFile.sha;
 
-      // Save to GitHub
-      await this.saveData(data, `Remove member: ${member.username}`);
+        // Parse the LATEST content
+        const content = atob(currentFile.content);
+        const freshData = JSON.parse(content);
 
-      return member;
+        if (!freshData || !freshData.members) {
+          throw new Error("Failed to load current data from GitHub");
+        }
+
+        const member = freshData.members.find(m => m.id === memberId);
+        if (!member) {
+          throw new Error("Member not found");
+        }
+
+        // Remove member from array
+        freshData.members = freshData.members.filter(m => m.id !== memberId);
+
+        // Update timestamp
+        freshData.lastUpdated = new Date().toISOString();
+
+        // Save with the SAME SHA we just fetched (atomic operation)
+        const newContent = btoa(JSON.stringify(freshData, null, 2));
+
+        const response = await fetch(buildUrl(), {
+          method: 'PUT',
+          headers: getHeaders(auth.token),
+          body: JSON.stringify({
+            message: `Remove member: ${member.username}`,
+            content: newContent,
+            sha: latestSha  // Use the SHA from THIS fetch
+          })
+        });
+
+        const result = await processResponse(response);
+
+        // DO NOT update State here - caller must reload from GitHub
+        return member;
+      };
+
+      return addToQueue(() => retryRequest(request));
     },
 
     // Submit registration
     async submitRegistration(registrationData) {
-      const data = State.getData();
+      const token = Config.getRegistrationToken();
 
-      if (!data) {
-        throw new Error("No data loaded");
+      if (!token) {
+        const error = new Error("Registration token is required");
+        error.requiresAuth = true;
+        throw error;
       }
 
-      // Initialize registrations array if it doesn't exist
-      if (!data.registrations) {
-        data.registrations = [];
-      }
+      // Use request queue to ensure atomic operation
+      const request = async () => {
+        // Fetch LATEST data from GitHub
+        const currentFileResponse = await fetch(buildUrl(), {
+          headers: getHeaders(token)
+        });
 
-      // Add registration
-      registrationData.id = Date.now();
-      registrationData.submittedAt = new Date().toISOString();
-      registrationData.status = 'pending';
+        const currentFile = await processResponse(currentFileResponse);
+        const latestSha = currentFile.sha;
 
-      data.registrations.push(registrationData);
+        // Parse the LATEST content
+        const content = atob(currentFile.content);
+        const freshData = JSON.parse(content);
 
-      // Save using registration token
-      await this.saveRegistrationData(data);
+        if (!freshData) {
+          throw new Error("Failed to load current data from GitHub");
+        }
 
-      return registrationData;
+        // Initialize registrations array if it doesn't exist
+        if (!freshData.registrations) {
+          freshData.registrations = [];
+        }
+
+        // Add registration
+        registrationData.id = Date.now();
+        registrationData.submittedAt = new Date().toISOString();
+        registrationData.status = 'pending';
+
+        freshData.registrations.push(registrationData);
+
+        // Update timestamp
+        freshData.lastUpdated = new Date().toISOString();
+
+        // Save with the SAME SHA we just fetched (atomic operation)
+        const newContent = btoa(JSON.stringify(freshData, null, 2));
+
+        const response = await fetch(buildUrl(), {
+          method: 'PUT',
+          headers: getHeaders(token),
+          body: JSON.stringify({
+            message: `New registration: ${registrationData.username}`,
+            content: newContent,
+            sha: latestSha  // Use the SHA from THIS fetch
+          })
+        });
+
+        const result = await processResponse(response);
+
+        // DO NOT update State here - caller must reload from GitHub
+        return registrationData;
+      };
+
+      return addToQueue(() => retryRequest(request));
     },
 
     // Handle registration application (approve/decline)
     async handleApplication(appId, action) {
-      const data = State.getData();
-
-      if (!data || !data.registrations) {
-        throw new Error("No registrations found");
+      // CRITICAL: Validate authentication BEFORE any processing
+      const auth = State.getAuth();
+      if (!auth.isAuthenticated || !auth.token) {
+        const error = new Error("Authentication required to handle applications");
+        error.requiresAuth = true;
+        throw error;
       }
 
-      const appIndex = data.registrations.findIndex(app => app.id === appId);
-      if (appIndex === -1) {
-        throw new Error("Application not found");
-      }
+      // Use request queue to ensure atomic operation
+      const request = async () => {
+        // Fetch LATEST data from GitHub
+        const currentFileResponse = await fetch(buildUrl(), {
+          headers: getHeaders(auth.token)
+        });
 
-      // Update application status
-      data.registrations[appIndex].status = action;
-      data.registrations[appIndex].reviewedAt = new Date().toISOString();
+        const currentFile = await processResponse(currentFileResponse);
+        const latestSha = currentFile.sha;
 
-      // Save using registration token
-      await this.saveRegistrationData(data, `${action} registration application`);
+        // Parse the LATEST content
+        const content = atob(currentFile.content);
+        const freshData = JSON.parse(content);
 
-      return data.registrations[appIndex];
+        if (!freshData || !freshData.registrations) {
+          throw new Error("No registrations found");
+        }
+
+        const appIndex = freshData.registrations.findIndex(app => app.id === appId);
+        if (appIndex === -1) {
+          throw new Error("Application not found");
+        }
+
+        // Update application status
+        freshData.registrations[appIndex].status = action;
+        freshData.registrations[appIndex].reviewedAt = new Date().toISOString();
+        freshData.lastUpdated = new Date().toISOString();
+
+        // Save with the SAME SHA we just fetched (atomic operation)
+        const newContent = btoa(JSON.stringify(freshData, null, 2));
+
+        const response = await fetch(buildUrl(), {
+          method: 'PUT',
+          headers: getHeaders(auth.token),
+          body: JSON.stringify({
+            message: `${action} registration application`,
+            content: newContent,
+            sha: latestSha  // Use the SHA from THIS fetch
+          })
+        });
+
+        const result = await processResponse(response);
+
+        // DO NOT update State here - caller must reload from GitHub
+        return freshData.registrations[appIndex];
+      };
+
+      return addToQueue(() => retryRequest(request));
     },
 
     // Check API rate limit

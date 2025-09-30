@@ -1,0 +1,39 @@
+<!-- Mobile Settings Panel -->
+<div class="mobile-settings-panel" id="mobileSettingsPanel">
+  <div class="mobile-settings-content">
+    <div class="mobile-language-section">
+      <h4 data-translate="language">Language</h4>
+      <div class="mobile-language-options">
+        <div class="mobile-language-option" onclick="App.changeLanguage('en')">
+          <span class="flag">&#127482;&#127480;</span>
+          <span class="lang-name">English</span>
+        </div>
+        <div class="mobile-language-option" onclick="App.changeLanguage('pt')">
+          <span class="flag">&#127463;&#127479;</span>
+          <span class="lang-name">Português</span>
+        </div>
+        <div class="mobile-language-option" onclick="App.changeLanguage('fr')">
+          <span class="flag">&#127467;&#127479;</span>
+          <span class="lang-name">Français</span>
+        </div>
+        <div class="mobile-language-option" onclick="App.changeLanguage('es')">
+          <span class="flag">&#127466;&#127480;</span>
+          <span class="lang-name">Español</span>
+        </div>
+        <div class="mobile-language-option" onclick="App.changeLanguage('it')">
+          <span class="flag">&#127470;&#127481;</span>
+          <span class="lang-name">Italiano</span>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-logout-section">
+      <button
+        class="btn btn-danger mobile-logout-btn"
+        onclick="App.logout()"
+        data-translate="logout"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
