@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-30T22:54:05.344Z",
+  "lastUpdated": "2025-09-30T22:54:10.828Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3681,7 +3681,8 @@
       "motivation": "To have fun",
       "id": 1758567577913,
       "submittedAt": "2025-09-22T18:59:37.913Z",
-      "status": "pending"
+      "status": "declined",
+      "reviewedAt": "2025-09-30T22:54:10.822Z"
     },
     {
       "username": "Birker",
