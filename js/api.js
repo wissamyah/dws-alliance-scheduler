@@ -16,9 +16,7 @@ const API = (function() {
   // Get headers for API requests
   function getHeaders(token) {
     const headers = {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache'
+      'Content-Type': 'application/json'
     };
 
     if (token) {
