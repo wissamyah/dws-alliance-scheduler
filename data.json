@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-30T23:51:09.287Z",
+  "lastUpdated": "2025-10-01T00:06:11.317Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3577,6 +3577,15 @@
       },
       "submittedAt": "2025-09-29T11:52:24.925Z",
       "id": 1759146744925
+    },
+    {
+      "username": "Falowyn",
+      "carPower": 900000000,
+      "towerLevel": 33,
+      "timezone": "UTC+1",
+      "availability": {},
+      "submittedAt": "2025-10-01T00:06:10.659Z",
+      "id": 1759277171317
     }
   ],
   "pendingSubmissions": [],
