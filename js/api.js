@@ -9,8 +9,8 @@ const API = (function() {
 
   // Build API URL
   function buildUrl() {
-    const { OWNER, NAME, DATA_FILE } = Config.REPO;
-    return `${GITHUB_API_BASE}/repos/${OWNER}/${NAME}/contents/${DATA_FILE}`;
+    const { OWNER, NAME, DATA_FILE, DATA_BRANCH } = Config.REPO;
+    return `${GITHUB_API_BASE}/repos/${OWNER}/${NAME}/contents/${DATA_FILE}?ref=${DATA_BRANCH}`;
   }
 
   // Get headers for API requests
@@ -224,7 +224,8 @@ const API = (function() {
           body: JSON.stringify({
             message: `Update member: ${memberData.username}`,
             content: newContent,
-            sha: latestSha  // Use the SHA from THIS fetch
+            sha: latestSha,  // Use the SHA from THIS fetch
+            branch: Config.REPO.DATA_BRANCH  // Commit to data branch
           })
         });
 
@@ -286,7 +287,8 @@ const API = (function() {
           body: JSON.stringify({
             message: `Remove member: ${member.username}`,
             content: newContent,
-            sha: latestSha  // Use the SHA from THIS fetch
+            sha: latestSha,  // Use the SHA from THIS fetch
+            branch: Config.REPO.DATA_BRANCH  // Commit to data branch
           })
         });
 
@@ -351,7 +353,8 @@ const API = (function() {
           body: JSON.stringify({
             message: `New registration: ${registrationData.username}`,
             content: newContent,
-            sha: latestSha  // Use the SHA from THIS fetch
+            sha: latestSha,  // Use the SHA from THIS fetch
+            branch: Config.REPO.DATA_BRANCH  // Commit to data branch
           })
         });
 
@@ -412,7 +415,8 @@ const API = (function() {
           body: JSON.stringify({
             message: `${action} registration application`,
             content: newContent,
-            sha: latestSha  // Use the SHA from THIS fetch
+            sha: latestSha,  // Use the SHA from THIS fetch
+            branch: Config.REPO.DATA_BRANCH  // Commit to data branch
           })
         });
 

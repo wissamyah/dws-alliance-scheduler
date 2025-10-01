@@ -4,7 +4,8 @@ const Config = {
   REPO: {
     OWNER: "wissamyah",
     NAME: "dws-alliance-scheduler",
-    DATA_FILE: "data.json"
+    DATA_FILE: "data.json",
+    DATA_BRANCH: "data"  // Separate branch for data - prevents deployment triggers
   },
 
   // Server Configuration
