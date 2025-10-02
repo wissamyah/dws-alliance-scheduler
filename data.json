@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-02T04:03:51.368Z",
+  "lastUpdated": "2025-10-02T05:27:58.253Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3582,6 +3582,15 @@
       },
       "submittedAt": "2025-09-29T11:52:24.925Z",
       "id": 1759146744925
+    },
+    {
+      "username": "VikontZfP",
+      "carPower": 1100000,
+      "towerLevel": 31,
+      "timezone": "UTC+2",
+      "availability": {},
+      "submittedAt": "2025-10-02T05:27:57.859Z",
+      "id": 1759382878253
     }
   ],
   "pendingSubmissions": [],
