@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-02T06:46:04.773Z",
+  "lastUpdated": "2025-10-02T06:48:18.981Z",
   "members": [
     {
       "id": 1754285775134,
@@ -648,7 +648,7 @@
     {
       "id": 1754572099393,
       "username": "Szotty",
-      "carPower": 112,
+      "carPower": 112200000,
       "towerLevel": 31,
       "timezone": "UTC+2",
       "availability": {
