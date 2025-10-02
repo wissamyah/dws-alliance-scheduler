@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-01T00:11:09.934Z",
+  "lastUpdated": "2025-10-02T05:25:42.586Z",
   "members": [
     {
       "id": 1754285775134,
@@ -3711,6 +3711,19 @@
       "submittedAt": "2025-09-22T19:20:27.720Z",
       "status": "declined",
       "reviewedAt": "2025-09-30T23:02:17.807Z"
+    },
+    {
+      "username": "VikontZfP",
+      "carPower": 1100000,
+      "towerLevel": 31,
+      "dailyPoints": 3000000,
+      "exAlliances": "TNF",
+      "whyLeft": "",
+      "whyJoin": "Together with TNF",
+      "motivation": "Joy",
+      "id": 1759382742585,
+      "submittedAt": "2025-10-02T05:25:42.585Z",
+      "status": "pending"
     }
   ]
 }
