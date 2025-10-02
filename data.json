@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-02T06:48:18.981Z",
+  "lastUpdated": "2025-10-02T09:59:48.205Z",
   "members": [
     {
       "id": 1754285775134,
@@ -960,8 +960,8 @@
     },
     {
       "username": "18maratha",
-      "carPower": 102000000,
-      "towerLevel": 31,
+      "carPower": 13600000,
+      "towerLevel": 32,
       "timezone": "UTC+6",
       "availability": {
         "monday": [
@@ -1042,7 +1042,7 @@
           "slot12"
         ]
       },
-      "submittedAt": "2025-09-17T16:44:40.496Z",
+      "submittedAt": "2025-10-02T09:59:47.277Z",
       "id": 1754876098756
     },
     {
